@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title') - INKA</title>
+    <title>@yield('title') - PT INKA</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -36,7 +36,7 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__wobble" src="https://imsservice.co.id/assets/inka-border.png" alt="AdminLTELogo"
+            <img class="animation__wobble" src="https://www.inka.co.id/assets/inka-border.png" alt="User Logo"
                 height="60">
         </div>
 
@@ -55,9 +55,9 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                    {{-- <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>
-                    </a>
+                    </a> --}}
                     <div class="navbar-search-block">
                         <form class="form-inline">
                             <div class="input-group input-group-sm">
@@ -88,8 +88,9 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="{{ route('dashboard') }}" class="brand-link d-flex">
-                <img src="" alt="AdminLTE Logo"
+            {{-- <a href="{{ route('dashboard') }}" class="brand-link d-flex"> --}}
+            <a href="" class="brand-link d-flex">
+                <img src="https://www.inka.co.id/assets/inka-border.png" alt="AdminLTE Logo"
                     class="brand-image mx-auto d-block" style="opacity: .8">
             </a>
 
@@ -125,7 +126,8 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="{{ route('dashboard') }}"
+                            {{-- <a href="{{ route('dashboard') }}" --}}
+                            <a href=""
                                 class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -134,7 +136,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                                <a href="{{ route('user') }}"
+                                {{-- <a href="{{ route('user') }}" --}}
+                                <a href=""
                                     class="nav-link {{ request()->is('user') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-user"></i>
                                     <p>
@@ -151,7 +154,8 @@
                                 </p>
                             </a>
                         </li> --}}
-                        <form action="{{ route('logout') }}" id="logout" method="POST">
+                        {{-- <form action="{{ route('logout') }}" id="logout" method="POST"> --}}
+                        <form action="" id="logout" method="POST">
                             @csrf
                         </form>
                         <li class="nav-item">
@@ -178,7 +182,7 @@
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>Copyright &copy; {{ now()->year }} <a href="https://imsservice.co.id/">PT. IMSS</a></strong>
+            <strong>Copyright &copy; {{ now()->year }} <a href="">PT INKA (persero)</a></strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 Template by AdminLTE <b>Version</b> 3.2.0
