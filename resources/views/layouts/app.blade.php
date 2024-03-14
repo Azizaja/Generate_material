@@ -28,10 +28,10 @@
 
     @stack('styles')
 
-    @livewireStyles
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+{{-- <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed"> --}}
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -41,12 +41,16 @@
         </div>
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-dark">
+        {{-- <nav class="main-header navbar navbar-expand navbar-dark"> --}}
+        <nav class="main-header navbar navbar-expand navbar-light">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="" class="nav-link">@yield('title')</a>
                 </li>
 
             </ul>
@@ -127,13 +131,199 @@
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             {{-- <a href="{{ route('dashboard') }}" --}}
-                            <a href=""
+                            <a href="/"
                                 class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
                                 </p>
                             </a>
+                        </li>
+                        {{-- Tendering --}}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-chart-line"></i>
+                                <p>
+                                    Tendering
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('persiapan-pengadaan.index') }}"
+                                        class="nav-link {{ request()->is('persiapan-pengadaan') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            Persiapan Pengadaan
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('data-pengadaan') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            Data Pengadaaan
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('data-rfq') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            Data RFQ    
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('data-loi') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                           Data LOI
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('history') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            History
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        {{-- Vendor Management --}}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-laptop-house"></i>
+                                <p>
+                                    Vendor Management
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('daftar-perusahaan') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            Daftar Perusahaan
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('penilaian-vendor') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            Penilaian Vendor
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        {{-- order management --}}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tags"></i>
+                                <p>
+                                    Order Management
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('purchase-order') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            Purchase Order
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('e-book') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            E-Book
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        {{-- report --}}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-archive"></i>
+                                <p>
+                                    Report
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('report-pengadaan') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            Report Pengadaan
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('komposisi-lelang') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            Komposisi Lelang
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('summary-kpi') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            Summary KPI    
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('resume-pengadaan') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            Resume Pengadaan
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        {{-- informasi --}}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-info-circle"></i>
+                                <p>
+                                    Informasi
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('pesan') ? 'active' : '' }}">
+                                        <i class="nav-icon far fa-circle nav-icon"></i>
+                                        <p>
+                                            Pesan
+                                        </p>
+                                    </a>
+                                </li>  
+                            </ul>
                         </li>
                         <li class="nav-item">
                                 {{-- <a href="{{ route('user') }}" --}}
@@ -270,20 +460,7 @@
         })
     </script>
 
-    <script>
-        document.addEventListener('livewire:available', function() {
-            window.livewire.on('fileChoosen', () => {
-                let inputField = document.getElementById('file')
-                let file = inputField.files[0]
-                let reader = new FileReader();
-                reader.onloadend = () => {
-                    Livewire.emit('fileUpload', reader.result)
-                    console.log(reader.result)
-                }
-                reader.readAsDataURL(file);
-            })
-        });
-    </script>
+    
 
     <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
     <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
@@ -301,8 +478,6 @@
         });
     </script>
 
-
-    @livewireScripts
 
 </body>
 
