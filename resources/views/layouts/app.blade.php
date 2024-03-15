@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title') - PT INKA</title>
 
+
+
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -14,9 +17,12 @@
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.css">
+
+    {{-- <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}"> --}}
     <!-- Themestyle -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 
@@ -31,6 +37,7 @@
 </head>
 
 {{-- <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed"> --}}
+
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
@@ -106,7 +113,7 @@
                         <img src="dist/img/user.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="info" style="text-wrap:wrap">
-                        {{--show profile photo username here --}}
+                        {{-- show profile photo username here --}}
                     </div>
                 </div>
 
@@ -131,8 +138,7 @@
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             {{-- <a href="{{ route('dashboard') }}" --}}
-                            <a href="/"
-                                class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
+                            <a href="/" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -172,7 +178,7 @@
                                         class="nav-link {{ request()->is('data-rfq') ? 'active' : '' }}">
                                         <i class="nav-icon far fa-circle nav-icon"></i>
                                         <p>
-                                            Data RFQ    
+                                            Data RFQ
                                         </p>
                                     </a>
                                 </li>
@@ -181,13 +187,12 @@
                                         class="nav-link {{ request()->is('data-loi') ? 'active' : '' }}">
                                         <i class="nav-icon far fa-circle nav-icon"></i>
                                         <p>
-                                           Data LOI
+                                            Data LOI
                                         </p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link {{ request()->is('history') ? 'active' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->is('history') ? 'active' : '' }}">
                                         <i class="nav-icon far fa-circle nav-icon"></i>
                                         <p>
                                             History
@@ -246,8 +251,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link {{ request()->is('e-book') ? 'active' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->is('e-book') ? 'active' : '' }}">
                                         <i class="nav-icon far fa-circle nav-icon"></i>
                                         <p>
                                             E-Book
@@ -289,7 +293,7 @@
                                         class="nav-link {{ request()->is('summary-kpi') ? 'active' : '' }}">
                                         <i class="nav-icon far fa-circle nav-icon"></i>
                                         <p>
-                                            Summary KPI    
+                                            Summary KPI
                                         </p>
                                     </a>
                                 </li>
@@ -315,26 +319,24 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link {{ request()->is('pesan') ? 'active' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->is('pesan') ? 'active' : '' }}">
                                         <i class="nav-icon far fa-circle nav-icon"></i>
                                         <p>
                                             Pesan
                                         </p>
                                     </a>
-                                </li>  
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                                {{-- <a href="{{ route('user') }}" --}}
-                                <a href=""
-                                    class="nav-link {{ request()->is('user') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-user"></i>
-                                    <p>
-                                        User
-                                    </p>
-                                </a>
-                            </li>
+                            {{-- <a href="{{ route('user') }}" --}}
+                            <a href="" class="nav-link {{ request()->is('user') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    User
+                                </p>
+                            </a>
+                        </li>
                         {{-- <li class="nav-item">
                             <a href="{{ route('edit-profile') }}"
                                 class="nav-link {{ request()->is('edit-profile') ? 'active' : '' }}">
@@ -381,17 +383,27 @@
     </div>
     <!-- ./wrapper -->
 
+
+
+
+
+
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- DataTables  & Plugins -->
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
+
+    {{-- <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script> --}}
     <!-- Bootstrap -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- overlayScrollbars -->
@@ -418,20 +430,21 @@
     @stack('scripts')
 
     <script>
-        $(function() {
-            $("#example1").DataTable({
-                "lengthChange": false,
-                "autoWidth": true,
-            })
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
+        new DataTable('#example2');
+        // $(function() {
+        //     $("#example1").DataTable({
+        //         "lengthChange": false,
+        //         "autoWidth": true,
+        //     })
+        //     $('#example2').DataTable({
+        //         "paging": true,
+        //         "lengthChange": false,
+        //         "searching": true,
+        //         "ordering": true,
+        //         "info": true,
+        //         "autoWidth": false,
+        //     });
+        // });
     </script>
 
     <script>
@@ -459,25 +472,6 @@
             })
         })
     </script>
-
-    
-
-    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-    <script>
-        FilePond.registerPlugin(FilePondPluginFileValidateType);
-        FilePond.registerPlugin(FilePondPluginFileValidateSize);
-        FilePond.registerPlugin(FilePondPluginImagePreview);
-    </script>
-    <script>
-        this.addEventListener('pondReset', e => {
-            // console.log(FilePond.destroy(document.querySelector('input[name="filepond"]')))
-            FilePond.destroy(document.querySelector('input[name="filepond"]'))
-        });
-    </script>
-
 
 </body>
 
