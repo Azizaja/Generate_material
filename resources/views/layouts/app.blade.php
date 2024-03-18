@@ -42,10 +42,10 @@
     <div class="wrapper">
 
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
+        {{-- <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__wobble" src="https://www.inka.co.id/assets/inka-border.png" alt="User Logo"
                 height="60">
-        </div>
+        </div> --}}
 
         <!-- Navbar -->
         {{-- <nav class="main-header navbar navbar-expand navbar-dark"> --}}
@@ -366,6 +366,8 @@
 
         @yield('content')
 
+        @stack('modal')
+
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
@@ -430,7 +432,11 @@
     @stack('scripts')
 
     <script>
-        new DataTable('#example2');
+        new DataTable('#example2', {
+             "autoWidth": false,
+         });
+
+
         // $(function() {
         //     $("#example1").DataTable({
         //         "lengthChange": false,
