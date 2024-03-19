@@ -174,8 +174,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link {{ request()->is('data-rfq') ? 'active' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->is('data-rfq') ? 'active' : '' }}">
                                         <i class="nav-icon far fa-circle nav-icon"></i>
                                         <p>
                                             Data RFQ
@@ -183,8 +182,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link {{ request()->is('data-loi') ? 'active' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->is('data-loi') ? 'active' : '' }}">
                                         <i class="nav-icon far fa-circle nav-icon"></i>
                                         <p>
                                             Data LOI
@@ -365,8 +363,7 @@
         </aside>
 
         @yield('content')
-        @yield('modal')
-        @yield('other-layout')
+
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -428,8 +425,8 @@
 
     <script>
         new DataTable('#example2', {
-             "autoWidth": false,
-         });
+            "autoWidth": false,
+        });
 
 
         // $(function() {
