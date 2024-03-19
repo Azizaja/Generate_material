@@ -318,200 +318,175 @@
                                             </div>
                                             <div class="card-body table-responsive p-0">
                                                 <div class="tab-content" id="custom-tabs-one-tabContent">
+                                                    {{-- rincian item --}}
                                                     <div class="tab-pane fade show active p-3" id="rincian-item"
                                                         role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-                                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis ea
-                                                        culpa atque! Quisquam
-                                                        quidem, quod, voluptates, vero quae quibusdam nemo quia voluptatem
-                                                        tempora est
-                                                        necessitatibus? Quisquam, quod. Quisquam, quod.
-                                                        {{-- rincian item --}}
-                                                        <div class="tab-pane fade show active p-3" id="rincian-item"
-                                                            role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <h5 class="fw-bold">Rincian Item</h5>
-                                                                    <table class="table table-bordered table-hover">
-                                                                        <thead class="thead-light">
-                                                                            <tr>
-                                                                                <th>No</th>
-                                                                                <th>PR NUMBER</th>
-                                                                                <th>PR ITEM</th>
-                                                                                <th>KODE MATERIAL</th>
-                                                                                <th>NAMA</th>
-                                                                                <th>VOLUME</th>
-                                                                                <th>SATUAN</th>
-                                                                                <th>HARGA SATUAN</th>
-                                                                                <th>SUB TOTAL</th>
-                                                                                <th>AKSI</th>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <h5 class="fw-bold">Rincian Item</h5>
+                                                                <table class="table table-bordered table-hover">
+                                                                    <thead class="thead-light">
+                                                                        <tr>
+                                                                            <th>No</th>
+                                                                            <th>PR NUMBER</th>
+                                                                            <th>PR ITEM</th>
+                                                                            <th>KODE MATERIAL</th>
+                                                                            <th>NAMA</th>
+                                                                            <th>VOLUME</th>
+                                                                            <th>SATUAN</th>
+                                                                            <th>HARGA SATUAN</th>
+                                                                            <th>SUB TOTAL</th>
+                                                                            <th>AKSI</th>
 
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>1</td>
-                                                                                <td>PR00898</td>
-                                                                                <td>0019</td>
-                                                                                <td>2JF91</td>
-                                                                                <td>Bahan Baku</td>
-                                                                                <td>100</td>
-                                                                                <td>kg</td>
-                                                                                <td>Rp. 200.000.000</td>
-                                                                                <td>Rp. 200.000.000.000</td>
-                                                                                <td>
-                                                                                    <a href="#modal-hps"
-                                                                                        data-toggle="modal"
-                                                                                        class="btn btn-info btn-md">HPS</a>
-                                                                                    <a href="#modal-spesifikasi"
-                                                                                        data-toggle="modal"
-                                                                                        class="btn btn-success btn-md">Spesifikasi</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>1</td>
+                                                                            <td>PR00898</td>
+                                                                            <td>0019</td>
+                                                                            <td>2JF91</td>
+                                                                            <td>Bahan Baku</td>
+                                                                            <td>100</td>
+                                                                            <td>kg</td>
+                                                                            <td>Rp. 200.000.000</td>
+                                                                            <td>Rp. 200.000.000.000</td>
+                                                                            <td>
+                                                                                <a href="#modal-hps" data-toggle="modal"
+                                                                                    class="btn btn-info btn-md">HPS</a>
+                                                                                <a href="#modal-spesifikasi"
+                                                                                    data-toggle="modal"
+                                                                                    class="btn btn-success btn-md">Spesifikasi</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div style="margin-top: 1rem">
+                                                                <div style="padding-left: 60%;">
+                                                                    <table class="w-75 fw-bold">
+                                                                        <tr>
+                                                                            <td>Jumlah Harga</td>
+                                                                            {{-- <td>:</td> --}}
+                                                                            <td>Rp. 20.000.000</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>PPN 10%</td>
+                                                                            {{-- <td>:</td> --}}
+                                                                            <td>Rp. 200.000</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Total</td>
+                                                                            {{-- <td>:</td> --}}
+                                                                            <td>Rp. 220.000.000</td>
+                                                                        </tr>
                                                                     </table>
                                                                 </div>
-                                                                <div style="margin-top: 1rem">
-                                                                    <div style="padding-left: 60%;">
-                                                                        <table class="w-75 fw-bold">
-                                                                            <tr>
-                                                                                <td>Jumlah Harga</td>
-                                                                                {{-- <td>:</td> --}}
-                                                                                <td>Rp. 20.000.000</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>PPN 10%</td>
-                                                                                {{-- <td>:</td> --}}
-                                                                                <td>Rp. 200.000</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Total</td>
-                                                                                {{-- <td>:</td> --}}
-                                                                                <td>Rp. 220.000.000</td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </div>
-                                                                </div>
+                                                            </div>
 
+                                                        </div>
+                                                    </div>
+                                                    {{-- persyaratan pengadaan --}}
+                                                    <div class="tab-pane fade" id="persyaratan-pengadaan" role="tabpanel"
+                                                        aria-labelledby="custom-tabs-one-home-tab">
+                                                        <div class="card card-dark card-outline card-tabs">
+                                                            <div class="card-header">
+                                                                <ul class="nav nav-tabs" id="custom-tabs-one-tab"
+                                                                    role="tablist">
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active"
+                                                                            id="custom-tabs-one-home-tab"
+                                                                            data-toggle="pill" href="#kualifikasi"
+                                                                            role="tab" aria-controls="rincian-item"
+                                                                            aria-selected="true">Kualifikasi</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" id="custom-tabs-one-home-tab"
+                                                                            data-toggle="pill" href="#administrasi"
+                                                                            role="tab"
+                                                                            aria-controls="persyaratan-pengadaan"
+                                                                            aria-selected="true">Administrasi</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link"
+                                                                            id="custom-tabs-one-profile-tab"
+                                                                            data-toggle="pill" href="#teknis"
+                                                                            role="tab"
+                                                                            aria-controls="pelaksana-pengadaan"
+                                                                            aria-selected="false">Teknis</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link"
+                                                                            id="custom-tabs-one-profile-tab"
+                                                                            data-toggle="pill" href="#kewajaran-harga"
+                                                                            role="tab"
+                                                                            aria-controls="perusahaan-diundang"
+                                                                            aria-selected="false">Kewajaran Harga</a>
+                                                                    </li>
+                                                                </ul>
                                                             </div>
                                                         </div>
-                                                        {{-- persyaratan pengadaan --}}
-                                                        <div class="tab-pane fade" id="persyaratan-pengadaan"
-                                                            role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-                                                            <div class="card card-dark card-outline card-tabs">
-                                                                <div class="card-header">
-                                                                    <ul class="nav nav-tabs" id="custom-tabs-one-tab"
-                                                                        role="tablist">
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link active"
-                                                                                id="custom-tabs-one-home-tab"
-                                                                                data-toggle="pill" href="#kualifikasi"
-                                                                                role="tab"
-                                                                                aria-controls="rincian-item"
-                                                                                aria-selected="true">Kualifikasi</a>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link"
-                                                                                id="custom-tabs-one-home-tab"
-                                                                                data-toggle="pill" href="#administrasi"
-                                                                                role="tab"
-                                                                                aria-controls="persyaratan-pengadaan"
-                                                                                aria-selected="true">Administrasi</a>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link"
-                                                                                id="custom-tabs-one-profile-tab"
-                                                                                data-toggle="pill" href="#teknis"
-                                                                                role="tab"
-                                                                                aria-controls="pelaksana-pengadaan"
-                                                                                aria-selected="false">Teknis</a>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link"
-                                                                                id="custom-tabs-one-profile-tab"
-                                                                                data-toggle="pill" href="#kewajaran-harga"
-                                                                                role="tab"
-                                                                                aria-controls="perusahaan-diundang"
-                                                                                aria-selected="false">Kewajaran Harga</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="tab-pane fade p-3" id="pelaksana-pengadaan"
-                                                            role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
-                                                            Mauris tincidunt mi at erat gravida, eget tristique urna
-                                                            bibendum.
-                                                            Mauris pharetra purus
-                                                            ut ligula tempor, et vulputate metus facilisis. Lorem ipsum
-                                                            dolor
-                                                            sit amet, consectetur
-                                                            {{-- pelaksana pengadaan --}}
-                                                            <div class="tab-pane fade p-3" id="pelaksana-pengadaan"
-                                                                role="tabpanel"
-                                                                aria-labelledby="custom-tabs-one-profile-tab">
-                                                                Mauris tincidunt mi at erat gravida, eget tristique urna
-                                                                bibendum. Mauris pharetra purus
-                                                                ut ligula tempor, et vulputate metus facilisis. Lorem ipsum
-                                                                dolor sit amet, consectetur
-                                                            </div>
-                                                            <div class="tab-pane fade p-3" id="perusahaan-diundang"
-                                                                role="tabpanel"
-                                                                aria-labelledby="custom-tabs-one-profile-tab">
-                                                                {{-- perusahaan diundang --}}
-                                                                <div class="tab-pane fade p-3" id="perusahaan-diundang"
-                                                                    role="tabpanel"
-                                                                    aria-labelledby="custom-tabs-one-profile-tab">
-                                                                    www
-                                                                </div>
-                                                                {{-- activity log --}}
-                                                                <div class="tab-pane fade p-3" id="activity-log"
-                                                                    role="tabpanel"
-                                                                    aria-labelledby="custom-tabs-one-profile-tab">
-                                                                    yyy
-                                                                </div>
-                                                                {{-- activity resume --}}
-                                                                <div class="tab-pane fade p-3" id="activity-resume"
-                                                                    role="tabpanel"
-                                                                    aria-labelledby="custom-tabs-one-profile-tab">
-                                                                    ddd
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
+                                                    </div>
+                                                    {{-- pelaksana pengadaan --}}
+                                                    <div class="tab-pane fade p-3" id="pelaksana-pengadaan"
+                                                        role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                                                        Mauris tincidunt mi at erat gravida, eget tristique urna
+                                                        bibendum. Mauris pharetra purus
+                                                        ut ligula tempor, et vulputate metus facilisis. Lorem ipsum
+                                                        dolor sit amet, consectetur
+                                                    </div>
+                                                    {{-- perusahaan diundang --}}
+                                                    <div class="tab-pane fade p-3" id="perusahaan-diundang"
+                                                        role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                                                        www
+                                                    </div>
+                                                    {{-- activity log --}}
+                                                    <div class="tab-pane fade p-3" id="activity-log" role="tabpanel"
+                                                        aria-labelledby="custom-tabs-one-profile-tab">
+                                                        yyy
+                                                    </div>
+                                                    {{-- activity resume --}}
+                                                    <div class="tab-pane fade p-3" id="activity-resume" role="tabpanel"
+                                                        aria-labelledby="custom-tabs-one-profile-tab">
+                                                        ddd
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
-                {{-- modal pelaksana kegiatan --}}
+    {{-- modal pelaksana kegiatan --}}
 
 
-            @endsection
+@endsection
 
-            @push('scripts')
-                <script>
-                    function tambahBarisSpesifikasi() {
-                        console.log('berhasil tambah baris');
-                        $('#spesifikasi').append(
-                            '<tr>' +
-                            '<td><input type="text" class="form-control" name="spesifikasi[]" placeholder="Spesifikasi"></td>' +
-                            '<td><input type="text" class="form-control" name="keterangan[]" placeholder="Keterangan"></td>' +
-                            '<td><button type="button"onclick="hapusbaris()" class="btn btn-danger btn-xs remove"><i class="fas fa-trash"></i></button></td>' +
-                            '</tr>'
-                        );
-                    }
+@push('scripts')
+    <script>
+        function tambahBarisSpesifikasi() {
+            console.log('berhasil tambah baris');
+            $('#spesifikasi').append(
+                '<tr>' +
+                '<td><input type="text" class="form-control" name="spesifikasi[]" placeholder="Spesifikasi"></td>' +
+                '<td><input type="text" class="form-control" name="keterangan[]" placeholder="Keterangan"></td>' +
+                '<td><button type="button"onclick="hapusbaris()" class="btn btn-danger btn-xs remove"><i class="fas fa-trash"></i></button></td>' +
+                '</tr>'
+            );
+        }
 
-                    function hapusbaris() {
-                        $(document).on('click', '.remove', function() {
-                            $(this).closest('tr').remove();
-                        });
-                    }
-                </script>
-            @endpush
+        function hapusbaris() {
+            $(document).on('click', '.remove', function() {
+                $(this).closest('tr').remove();
+            });
+        }
+    </script>
+@endpush
