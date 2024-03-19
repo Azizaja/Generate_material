@@ -28,9 +28,9 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
 
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    {{-- <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-        rel="stylesheet">
+        rel="stylesheet"> --}}
 
     @stack('styles')
 
@@ -365,8 +365,8 @@
         </aside>
 
         @yield('content')
-
-        @stack('modal')
+        @yield('modal')
+        @yield('other-layout')
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -384,11 +384,6 @@
         </footer>
     </div>
     <!-- ./wrapper -->
-
-
-
-
-
 
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
@@ -426,7 +421,7 @@
     <script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    {{-- <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script> --}}
 
 
     @stack('scripts')
