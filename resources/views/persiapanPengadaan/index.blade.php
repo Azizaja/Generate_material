@@ -14,13 +14,15 @@
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
-                                        href="#daftar-persiapan-pengadaan" role="tab" aria-controls="daftar-persiapan-pengadaan"
-                                        aria-selected="true">Daftar Persiapan Pengadaan</a>
+                                        href="#daftar-persiapan-pengadaan" role="tab"
+                                        aria-controls="daftar-persiapan-pengadaan" aria-selected="true">Daftar Persiapan
+                                        Pengadaan</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
                                         href="#detail-persiapan-pengadaan" role="tab"
-                                        aria-controls="detail-persiapan-pengadaan" aria-selected="false">Detail Persiapan Pengadaan</a>
+                                        aria-controls="detail-persiapan-pengadaan" aria-selected="false">Detail Persiapan
+                                        Pengadaan</a>
                                 </li>
                             </ul>
                         </div>
@@ -54,11 +56,68 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
+                                                        @foreach ($pekerjaans as $pekerjaan)
+                                                            <tr>
+                                                                <td>{{ $loop->iteration }}</td>
+                                                                <td>
+                                                                    <a href="">
+                                                                        <i class="fas fa-search"></i> {{ $pekerjaan->kode }}
+                                                                    </a>
+                                                                </td>
+                                                                <td>{{ $pekerjaan->nama }}</td>
+                                                                <td>
+                                                                    @switch($pekerjaan->status)
+                                                                        @case(50)
+                                                                            <span class="badge badge-warning">Persiapan
+                                                                                Pengadaan</span>
+                                                                        @break
+
+                                                                        @case(1)
+                                                                            <span class="badge badge-warning">Pengadaan
+                                                                                Berjalan</span>
+                                                                        @break
+
+                                                                        @case(100)
+                                                                            <span class="badge badge-success">Pengadaan
+                                                                                Selesai</span>
+                                                                        @break
+
+                                                                        @case(2)
+                                                                            <span class="badge badge-danger">Pengadaan
+                                                                                Batal</span>
+                                                                        @break
+                                                                    @endswitch
+                                                                    @if ($pekerjaan->status_multi_pemenang == 1)
+                                                                        <span class="badge badge-success">Multi
+                                                                            Pemenang</span>
+                                                                    @endif
+                                                                    @switch($pekerjaan->rev_status)
+                                                                        @case(App\Models\Pekerjaan::STATUS_REV)
+                                                                            <span class="badge badge-danger">Revisi</span>
+                                                                        @break
+
+                                                                        @case(App\Models\Pekerjaan::STATUS_REV_FREEZE)
+                                                                            <span class="badge badge-danger">Hold</span>
+                                                                        @break
+
+                                                                        @default
+                                                                    @endswitch
+                                                                </td>
+                                                                <td>{{ $pekerjaan->created_at }}</td>
+                                                                <td>
+                                                                    <a data-toggle="modal"
+                                                                        href="#modal-pelaksana-kegiatan-{{ $pekerjaan->id }}">
+                                                                        <i class="fas fa-search"></i> Pelaksana Pengadaan
+                                                                    </a>
+                                                                </td>
+
+                                                            </tr>
+                                                        @endforeach
+                                                        {{-- <tr>
                                                             <td>1</td>
                                                             <td>
                                                                 <a href="">
-                                                                    <i  class="fas fa-search"></i> RFQ-20210101X
+                                                                    <i class="fas fa-search"></i> RFQ-20210101X
                                                                 </a>
                                                             </td>
                                                             <td>RFQ Pengadaan ATK</td>
@@ -70,15 +129,15 @@
                                                             <td>2021-01-01</td>
                                                             <td>
                                                                 <a data-toggle="modal" href="#modal-pelaksana-kegiatan">
-                                                                    <i  class="fas fa-search"></i> Pelaksana Pengadaan
+                                                                    <i class="fas fa-search"></i> Pelaksana Pengadaan
                                                                 </a>
-                                                             </td>
-                                                            {{-- <td>
+                                                            </td>
+                                                            <td>
                                                                 <a href="" class="btn btn-primary btn-sm">
                                                                     <i class="fas fa-eye"></i> Detail
                                                                 </a>
-                                                            </td> --}}
-                                                        </tr>
+                                                            </td>
+                                                        </tr> --}}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -168,43 +227,51 @@
                                             <div class="card-header p-0">
                                                 <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                                     <li class="nav-item">
-                                                        <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
-                                                            href="#rincian-item" role="tab" aria-controls="rincian-item"
-                                                            aria-selected="true">Rincian Item</a>
+                                                        <a class="nav-link active" id="custom-tabs-one-home-tab"
+                                                            data-toggle="pill" href="#rincian-item" role="tab"
+                                                            aria-controls="rincian-item" aria-selected="true">Rincian
+                                                            Item</a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" id="custom-tabs-one-home-tab" data-toggle="pill"
-                                                            href="#persyaratan-pengadaan" role="tab" aria-controls="persyaratan-pengadaan"
+                                                            href="#persyaratan-pengadaan" role="tab"
+                                                            aria-controls="persyaratan-pengadaan"
                                                             aria-selected="true">Persyaratan Pengadaan</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-                                                            href="#pelaksana-pengadaan" role="tab"
-                                                            aria-controls="pelaksana-pengadaan" aria-selected="false">Pelaksana Pengadaan</a>
+                                                        <a class="nav-link" id="custom-tabs-one-profile-tab"
+                                                            data-toggle="pill" href="#pelaksana-pengadaan" role="tab"
+                                                            aria-controls="pelaksana-pengadaan"
+                                                            aria-selected="false">Pelaksana Pengadaan</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-                                                            href="#perusahaan-diundang" role="tab"
-                                                            aria-controls="perusahaan-diundang" aria-selected="false">Perusahaan Diundang</a>
+                                                        <a class="nav-link" id="custom-tabs-one-profile-tab"
+                                                            data-toggle="pill" href="#perusahaan-diundang" role="tab"
+                                                            aria-controls="perusahaan-diundang"
+                                                            aria-selected="false">Perusahaan Diundang</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-                                                            href="#activity-log" role="tab"
-                                                            aria-controls="activity-log" aria-selected="false">Activity Log</a>
+                                                        <a class="nav-link" id="custom-tabs-one-profile-tab"
+                                                            data-toggle="pill" href="#activity-log" role="tab"
+                                                            aria-controls="activity-log" aria-selected="false">Activity
+                                                            Log</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-                                                            href="#activity-resume" role="tab"
-                                                            aria-controls="activity-resume" aria-selected="false">Activity Resume</a>
+                                                        <a class="nav-link" id="custom-tabs-one-profile-tab"
+                                                            data-toggle="pill" href="#activity-resume" role="tab"
+                                                            aria-controls="activity-resume" aria-selected="false">Activity
+                                                            Resume</a>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div class="card-body p-0">
                                                 <div class="tab-content" id="custom-tabs-one-tabContent">
-                                                    <div class="tab-pane fade show active p-3" id="rincian-item" role="tabpanel"
-                                                        aria-labelledby="custom-tabs-one-home-tab">
-                                                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis ea culpa atque! Quisquam
-                                                        quidem, quod, voluptates, vero quae quibusdam nemo quia voluptatem tempora est
+                                                    <div class="tab-pane fade show active p-3" id="rincian-item"
+                                                        role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+                                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis ea
+                                                        culpa atque! Quisquam
+                                                        quidem, quod, voluptates, vero quae quibusdam nemo quia voluptatem
+                                                        tempora est
                                                         necessitatibus? Quisquam, quod. Quisquam, quod.
                                                     </div>
                                                     <div class="tab-pane fade" id="persyaratan-pengadaan" role="tabpanel"
@@ -212,43 +279,56 @@
                                                         {{-- tab --}}
                                                         <div class="card card-dark card-outline card-tabs">
                                                             <div class="card-header">
-                                                                <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                                                                <ul class="nav nav-tabs" id="custom-tabs-one-tab"
+                                                                    role="tablist">
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
-                                                                            href="#kualifikasi" role="tab" aria-controls="rincian-item"
+                                                                        <a class="nav-link active"
+                                                                            id="custom-tabs-one-home-tab"
+                                                                            data-toggle="pill" href="#kualifikasi"
+                                                                            role="tab" aria-controls="rincian-item"
                                                                             aria-selected="true">Kualifikasi</a>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" id="custom-tabs-one-home-tab" data-toggle="pill"
-                                                                            href="#administrasi" role="tab" aria-controls="persyaratan-pengadaan"
+                                                                        <a class="nav-link" id="custom-tabs-one-home-tab"
+                                                                            data-toggle="pill" href="#administrasi"
+                                                                            role="tab"
+                                                                            aria-controls="persyaratan-pengadaan"
                                                                             aria-selected="true">Administrasi</a>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-                                                                            href="#teknis" role="tab"
-                                                                            aria-controls="pelaksana-pengadaan" aria-selected="false">Teknis</a>
+                                                                        <a class="nav-link"
+                                                                            id="custom-tabs-one-profile-tab"
+                                                                            data-toggle="pill" href="#teknis"
+                                                                            role="tab"
+                                                                            aria-controls="pelaksana-pengadaan"
+                                                                            aria-selected="false">Teknis</a>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-                                                                            href="#kewajaran-harga" role="tab"
-                                                                            aria-controls="perusahaan-diundang" aria-selected="false">Kewajaran Harga</a>
+                                                                        <a class="nav-link"
+                                                                            id="custom-tabs-one-profile-tab"
+                                                                            data-toggle="pill" href="#kewajaran-harga"
+                                                                            role="tab"
+                                                                            aria-controls="perusahaan-diundang"
+                                                                            aria-selected="false">Kewajaran Harga</a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="tab-pane fade p-3" id="pelaksana-pengadaan" role="tabpanel"
-                                                        aria-labelledby="custom-tabs-one-profile-tab">
-                                                        Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus
-                                                        ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur
+                                                    <div class="tab-pane fade p-3" id="pelaksana-pengadaan"
+                                                        role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                                                        Mauris tincidunt mi at erat gravida, eget tristique urna bibendum.
+                                                        Mauris pharetra purus
+                                                        ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor
+                                                        sit amet, consectetur
                                                     </div>
-                                                    <div class="tab-pane fade p-3" id="perusahaan-diundang" role="tabpanel"
-                                                        aria-labelledby="custom-tabs-one-profile-tab">
+                                                    <div class="tab-pane fade p-3" id="perusahaan-diundang"
+                                                        role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                                                         www
                                                     </div>
                                                     <div class="tab-pane fade p-3" id="activity-log" role="tabpanel"
                                                         aria-labelledby="custom-tabs-one-profile-tab">
-                                                       yyy
+                                                        yyy
                                                     </div>
                                                     <div class="tab-pane fade p-3" id="activity-resume" role="tabpanel"
                                                         aria-labelledby="custom-tabs-one-profile-tab">
@@ -256,7 +336,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                    
+
                                         </div>
                                     </div>
                                 </div>
@@ -270,6 +350,6 @@
     </div>
 
     {{-- modal pelaksana kegiatan --}}
-    
+
 
 @endsection
