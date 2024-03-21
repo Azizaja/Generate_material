@@ -75,4 +75,5 @@ class PersiapanPengadaanController extends Controller
             'detail_pekerjaan' => Pekerjaan::find($id),
         ]);
     }
+
 }

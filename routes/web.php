@@ -22,6 +22,6 @@ Route::get('/', function () {
 
 Route::resource('persiapan-pengadaan', PersiapanPengadaanController::class);
 Route::get('/persiapan-pengadaan/show/{id}', [PersiapanPengadaanController::class, 'showPekerjaan'])->name('persiapan-pengadaan.show');
-//Route::get('persiapan-pengadaan/undangan', [PersiapanPengadaanController::class, 'showUndanganPenyedia'])->name('persiapan-pengadaan.undangan');
+Route::get('/persiapan-pengadaan/undangan', [PersiapanPengadaanController::class, 'undangPenyedia'])->name('persiapan-pengadaan.undangan');
 Route::resource('setting-persiapan', SettingPersiapanController::class);
 Route::resource('akses-pelaksana-pengadaan', AksesPelaksanaPengadaanController::class);

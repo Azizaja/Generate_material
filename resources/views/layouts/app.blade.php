@@ -424,11 +424,6 @@
     @stack('scripts')
 
     <script>
-        new DataTable('#example2', {
-            "autoWidth": false,
-        });
-
-
         // $(function() {
         //     $("#example1").DataTable({
         //         "lengthChange": false,

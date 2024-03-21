@@ -33,7 +33,8 @@
                         <td><b>Bidang/Sub Bidang</b></td>
                         <td>:</td>
                         <td>
-                            <table class="table table-bordered table-responsive m-2">
+                            <div class="table-responsive">
+                            <table class="table table-bordered m-2">
                                 <thead class="thead-light">
                                     <tr>
                                         <th>Bidang</th>
@@ -54,6 +55,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -134,6 +136,7 @@
                         <td><b>Group Material</b></td>
                         <td>:</td>
                         <td>
+                            <div class="table-responsive">
                             <table class="table table-bordered table-responsive m-2">
                                 <thead class="thead-light">
                                     <tr>
@@ -150,6 +153,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            </div>
                         </td>
                     </tr>
                     <tr>
