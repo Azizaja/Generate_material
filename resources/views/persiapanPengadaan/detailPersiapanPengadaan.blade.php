@@ -1,4 +1,9 @@
-<div class="tab-pane fade" id="detail-persiapan-pengadaan" role="tabpanel" aria-labelledby="detail-persiapan-pengadaan-tab">
+@php
+    $mep = $detail_pekerjaan->metodePengadaan->metodeEvaluasiPenawaran->status_butuh_bobot_teknis ?? null;
+@endphp
+
+<div class="tab-pane fade show active" id="detail-persiapan-pengadaan" role="tabpanel"
+    aria-labelledby="detail-persiapan-pengadaan-tab">
     <div class="row p-3">
         <div class="col-6">
             <div class="mb-3">
@@ -6,22 +11,23 @@
                     <tr>
                         <td><b>No Pengadaaan</b></td>
                         <td>:</td>
-                        <td>12RRIO90</td>
+                        <td>&nbsp{{ $detail_pekerjaan->kode ?? '' }}</td>
                     </tr>
                     <tr>
                         <td><b>Nama Pengadaan</b></td>
                         <td>:</td>
-                        <td>Pengadaan Bahan Baku</td>
+                        <td>&nbsp{{ $detail_pekerjaan->nama ?? 'N/A' }}</td>
                     </tr>
                     <tr>
                         <td><b>Di Buat Oleh</b></td>
                         <td>:</td>
-                        <td>PT Bahagia Selalu</td>
+                        <td>&nbsp{{ $detail_pekerjaan->created_by }}</td>
                     </tr>
                     <tr>
                         <td><b>Unit kerja</b></td>
                         <td>:</td>
-                        <td>Logistik</td>
+                        <td>&nbsp{{ $detail_pekerjaan->satuanKerja->nama ?? 'N/A' }}</td>
+                        </td>
                     </tr>
                     <tr>
                         <td><b>Bidang/Sub Bidang</b></td>
@@ -36,13 +42,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Logistik dan perencanaan gudang pengendalian
-                                            komoditas</td>
-                                        <td>Logistik aktivitas jasa pelayanan informasi
-                                            gudang logistik</td>
-                                        <td>Non Kecil</td>
-                                    </tr>
+                                    @foreach ($detail_pekerjaan->bidang as $bidangs)
+                                        @foreach ($bidangs->subBidang as $subBidang)
+                                            <tr>
+                                                <td>[{{ $bidangs->kode }}] - [{{ $bidangs->nama }}]</td>
+                                                <td>[{{ $subBidang->kode }}] - [{{ $subBidang->nama }}]</td>
+                                                <td class="text-center">
+                                                    {{ $subBidang->kualifikasiGroupDetail->nama ?? '-' }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
                                 </tbody>
                             </table>
                         </td>
@@ -66,17 +75,60 @@
                     <tr>
                         <td><b>Metode</b></td>
                         <td>:</td>
-                        <td> </td>
+                        <td>&nbsp{{ $detail_pekerjaan->metodePengadaan->nama ?? 'N/A' }}</td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td><b>Bobot</b></td>
                         <td>:</td>
-                        <td></td>
+                        <td>
+                            <tr>
+                                <td><b>Bobot Teknis</b></td>
+                                <td>:</td>
+                                <td>{{ $detail_pekerjaan->bobot_teknis }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Bobot Harga</b></td>
+                                <td>:</td>
+                                <td>{{ $detail_pekerjaan->bobot_harga }}</td>
+                            </tr>
+                        </td> --}}
+
+                    @if (isset($mep) && $mep == 1 && $detail_pekerjaan->status_multi_pemenang)
+                        <tr>
+                            <td><b>Bobot</b></td>
+                            <td>:</td>
+                            <td></td>
+                        <tr>
+                        <tr>
+                            <td><b>Bobot Teknis</b></td>
+                            <td>:</td>
+                            <td>{{ $detail_pekerjaan->bobot_teknis }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Bobot Harga</b></td>
+                            <td>:</td>
+                            <td>{{ $detail_pekerjaan->bobot_harga }}</td>
+                        </tr>
+                    @else
+                        <tr>
+                            <td><b>Bobot</b></td>
+                            <td>:</td>
+                            <td>&nbspN/A</td>
+                        <tr>
+                    @endif
+
+
+                    </td>
+
                     </tr>
                     <tr>
                         <td><b>Batas Lulus</b></td>
                         <td>:</td>
-                        <td></td>
+                        <td>&nbsp
+                            @if (isset($mep) && $mep == 1)
+                                {{ $detail_pekerjaan->batas_lulus ?? 'N/A' }}
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td><b>Group Material</b></td>
@@ -103,7 +155,7 @@
                     <tr>
                         <td><b>Metode Kontrak</b></td>
                         <td>:</td>
-                        <td></td>
+                        <td>&nbsp{{ App\Models\Pekerjaan::getMetodeKontrak($detail_pekerjaan->metode_kontrak) }}</td>
                     </tr>
                 </table>
             </div>

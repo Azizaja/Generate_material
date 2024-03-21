@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PekerjaanPanitia extends Model
 {
@@ -20,8 +21,8 @@ class PekerjaanPanitia extends Model
         return $this->belongsTo(Pekerjaan::class, 'pekerjaan_id', 'id');
     }
 
-    public function applicationUser(): HasMany
+    public function applicationUser(): HasOne
     {
-        return $this->hasMany(ApplicationUser::class, 'user_id', 'id');
+        return $this->hasOne(ApplicationUser::class, 'id', 'user_id');
     }
 }

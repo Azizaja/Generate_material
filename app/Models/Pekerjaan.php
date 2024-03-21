@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Bidang;
+use App\Models\SatuanKerja;
 use App\Models\ApplicationUser;
+use App\Models\MetodePengadaan;
+use App\Models\PekerjaanPanitia;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -43,20 +48,66 @@ class Pekerjaan extends Model
     const STATUS_REV = 1;
     const STATUS_REV_FREEZE = 13;
 
+    const METODE_KONTRAK_LUMPSUM = 1;
+    const METODE_KONTRAK_RINCIAN = 2;
+    const METODE_KONTRAK_GABUNGAN = 3;
+    const METODE_KONTRAK_PROSENTASE = 4;
+    const METODE_KONTRAK_TERIMA_JADI = 5;
+    const METODE_KONTRAK_LOI = 6;
+
     public function pekerjaanPanitia(): HasMany
     {
         return $this->hasMany(PekerjaanPanitia::class, 'pekerjaan_id', 'id');
     }
 
-    public function applicationUsers()
+    // public function applicationUsers()
+    // {
+    //     return $this->hasManyThrough(
+    //         ApplicationUser::class,
+    //         PekerjaanPanitia::class,
+    //         'pekerjaan_id', // Foreign key dari tabel pekerjaan_panitia
+    //         'id', // Local key dari tabel pekerjaan
+    //         'id', // Foreign key dari tabel application_user
+    //         'user_id' // Local key dari tabel pekerjaan_panitia
+    //     );
+    // }
+
+    public function metodePengadaan(): HasOne
     {
-        return $this->hasManyThrough(
-            ApplicationUser::class,
-            PekerjaanPanitia::class,
-            'pekerjaan_id', // Foreign key dari tabel pekerjaan_panitia
-            'id', // Local key dari tabel pekerjaan
-            'id', // Foreign key dari tabel application_user
-            'user_id' // Local key dari tabel pekerjaan_panitia
-        );
+        return $this->hasOne(MetodePengadaan::class, 'id', 'metode_pengadaan_id');
+    }
+
+    public function satuanKerja(): HasOne
+    {
+        return $this->hasOne(SatuanKerja::class, 'id', 'satuan_kerja_id');
+    }
+
+    public function bidang(): HasMany
+    {
+        return $this->hasMany(Bidang::class, 'id', 'bidang_id');
+    }
+
+    public function pekerjaanSubBidang(): HasMany
+    {
+        return $this->hasMany(PekerjaanSubBidang::class, 'pekerjaan_id', 'id');
+    }
+
+    public function pekerjaanSubCommodity(): HasMany
+    {
+        return $this->hasMany(PekerjaanSubCommodity::class, 'pekerjaan_id', 'id');
+    }
+
+    public static function getMetodeKontrak($metode)
+    {
+        $texts = [
+            self::METODE_KONTRAK_LUMPSUM => 'Lumpsum',
+            self::METODE_KONTRAK_RINCIAN => 'Harga Satuan',
+            self::METODE_KONTRAK_GABUNGAN => 'Gabungan Lumpsum dan Harga Satuan',
+            self::METODE_KONTRAK_PROSENTASE => 'Prosentase',
+            self::METODE_KONTRAK_TERIMA_JADI => 'Terima Jadi (Turnkey)',
+            self::METODE_KONTRAK_LOI => 'Repeat Order/LOI',
+        ];
+
+        return $texts[$metode] ?? NULL;
     }
 }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('bobot_teknis', 5, 2)->nullable();
             $table->string('currency_id')->nullable();
             $table->decimal('currency_value')->nullable();
-            $table->decimal('commodity_id')->nullable();
+            $table->unsignedBigInteger('commodity_id')->nullable();
             $table->decimal('hps', 20, 2)->nullable();
             $table->boolean('hps_tampil')->default(false);
             $table->string('import_from', 30)->nullable();

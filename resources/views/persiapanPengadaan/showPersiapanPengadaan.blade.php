@@ -11,16 +11,22 @@
                         <div class="card-header p-0 pt-1">
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
+                                    <a class="nav-link" id="custom-tabs-one-home-tab" data-toggle="pill"
                                         href="#daftar-persiapan-pengadaan" role="tab"
                                         aria-controls="daftar-persiapan-pengadaan" aria-selected="true">Daftar Persiapan
+                                        Pengadaan</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="custom-tabs-one-profile-tab" data-toggle="pill"
+                                        href="#detail-persiapan-pengadaan" role="tab"
+                                        aria-controls="detail-persiapan-pengadaan" aria-selected="false">Detail Persiapan
                                         Pengadaan</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="card-body p-0">
                             <div class="tab-content" id="custom-tabs-one-tabContent">
-                                <div class="tab-pane fade show active" id="daftar-persiapan-pengadaan" role="tabpanel"
+                                <div class="tab-pane fade" id="daftar-persiapan-pengadaan" role="tabpanel"
                                     aria-labelledby="daftar-persiapan-pengadaan-tab">
                                     <div class="col-12">
                                         <div class="card">
@@ -106,6 +112,31 @@
 
                                                             </tr>
                                                         @endforeach
+                                                        {{-- <tr>
+                                                            <td>1</td>
+                                                            <td>
+                                                                <a href="">
+                                                                    <i class="fas fa-search"></i> RFQ-20210101X
+                                                                </a>
+                                                            </td>
+                                                            <td>RFQ Pengadaan ATK</td>
+                                                            <td>
+                                                                <span class="badge badge-warning">Persiapan Pengadaan</span>
+                                                                <span class="badge badge-success">Pengadaan Selesai</span>
+                                                                <span class="badge badge-danger">Pengadaan Dibatalkan</span>
+                                                            </td>
+                                                            <td>2021-01-01</td>
+                                                            <td>
+                                                                <a data-toggle="modal" href="#modal-pelaksana-kegiatan">
+                                                                    <i class="fas fa-search"></i> Pelaksana Pengadaan
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="" class="btn btn-primary btn-sm">
+                                                                    <i class="fas fa-eye"></i> Detail
+                                                                </a>
+                                                            </td>
+                                                        </tr> --}}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -114,6 +145,7 @@
                                         <!-- /.card -->
                                     </div>
                                 </div>
+                                @include('persiapanPengadaan.detailPersiapanPengadaan')
                             </div>
                         </div>
 
@@ -127,3 +159,24 @@
     @include('persiapanPengadaan.modal')
 
 @endsection
+
+@push('scripts')
+    <script>
+        function tambahBarisSpesifikasi() {
+            console.log('berhasil tambah baris');
+            $('#spesifikasi').append(
+                '<tr>' +
+                '<td><input type="text" class="form-control" name="spesifikasi[]" placeholder="Spesifikasi"></td>' +
+                '<td><input type="text" class="form-control" name="keterangan[]" placeholder="Keterangan"></td>' +
+                '<td><button type="button"onclick="hapusbaris()" class="btn btn-danger btn-xs remove"><i class="fas fa-trash"></i></button></td>' +
+                '</tr>'
+            );
+        }
+
+        function hapusbaris() {
+            $(document).on('click', '.remove', function() {
+                $(this).closest('tr').remove();
+            });
+        }
+    </script>
+@endpush

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pekerjaan;
+use Barryvdh\Debugbar\Facades\Debugbar;
 
 class PersiapanPengadaanController extends Controller
 {
@@ -63,5 +64,15 @@ class PersiapanPengadaanController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function showPekerjaan($id)
+    {
+        $p = Pekerjaan::find(20914);
+        //dd($p);
+        Debugbar::info($p);
+        return view('persiapanPengadaan.showPersiapanPengadaan', [
+            'pekerjaans' => Pekerjaan::all(),
+            'detail_pekerjaan' => Pekerjaan::find($id),
+        ]);
     }
 }

@@ -12,10 +12,10 @@
                 </div>
                 <div class="modal-body">
                     <table class="align-top">
-                        @foreach ($pekerjaan->applicationUsers as $applicationUser)
+                        @foreach ($pekerjaan->pekerjaanPanitia as $panitia)
                             <tr>
                                 <td><b>{{ $loop->iteration }}. </b></td>
-                                <td><b>{{ $applicationUser->nama }}</b></td>
+                                <td><b>{{ $panitia->applicationUser->nama }}</b></td>
                             </tr>
                         @endforeach
                     </table>

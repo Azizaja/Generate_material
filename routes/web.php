@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::resource('persiapan-pengadaan', PersiapanPengadaanController::class);
+Route::get('/persiapan-pengadaan/show/{id}', [PersiapanPengadaanController::class, 'showPekerjaan'])->name('persiapan-pengadaan.show');
