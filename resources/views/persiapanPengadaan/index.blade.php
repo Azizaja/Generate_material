@@ -125,7 +125,6 @@
 
     {{-- modal. --}}
     @include('persiapanPengadaan.modal')
-
 @endsection
 
 @push('scripts')
