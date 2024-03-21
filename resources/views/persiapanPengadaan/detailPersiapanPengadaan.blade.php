@@ -166,10 +166,13 @@
         <a href="#usulan-perubahan" data-toggle="modal" class="btn btn-warning btn-sm mb-2">
             <i class="fas fa-plus-circle"></i> Usulan Perubahan
         </a>
-        <a href="" class="btn btn-info btn-sm mb-2">
+        <a href="{{ route('setting-persiapan.index') }}" class="btn btn-info btn-sm mb-2">
             <i class="fas fa-sliders-h"></i> Setting Persiapan Pengadaan
         </a>
-        <a href="" class="btn btn-primary btn-sm mb-2">
+        <a href="{{ route('persiapan-pengadaan.undangan') }}" class="btn btn-primary btn-sm mb-2">
+            <i class="fas fa-mail-bulk"></i> Undang Penyedia (0)
+        </a>
+        <a href="" class="btn btn-success btn-sm mb-2">
             <i class="fas fa-clipboard-check"></i> Register
         </a>
         <a href="" class="btn btn-danger btn-sm mb-2">
@@ -218,123 +221,44 @@
                     {{-- rincian item --}}
                     <div class="tab-pane fade show active p-3" id="rincian-item" role="tabpanel"
                         aria-labelledby="custom-tabs-one-home-tab">
-                        <div class="row">
-                            <div class="col-12">
-                                <h5 class="fw-bold">Rincian Item</h5>
-                                <table class="table table-bordered table-hover">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>PR NUMBER</th>
-                                            <th>PR ITEM</th>
-                                            <th>KODE MATERIAL</th>
-                                            <th>NAMA</th>
-                                            <th>VOLUME</th>
-                                            <th>SATUAN</th>
-                                            <th>HARGA SATUAN</th>
-                                            <th>SUB TOTAL</th>
-                                            <th>AKSI</th>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>PR00898</td>
-                                            <td>0019</td>
-                                            <td>2JF91</td>
-                                            <td>Bahan Baku</td>
-                                            <td>100</td>
-                                            <td>kg</td>
-                                            <td>Rp. 200.000.000</td>
-                                            <td>Rp. 200.000.000.000</td>
-                                            <td>
-                                                <a href="#modal-hps" data-toggle="modal"
-                                                    class="btn btn-info btn-md">HPS</a>
-                                                <a href="#modal-spesifikasi" data-toggle="modal"
-                                                    class="btn btn-success btn-md">Spesifikasi</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div style="margin-top: 1rem">
-                                <div style="padding-left: 60%;">
-                                    <table class="w-75 fw-bold">
-                                        <tr>
-                                            <td>Jumlah Harga</td>
-                                            {{-- <td>:</td> --}}
-                                            <td>Rp. 20.000.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>PPN 10%</td>
-                                            {{-- <td>:</td> --}}
-                                            <td>Rp. 200.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total</td>
-                                            {{-- <td>:</td> --}}
-                                            <td>Rp. 220.000.000</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
+                        @include('persiapanPengadaan.rincianItemPengadaan')
 
-                        </div>
                     </div>
                     {{-- persyaratan pengadaan --}}
                     <div class="tab-pane fade" id="persyaratan-pengadaan" role="tabpanel"
                         aria-labelledby="custom-tabs-one-home-tab">
-                        <div class="card card-dark card-outline card-tabs">
-                            <div class="card-header">
-                                <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
-                                            href="#kualifikasi" role="tab" aria-controls="rincian-item"
-                                            aria-selected="true">Kualifikasi</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-one-home-tab" data-toggle="pill"
-                                            href="#administrasi" role="tab" aria-controls="persyaratan-pengadaan"
-                                            aria-selected="true">Administrasi</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-                                            href="#teknis" role="tab" aria-controls="pelaksana-pengadaan"
-                                            aria-selected="false">Teknis</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-                                            href="#kewajaran-harga" role="tab"
-                                            aria-controls="perusahaan-diundang" aria-selected="false">Kewajaran
-                                            Harga</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        
+                        @include('persiapanPengadaan.persyaratanPengadaan')
+
                     </div>
                     {{-- pelaksana pengadaan --}}
                     <div class="tab-pane fade p-3" id="pelaksana-pengadaan" role="tabpanel"
                         aria-labelledby="custom-tabs-one-profile-tab">
-                        Mauris tincidunt mi at erat gravida, eget tristique urna
-                        bibendum. Mauris pharetra purus
-                        ut ligula tempor, et vulputate metus facilisis. Lorem ipsum
-                        dolor sit amet, consectetur
+
+                       @include('persiapanPengadaan.pelaksanaPengadaan')
+
                     </div>
                     {{-- perusahaan diundang --}}
                     <div class="tab-pane fade p-3" id="perusahaan-diundang" role="tabpanel"
                         aria-labelledby="custom-tabs-one-profile-tab">
-                        www
+                    
+                        @include('persiapanPengadaan.perusahaanDiundang')
+
                     </div>
                     {{-- activity log --}}
                     <div class="tab-pane fade p-3" id="activity-log" role="tabpanel"
                         aria-labelledby="custom-tabs-one-profile-tab">
-                        yyy
+                        
+                        @include('persiapanPengadaan.activityLog')
+
                     </div>
                     {{-- activity resume --}}
                     <div class="tab-pane fade p-3" id="activity-resume" role="tabpanel"
                         aria-labelledby="custom-tabs-one-profile-tab">
-                        ddd
+                        
+                        @include('persiapanPengadaan.activityResume')
+                        
                     </div>
                 </div>
             </div>
