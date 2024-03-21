@@ -154,7 +154,7 @@
         </div>
     </div>
 
-    {{-- modal pelaksana kegiatan --}}
+    {{-- modal. --}}
     @include('persiapanPengadaan.modal')
 
 @endsection

@@ -42,44 +42,44 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="mb-3">
-                        <table class="align-top  w-100">
-                            <tr>
-                                <td class="w-25"><b>No Pengadaaan</b></td>
-                                <td style="width: 2%">:</td>
-                                <td>12RRIO90</td>
-                            </tr>
-                            <tr>
-                                <td><b>Nama Pengadaan</b></td>
-                                <td>:</td>
-                                <td>Pengadaan Bahan Baku</td>
-                            </tr>
-                            <tr>
-                                <td><b>Requester</b></td>
-                                <td>:</td>
-                                <td>
-                                    <select class="form-control">
-                                        <option selected="selected">Pilih Requester</option>
-                                        <option>Logistik</option>
-                                        <option>Produksi</option>
-                                        <option>Quality Control</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>CC</b></td>
-                                <td>:</td>
-                                <td>
-                                    <input type="text" class="form-control" placeholder="CC">
-                                </td>
-                            </tr>
-                        </table>
+                {{-- form --}}
+                <form class="form-horizontal" action="">
+                    <div class="card-body">                        
+                        <div class="form-group row">
+                            <label for="no-pengadaan" class="col-sm-2 col-form-label">Nomor Pengadaan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control w-50" id="no-pengadaan" value="Rp. 200.000"
+                                    name="no-pengadaan" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama-pengadaan" class="col-sm-2 col-form-label">Nama Pengadaan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control w-50" id="nama-pengadaan"
+                                    name="nama-pengadaan" value="Pengadaan Bahan Baku" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="requester" class="col-sm-2 col-form-label">Requester</label>
+                            <div class="col-sm-10">
+                                <select class="form-select w-50" id="requester">
+                                    <option selected="selected">Pilih Requester</option>
+                                    <option>Logistik</option>
+                                    <option>Produksi</option>
+                                    <option>Quality Control</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cc-email" class="col-sm-2 col-form-label">Harga Satuan</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control w-50" id="cc-email"
+                                    name="cc-email" placeholder="masukan CC">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <table class="table table-bordered table-hover">
+                    <div class="card">
+                        <table class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
                                     <th>No</th>
@@ -102,32 +102,16 @@
                                     <td>100</td>
                                     <td>Kg</td>
                                     <td>
-                                        <textarea type="text" class="form-control" placeholder="Catatan Perubahan"></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>PR-1234</td>
-                                    <td>2</td>
-                                    <td>123457</td>
-                                    <td>Bahan Baku 2</td>
-                                    <td>200</td>
-                                    <td>Kg</td>
-                                    <td>
-                                        <textarea type="text" class="form-control" placeholder="Catatan Perubahan"></textarea>
+                                        <textarea type="text" class="form-control" placeholder="Catatan Perubahan" name="catatan-perubahan"></textarea>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                <a href="" class="btn btn-primary">Usulkan Perubahan</a>
+                        <button type="submit" class="btn btn-danger">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
             </div>
-            {{-- <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="" class="btn btn-primary">Usulkan Perubahan</a>
-            </div> --}}
         </div>
     </div>
 </div>
@@ -144,40 +128,42 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="mb-3">
-                        <table class="align-top w-100">
-                            <tr>
-                                <td class="w-25"><b>Nama</b></td>
-                                <td style="width: 2%">:</td>
-                                <td>12RRIO90</td>
-                            </tr>
-                            <tr>
-                                <td><b>Satuan</b></td>
-                                <td>:</td>
-                                <td>Kg</td>
-                            </tr>
-                            <tr>
-                                <td><b>Jumlah</b></td>
-                                <td>:</td>
-                                <td>10</td>
-                            </tr>
-                            <tr>
-                                <td><b>HPS Satuan</b></td>
-                                <td>:</td>
-                                <td>
-                                    <input type="text" class="form-control" placeholder="HPS Satuan">
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <table class="table table-bordered table-hover">
+                {{-- form --}}
+                <form class="form-horizontal" action="">
+                    <div class="card-body">                        
+                        <div class="form-group row">
+                            <label for="nama-item" class="col-sm-2 col-form-label">Nama Item</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control w-50" id="nama-item" value="Bahan Baku"
+                                    name="nama-item" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="satuan-item" class="col-sm-2 col-form-label">Satuan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control w-50" id="satuan-item"
+                                    name="satuan-item" value="Pengadaan Bahan Baku" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="jumlah-item" class="col-sm-2 col-form-label">Jumlah</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control w-50" id="jumlah-item" value="Rp. 200.000"
+                                    name="jumlah-item" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="HPS-satuan" class="col-sm-2 col-form-label">HPS Satuan</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control w-50" id="HPS-satuan"
+                                    name="HPS-satuan" placeholder="masukan HPS satuan">
+                            </div>
+                        </div>
+                    
+                        <table class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>No</th>
+                                    <th>Pilih</th>
                                     <th>PR NUMBER</th>
                                     <th>NAMA</th>
                                     <th>HARGA SATUAN</th>
@@ -187,7 +173,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
+                                    <td>
+                                        <input type="checkbox" name="nama-pilihan" id="pilih-id" >
+                                    </td>
                                     <td>PR-1234</td>
                                     <td>Bahan Baku 1</td>
                                     <td>Rp. 200.000</td>
@@ -196,10 +184,12 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-danger">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
                     </div>
-                </div>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                <a href="" class="btn btn-primary">Simpan</a>
+                </form>
             </div>
         </div>
     </div>
@@ -216,9 +206,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
+                <form class="form-horizontal" action="" enctype="multipart/form-data">
+                    <div class="card-body">                        
                         <table class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
@@ -246,11 +235,15 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-danger">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
                     </div>
-                </div>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                <a href="" class="btn btn-primary">Simpan</a>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+{{-- modal buat --}}

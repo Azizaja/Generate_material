@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Pekerjaan;
 
-class PersiapanPengadaanController extends Controller
+class SettingPersiapanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('persiapanPengadaan.index', [
-            'pekerjaans' => Pekerjaan::all(),
-        ]);
+        return view('settingPersiapanPengadaan.index');
     }
 
     /**
@@ -63,10 +60,5 @@ class PersiapanPengadaanController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function showUndanganPenyedia()
-    {
-        return view('persiapanPengadaan.index');
     }
 }
