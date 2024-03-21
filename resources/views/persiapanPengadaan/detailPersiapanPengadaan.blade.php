@@ -134,7 +134,7 @@
                         <td><b>Group Material</b></td>
                         <td>:</td>
                         <td>
-                            <table class="table table-bordered table-responsive m-2">
+                            <table class="table table-bordered m-2">
                                 <thead class="thead-light">
                                     <tr>
                                         <th>Material</th>
@@ -142,12 +142,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Logistik dan perencanaan gudang pengendalian
-                                            komoditas</td>
-                                        <td>Logistik aktivitas jasa pelayanan informasi
-                                            gudang logistik</td>
-                                    </tr>
+                                    @foreach ($detail_pekerjaan->pekerjaanSubCommodity as $pekerjaanSubCommodity)
+                                        <tr>
+                                            <td>{{ $pekerjaanSubCommodity->mSubCommodity->kode }} -
+                                                {{ $pekerjaanSubCommodity->mSubCommodity->nama }}</td>
+                                            <td>{{ $pekerjaanSubCommodity->mSubCommodity->mCommodity->kode }} -
+                                                {{ $pekerjaanSubCommodity->mSubCommodity->mCommodity->nama }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </td>
@@ -228,7 +230,7 @@
                     {{-- persyaratan pengadaan --}}
                     <div class="tab-pane fade" id="persyaratan-pengadaan" role="tabpanel"
                         aria-labelledby="custom-tabs-one-home-tab">
-                        
+
                         @include('persiapanPengadaan.persyaratanPengadaan')
 
                     </div>
@@ -236,29 +238,29 @@
                     <div class="tab-pane fade p-3" id="pelaksana-pengadaan" role="tabpanel"
                         aria-labelledby="custom-tabs-one-profile-tab">
 
-                       @include('persiapanPengadaan.pelaksanaPengadaan')
+                        @include('persiapanPengadaan.pelaksanaPengadaan')
 
                     </div>
                     {{-- perusahaan diundang --}}
                     <div class="tab-pane fade p-3" id="perusahaan-diundang" role="tabpanel"
                         aria-labelledby="custom-tabs-one-profile-tab">
-                    
+
                         @include('persiapanPengadaan.perusahaanDiundang')
 
                     </div>
                     {{-- activity log --}}
                     <div class="tab-pane fade p-3" id="activity-log" role="tabpanel"
                         aria-labelledby="custom-tabs-one-profile-tab">
-                        
+
                         @include('persiapanPengadaan.activityLog')
 
                     </div>
                     {{-- activity resume --}}
                     <div class="tab-pane fade p-3" id="activity-resume" role="tabpanel"
                         aria-labelledby="custom-tabs-one-profile-tab">
-                        
+
                         @include('persiapanPengadaan.activityResume')
-                        
+
                     </div>
                 </div>
             </div>

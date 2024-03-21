@@ -19,9 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 });
-
-Route::resource('persiapan-pengadaan', PersiapanPengadaanController::class);
+Route::get('/persiapan-pengadaan', [PersiapanPengadaanController::class, 'index'])->name('persiapan-pengadaan.index');
 Route::get('/persiapan-pengadaan/show/{id}', [PersiapanPengadaanController::class, 'showPekerjaan'])->name('persiapan-pengadaan.show');
-//Route::get('persiapan-pengadaan/undangan', [PersiapanPengadaanController::class, 'showUndanganPenyedia'])->name('persiapan-pengadaan.undangan');
+Route::get('persiapan-pengadaan/undangan', [PersiapanPengadaanController::class, 'showUndanganPenyedia'])->name('persiapan-pengadaan.undangan');
 Route::resource('setting-persiapan', SettingPersiapanController::class);
 Route::resource('akses-pelaksana-pengadaan', AksesPelaksanaPengadaanController::class);

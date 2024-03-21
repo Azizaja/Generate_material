@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pekerjaan;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use App\Services\UserService;
 
 class PersiapanPengadaanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function index()
     {
         return view('persiapanPengadaan.index', [
@@ -18,61 +23,21 @@ class PersiapanPengadaanController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
     public function showPekerjaan($id)
     {
+        $currency_code = "USD";
+        $currency_value = $this->userService->getCurrencyValue($currency_code);
+
         $p = Pekerjaan::find(20914);
         //dd($p);
-        Debugbar::info($p);
+        Debugbar::info($currency_value);
         return view('persiapanPengadaan.showPersiapanPengadaan', [
             'pekerjaans' => Pekerjaan::all(),
             'detail_pekerjaan' => Pekerjaan::find($id),
         ]);
+    }
+    public function showUndanganPenyedia()
+    {
+        return view('persiapanPengadaan.undangPenyediaPengadaan');
     }
 }

@@ -125,5 +125,4 @@
 
     {{-- modal. --}}
     @include('persiapanPengadaan.modal')
-
 @endsection
