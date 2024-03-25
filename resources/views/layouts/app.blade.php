@@ -110,7 +110,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
                     <div class="image">
-                        <img src="dist/img/user.png" class="img-circle" alt="User Image">
+                        <img src="{{ asset('dist/img/user.png')}}" class="img-circle" alt="User Image">
                     </div>
                     <div class="info" style="text-wrap:wrap">
                         {{-- show profile photo username here --}}
@@ -424,11 +424,6 @@
     @stack('scripts')
 
     <script>
-        new DataTable('#example2', {
-            "autoWidth": false,
-        });
-
-
         // $(function() {
         //     $("#example1").DataTable({
         //         "lengthChange": false,

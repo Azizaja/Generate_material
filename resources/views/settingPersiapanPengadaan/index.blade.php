@@ -65,6 +65,45 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="metode-pengadaan" class="col-sm-2 col-form-label">Metode pengadaan</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-select w-75" name="metode-pengadaan">
+                                                <option selected="selected">Pilih Metode Pengadaaan</option>
+                                                <option value="1">Pengadaan terbuka</option>
+                                                <option>Pengadaan tertutup</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="jenis-kontrak" class="col-sm-2 col-form-label">Jenis Kontrak</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-select w-75" name="jenis-kontrak">
+                                                <option selected="selected">Pilih Jenis Kontrak</option>
+                                                <option value="1">Pengadaan terbuka</option>
+                                                <option>Pengadaan tertutup</option>
+                                            </select>
+                                        </div>
+                                    </div>                                  
+                                    <div class="form-group row">
+                                        <label for="requester" class="col-sm-2 col-form-label">Requester</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-select w-75" name="requester">
+                                                <option selected="selected">Pilih Requester</option>
+                                                <option value="1">Purchaser 1</option>
+                                                <option>Purchaser 2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="status-multi-pemenang" class="col-sm-2 col-form-label">Status Multi Pemenang</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                                                <label class="form-check-label" for="exampleCheck2">Gunakan Status Multi Pemenang</label>
+                                            </div>
+                                        </div>
+                                    </div>                                      
+                                    <div class="form-group row">
                                         <label for="bidang" class="col-sm-2 col-form-label">Bidang/Sub Bidang</label>
                                         <div class="col-sm-10">
                                             <a href="#modal-bidang-material" class="btn btn-info btn-sm" data-toggle="modal">Tambah Bidang/Sub Bidang</a>
@@ -123,52 +162,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="metode-pengadaan" class="col-sm-2 col-form-label">Metode pengadaan</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-select w-75" name="metode-pengadaan">
-                                                <option selected="selected">Pilih Metode Pengadaaan</option>
-                                                <option value="1">Pengadaan terbuka</option>
-                                                <option>Pengadaan tertutup</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="jenis-kontrak" class="col-sm-2 col-form-label">Jenis Kontrak</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-select w-75" name="jenis-kontrak">
-                                                <option selected="selected">Pilih Jenis Kontrak</option>
-                                                <option value="1">Pengadaan terbuka</option>
-                                                <option>Pengadaan tertutup</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="status-multi-pemenang" class="col-sm-2 col-form-label">Status Multi Pemenang</label>
-                                        <div class="col-sm-10">
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                                <label class="form-check-label" for="exampleCheck2">Gunakan Status Multi Pemenang</label>
-                                            </div>
-                                        </div>
-                                    </div>                                    
-                                    <div class="form-group row">
-                                        <label for="requester" class="col-sm-2 col-form-label">Requester</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-select w-75" name="requester">
-                                                <option selected="selected">Pilih Requester</option>
-                                                <option value="1">Purchaser 1</option>
-                                                <option>Purchaser 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    {{-- <div class="card-footer"> --}}
+                                        {{-- kembali ke detail persiapan pengadaan --}}
+                                        <button type="submit" class="btn btn-danger">Batal</button> 
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    {{-- </div> --}}
                                 </div>
-
-                                {{-- <div class="card-footer"> --}}
-                                    {{-- kembali ke detail persiapan pengadaan --}}
-                                    <button type="submit" class="btn btn-danger">Batal</button> 
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                {{-- </div> --}}
                             </form>
                         {{-- </div> --}}
                     </div>

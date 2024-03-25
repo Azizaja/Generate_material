@@ -39,8 +39,8 @@
                             </div>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body table responsive">
-                            <table id="example2" class="table table-bordered table-hover mb-2">
+                        <div class="card-body table-responsive">
+                            <table id="datatable1" class="table table-bordered table-hover mb-2">
                                 <thead>
                                     <tr>
                                         <th>NO</th>
@@ -95,10 +95,10 @@
                                             </td>
                                             {{-- <td>{{ $pekerjaan->created_at }}</td> --}}
                                             <td>
-                                                <a href="" class="btn btn-primary btn-sm">
+                                                <a href="" class="btn btn-primary btn-sm m-1">
                                                     <i class="fas fa-pencil-alt"></i> Edit
                                                 </a>
-                                                <a href="" class="btn btn-danger btn-sm">
+                                                <a href="" class="btn btn-danger btn-sm m-1">
                                                     <i class="fas fa-trash"></i> Hapus
                                                 </a>
                                             </td>
@@ -130,8 +130,8 @@
                             </div>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body table responsive">
-                            <table id="example2" class="table table-bordered table-hover mb-2">
+                        <div class="card-body table-responsive">
+                            <table id="datatable2" class="table table-bordered table-hover mb-2">
                                 <thead>
                                     <tr>
                                         <th>NO</th>
@@ -221,8 +221,8 @@
                             </div>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body table responsive">
-                            <table id="example2" class="table table-bordered table-hover mb-2">
+                        <div class="card-body table-responsive">
+                            <table id="datatable3" class="table table-bordered table-hover mb-2">
                                 <thead>
                                     <tr>
                                         <th>NO</th>
@@ -302,7 +302,7 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <a href="" class="btn btn-primary mb-2">
+                                    <a href="#modal-kualifikasi" class="btn btn-primary mb-2">
                                         <i class="fas fa-plus-circle"></i> Buat Baru
                                     </a>
                                     <a href="" class="btn btn-primary mb-2">
@@ -312,8 +312,8 @@
                             </div>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body table responsive">
-                            <table id="example2" class="table table-bordered table-hover mb-2">
+                        <div class="card-body table-responsive">
+                            <table id="datatable4" class="table table-bordered table-hover mb-2">
                                 <thead>
                                     <tr>
                                         <th>NO</th>
@@ -388,4 +388,13 @@
         </div>
     </div>
 </div>
+
+{{-- @push('scripts')
+    <script>
+        new DataTable("#datatable1");
+        new DataTable("#datatable2");
+        new DataTable("#datatable3");
+        new DataTable("#datatable4");
+    </script>
+@endpush --}}
 

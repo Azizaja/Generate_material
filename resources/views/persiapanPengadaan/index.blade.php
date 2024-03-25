@@ -35,7 +35,7 @@
                                             </div>
                                             <!-- /.card-header -->
                                             <div class="card-body table responsive">
-                                                <table id="example2" class="table table-bordered table-hover mb-2">
+                                                <table id="datatable" class="table table-bordered table-hover mb-2">
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
@@ -126,3 +126,11 @@
     {{-- modal. --}}
     @include('persiapanPengadaan.modal')
 @endsection
+
+@push('scripts')
+    <script>
+        new DataTable('#datatable', {
+            "autoWidth": false,
+        });
+    </script>
+@endpush
