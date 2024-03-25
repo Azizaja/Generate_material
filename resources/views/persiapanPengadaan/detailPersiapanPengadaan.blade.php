@@ -26,7 +26,7 @@
                     <tr>
                         <td><b>Unit kerja</b></td>
                         <td>:</td>
-                        <td>&nbsp{{ $detail_pekerjaan->satuanKerja->nama ?? 'N/A' }}</td>
+                        <td>&nbsp{{ $detail_pekerjaan-> ->nama ?? 'N/A' }}</td>
                         </td>
                     </tr>
                     <tr>
@@ -59,12 +59,40 @@
                     <tr>
                         <td><b>HPS</b></td>
                         <td>:</td>
-                        <td></td>
+                        <td>&nbsp
+                            @if ($detail_pekerjaan->currency_value == 1)
+                                @php
+                                    $idr_val_default = App\Models\Services\UserService::getCurrencyValue('IDR');
+                                @endphp
+                            @else
+                                @php
+                                    $idr_val_default = $detail_pekerjaan->currency_value;
+                                @endphp
+                            @endif
+                            @if ($detail_pekerjaan->currency_id == 'IDR')
+                                {{ 'Rp. ' .
+                                    number_format($detail_pekerjaan->hps, 2, ',', '.') .
+                                    ' / $' .
+                                    number_format($detail_pekerjaan->hps / $idr_val_default, 2, ',', '.') .
+                                    ' ( $1 = ' .
+                                    number_format($idr_val_default, 2, ',', '.') .
+                                    ' )' }}
+                            @endif
+                            @if ($detail_pekerjaan->currency_id == 'USD')
+                                {{ 'Rp. ' .
+                                    number_format($detail_pekerjaan->hps * $idr_val_default, 2, ',', '.') .
+                                    ' / $' .
+                                    number_format($detail_pekerjaan->hps, 2, ',', '.') .
+                                    ' ( $1 = ' .
+                                    number_format($idr_val_default, 2, ',', '.') .
+                                    ' )' }}
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td><b>PR Number</b></td>
                         <td>:</td>
-                        <td>PR0026TYY</td>
+                        <td>&nbsp {{ App\Models\Pekerjaan::getPrNumberString($detail_pekerjaan->id) }}</td>
                     </tr>
                 </table>
             </div>

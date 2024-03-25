@@ -7,6 +7,11 @@ use App\Models\SatuanKerja;
 use App\Models\ApplicationUser;
 use App\Models\MetodePengadaan;
 use App\Models\PekerjaanPanitia;
+use App\Models\PekerjaanRincian;
+use App\Models\PenawaranRincian;
+use App\Models\PekerjaanSubBidang;
+use App\Models\PekerjaanSubCommodity;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -97,6 +102,11 @@ class Pekerjaan extends Model
         return $this->hasMany(PekerjaanSubCommodity::class, 'pekerjaan_id', 'id');
     }
 
+    public function pekerjaanRincian(): HasMany
+    {
+        return $this->hasMany(PekerjaanRincian::class, 'pekerjaan_id', 'id');
+    }
+
     public static function getMetodeKontrak($metode)
     {
         $texts = [
@@ -109,5 +119,39 @@ class Pekerjaan extends Model
         ];
 
         return $texts[$metode] ?? NULL;
+    }
+
+    public static function getPrNumberString($pekerjaan_id)
+    {
+        $results = PekerjaanRincian::join('MAX_PR', 'PEKERJAAN_RINCIAN.PR_ID', '=', 'MAX_PR.ID')
+            ->where('PEKERJAAN_ID', $pekerjaan_id)
+            ->groupBy('PR_NO')
+            ->selectRaw('PR_NO, COUNT(PR_NO) AS JUMLAH')
+            ->get();
+
+        $str_prnumber = '';
+
+        foreach ($results as $key => $result) {
+            $prnumber = $result->PR_NO;
+            $prnumber_count = $result->JUMLAH;
+
+            $str_prnumber .= $prnumber . " (" . $prnumber_count . ")";
+
+            if ($key < count($results) - 1) {
+                $str_prnumber .= ", ";
+            }
+        }
+
+        return ($str_prnumber);
+    }
+    public static function getHpsRincian($pekerjaan_rincian_nama)
+    {
+        $rincianHPS = PenawaranRincian::whereRaw("nama LIKE '%" . $pekerjaan_rincian_nama . "%'")
+            ->whereNotNull('harga_satuan_negosiasi')
+            ->limit(5)
+            ->orderBy('harga_satuan_negosiasi')
+            ->get();
+
+        return ($rincianHPS);
     }
 }
