@@ -182,5 +182,12 @@
         new DataTable('#datatable', {
             "autoWidth": false,
         });
+
+        $(document).ready(function () {
+         $('input[id="nama-pilihan"]').change(function () {
+            var hargaSatuan = $(this).closest('tr').find('td:eq(3)').text();
+            $('#HPS-satuan').val(hargaSatuan);
+            });
+        });
     </script>
 @endpush

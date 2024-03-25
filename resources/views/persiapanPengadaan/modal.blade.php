@@ -116,7 +116,6 @@
     </div>
 </div>
 
-
 {{-- modal HPS --}}
 {{-- @foreach ($detail_pekerjaan->pekerjaanRincian as $rincianP)
     <div class="modal fade" id="modal-hps{{ $rincianP->id }}">
@@ -155,7 +154,7 @@
                             <div class="form-group row">
                                 <label for="HPS-satuan" class="col-sm-2 col-form-label">HPS Satuan</label>
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control w-50" id="HPS-satuan"
+                                    <input type="text" class="form-control w-50" id="HPS-satuan"
                                         name="HPS-satuan" placeholder="masukan HPS satuan">
                                 </div>
                             </div>
@@ -171,10 +170,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (App\Models\Pekerjaan::getHpsRincian($rincianP->nama) as $pRincian)
+                                    @forelse (App\Models\Pekerjaan::getHpsRincian($rincianP->nama) as $pRincian)
                                         <tr>
                                             <td>
-                                                <input type="checkbox" name="nama-pilihan" id="pilih-id">
+                                                <input type="radio" name="nama-pilihan" id="nama-pilihan">
                                             </td>
                                             <td>{{ $pRincian->pengadaanRincian->pekerjaanRincian->maxPr->pr_no ?? '' }}
                                             </td>
@@ -184,7 +183,11 @@
                                             <td>{{ $pRincian->created_at }}</td>
                                             <td>PT Maju Berkah</td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">Tidak Ada Data</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                             <div class="mt-3">
@@ -198,8 +201,6 @@
         </div>
     </div>
 @endforeach --}}
-
-
 
 {{-- Modal Spesifikasi --}}
 <div class="modal fade" id="modal-spesifikasi">
@@ -250,4 +251,3 @@
 </div>
 </div>
 
-{{-- modal buat --}}

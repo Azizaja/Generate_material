@@ -30,33 +30,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><b>Bidang/Sub Bidang</b></td>
-                        <td>:</td>
-                        <td>
-                            <table class="table table-bordered table-responsive m-2">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>Bidang</th>
-                                        <th>Sub Bidang</th>
-                                        <th>Kualifikasi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($detail_pekerjaan->bidang as $bidangs)
-                                        @foreach ($bidangs->subBidang as $subBidang)
-                                            <tr>
-                                                <td>[{{ $bidangs->kode }}] - [{{ $bidangs->nama }}]</td>
-                                                <td>[{{ $subBidang->kode }}] - [{{ $subBidang->nama }}]</td>
-                                                <td class="text-center">
-                                                    {{ $subBidang->kualifikasiGroupDetail->nama ?? '-' }}</td>
-                                            </tr>
-                                        @endforeach
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
                         <td><b>HPS</b></td>
                         <td>:</td>
                         <td>&nbsp
@@ -89,11 +62,6 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <td><b>PR Number</b></td>
-                        <td>:</td>
-                        <td>&nbsp {{ App\Models\Pekerjaan::getPrNumberString($detail_pekerjaan->id) }}</td>
-                    </tr>
                 </table>
             </div>
         </div>
@@ -103,7 +71,7 @@
                     <tr>
                         <td><b>PR Number</b></td>
                         <td>:</td>
-                        <td>PR0026TYY</td>
+                        <td>&nbsp {{ App\Models\Pekerjaan::getPrNumberString($detail_pekerjaan->id) }}</td>
                     </tr>
                     <tr>
                         <td><b>Metode</b></td>
