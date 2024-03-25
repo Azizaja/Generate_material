@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('rw')->nullable();
             $table->text('kelurahan')->nullable();
             $table->text('kecamatan')->nullable();
+            $table->text('kota')->nullable();
             $table->unsignedBigInteger('kota_id')->nullable();
             $table->text('email');
             $table->text('telepon')->nullable();
@@ -31,7 +32,6 @@ return new class extends Migration
             $table->text('pertanyaan')->nullable();
             $table->string('jawaban', 40)->nullable();
             $table->timestamp('waktu_aktivasi')->nullable();
-            $table->text('kota')->nullable();
             $table->text('fax')->nullable();
             $table->integer('boleh_hapus_ahli')->default(0);
             $table->text('dpp_nomor')->nullable();
@@ -39,17 +39,16 @@ return new class extends Migration
             $table->date('dpp_tanggal_berlaku')->nullable();
             $table->integer('dpp_status')->default(0);
             $table->integer('jenis_vendor')->default(0);
-            $table->integer('state')->default(0);
+            $table->integer('state')->default(0)->nullable();
             $table->integer('drt_aktif')->default(0);
             $table->integer('perusahaan_asing')->default(0);
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
             $table->string('kode_pos', 10)->nullable();
             $table->timestamp('last_activity')->nullable();
             $table->string('ip_address', 20)->nullable();
             $table->string('token', 200)->nullable();
             $table->timestamp('token_time')->nullable();
-            $table->string('user_agent', 2000)->nullable();
+            $table->text('user_agent')->nullable();
             $table->integer('flag_bpo')->nullable();
             $table->integer('status_vendor')->nullable();
             $table->integer('approve_to')->nullable();
@@ -61,8 +60,6 @@ return new class extends Migration
             $table->unsignedBigInteger('satuan_kerja_id')->nullable();
             $table->string('cp_title', 50)->nullable();
             $table->boolean('edit_profil')->nullable();
-            $table->primary('id');
-            $table->timestamps();
         });
     }
 

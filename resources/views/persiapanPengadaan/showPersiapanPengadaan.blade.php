@@ -157,8 +157,12 @@
 
     {{-- modal pelaksana kegiatan --}}
     @include('persiapanPengadaan.modal')
+    @include('persiapanPengadaan.modal.modalHps')
+    @include('persiapanPengadaan.modal.modalSpesifikasi')
 
 @endsection
+
+
 
 @push('scripts')
     <script>
@@ -178,7 +182,7 @@
                 $(this).closest('tr').remove();
             });
         }
-    
+
         new DataTable('#datatable', {
             "autoWidth": false,
         });

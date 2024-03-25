@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PenawaranRincian extends Model
@@ -17,5 +18,10 @@ class PenawaranRincian extends Model
     public function pengadaanRincian(): HasOne
     {
         return $this->hasOne(PengadaanRincian::class, 'id', 'pengadaan_rincian_id');
+    }
+
+    public function penawaran(): HasOne
+    {
+        return $this->hasOne(Penawaran::class, 'id', 'penawaran_id');
     }
 }

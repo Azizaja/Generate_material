@@ -37,8 +37,9 @@
                         <td class="text-right">
                             {{ 'Rp. ' . number_format($rincianP->harga_satuan * $rincianP->volume, 2, ',', '.') }}</td>
                         <td>
-                            <a href="#modal-hps{{ $rincianP->id }}" data-toggle="modal" class="btn btn-info btn-md">HPS</a>
-                            <a href="#modal-spesifikasi" data-toggle="modal"
+                            <a href="#modal-hps-{{ $rincianP->id }}" data-toggle="modal"
+                                class="btn btn-info btn-md">HPS</a>
+                            <a href="#modal-spesifikasi-{{ $rincianP->id }}" data-toggle="modal"
                                 class="btn btn-success btn-md">Spesifikasi</a>
                         </td>
                     </tr>
