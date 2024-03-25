@@ -30,43 +30,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><b>Bidang/Sub Bidang</b></td>
-                        <td>:</td>
-                        <td>
-                            <div class="table-responsive">
-                            <table class="table table-bordered m-2">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>Bidang</th>
-                                        <th>Sub Bidang</th>
-                                        <th>Kualifikasi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($detail_pekerjaan->bidang as $bidangs)
-                                        @foreach ($bidangs->subBidang as $subBidang)
-                                            <tr>
-                                                <td>[{{ $bidangs->kode }}] - [{{ $bidangs->nama }}]</td>
-                                                <td>[{{ $subBidang->kode }}] - [{{ $subBidang->nama }}]</td>
-                                                <td class="text-center">
-                                                    {{ $subBidang->kualifikasiGroupDetail->nama ?? '-' }}</td>
-                                            </tr>
-                                        @endforeach
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
                         <td><b>HPS</b></td>
                         <td>:</td>
                         <td></td>
-                    </tr>
-                    <tr>
-                        <td><b>PR Number</b></td>
-                        <td>:</td>
-                        <td>PR0026TYY</td>
                     </tr>
                 </table>
             </div>
@@ -75,26 +41,29 @@
             <div class="mb-3">
                 <table class="align-top">
                     <tr>
+                        <td><b>PR Number</b></td>
+                        <td>:</td>
+                        <td>PR0026TYY</td>
+                    </tr>
+                    <tr>
                         <td><b>Metode</b></td>
                         <td>:</td>
                         <td>&nbsp{{ $detail_pekerjaan->metodePengadaan->nama ?? 'N/A' }}</td>
                     </tr>
-                    {{-- <tr>
-                        <td><b>Bobot</b></td>
+                    <tr>
+                        <td><b>Metode Kontrak</b></td>
                         <td>:</td>
-                        <td>
-                            <tr>
-                                <td><b>Bobot Teknis</b></td>
-                                <td>:</td>
-                                <td>{{ $detail_pekerjaan->bobot_teknis }}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Bobot Harga</b></td>
-                                <td>:</td>
-                                <td>{{ $detail_pekerjaan->bobot_harga }}</td>
-                            </tr>
-                        </td> --}}
-
+                        <td>&nbsp{{ App\Models\Pekerjaan::getMetodeKontrak($detail_pekerjaan->metode_kontrak) }}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Batas Lulus</b></td>
+                        <td>:</td>
+                        <td>&nbsp
+                            @if (isset($mep) && $mep == 1)
+                                {{ $detail_pekerjaan->batas_lulus ?? 'N/A' }}
+                            @endif
+                        </td>
+                    </tr>
                     @if (isset($mep) && $mep == 1 && $detail_pekerjaan->status_multi_pemenang)
                         <tr>
                             <td><b>Bobot</b></td>
@@ -118,52 +87,74 @@
                             <td>&nbspN/A</td>
                         <tr>
                     @endif
-
-
                     </td>
-
-                    </tr>
-                    <tr>
-                        <td><b>Batas Lulus</b></td>
-                        <td>:</td>
-                        <td>&nbsp
-                            @if (isset($mep) && $mep == 1)
-                                {{ $detail_pekerjaan->batas_lulus ?? 'N/A' }}
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><b>Group Material</b></td>
-                        <td>:</td>
-                        <td>
-                            <div class="table-responsive">
-                            <table class="table table-bordered table-responsive m-2">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>Material</th>
-                                        <th>Group Material</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($detail_pekerjaan->pekerjaanSubCommodity as $pekerjaanSubCommodity)
-                                        <tr>
-                                            <td>{{ $pekerjaanSubCommodity->mSubCommodity->kode }} -
-                                                {{ $pekerjaanSubCommodity->mSubCommodity->nama }}</td>
-                                            <td>{{ $pekerjaanSubCommodity->mSubCommodity->mCommodity->kode }} -
-                                                {{ $pekerjaanSubCommodity->mSubCommodity->mCommodity->nama }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><b>Metode Kontrak</b></td>
-                        <td>:</td>
-                        <td>&nbsp{{ App\Models\Pekerjaan::getMetodeKontrak($detail_pekerjaan->metode_kontrak) }}</td>
                     </tr>
                 </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group">
+            <label for="bidang-sub-bidang" class="col-sm-2 col-form-label">Bidang/Sub Bidang</label>
+            <div class="col-sm-12   ">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Bidang</th>
+                                <th>Sub Bidang</th>
+                                <th>Kualifikasi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($detail_pekerjaan->bidang as $bidangs)
+                                @foreach ($bidangs->subBidang as $subBidang)
+                                    <tr>
+                                        <td>[{{ $bidangs->kode }}] - [{{ $bidangs->nama }}]</td>
+                                        <td>[{{ $subBidang->kode }}] - [{{ $subBidang->nama }}]</td>
+                                        <td class="text-center">
+                                            {{ $subBidang->kualifikasiGroupDetail->nama ?? '-' }}</td>
+                                    </tr>
+                                @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="text-center">Tidak Ada Data</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="material" class="col-sm-2 col-form-label">Material</label>
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Material</th>
+                                <th>Group Material</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($detail_pekerjaan->pekerjaanSubCommodity as $pekerjaanSubCommodity)
+                                <tr>
+                                    <td>{{ $pekerjaanSubCommodity->mSubCommodity->kode }} -
+                                        {{ $pekerjaanSubCommodity->mSubCommodity->nama }}
+                                    </td>
+                                    <td>{{ $pekerjaanSubCommodity->mSubCommodity->mCommodity->kode }} -
+                                        {{ $pekerjaanSubCommodity->mSubCommodity->mCommodity->nama }}
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="2" class="text-center">Tidak Ada Data</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -272,3 +263,5 @@
         </div>
     </div>
 </div>
+
+

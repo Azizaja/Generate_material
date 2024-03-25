@@ -30,9 +30,9 @@
                     <td>Rp. 200.000.000.000</td>
                     <td>
                         <a href="#modal-hps" data-toggle="modal"
-                            class="btn btn-info btn-md">HPS</a>
+                            class="btn btn-info m-1">HPS</a>
                         <a href="#modal-spesifikasi" data-toggle="modal"
-                            class="btn btn-success btn-md">Spesifikasi</a>
+                            class="btn btn-success m-1">Spesifikasi</a>
                     </td>
                 </tr>
             </tbody>
