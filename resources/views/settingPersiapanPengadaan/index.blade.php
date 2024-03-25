@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="klasifikasi" class="col-sm-2 col-form-label">Klasifikasi</label>
+                                        <label for="klasifikasi" class="col-sm-2 col-form-label">Klasifikasi<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
                                             <select class="form-select w-75" name="klasifikasi">
                                                 <option selected="selected">Pilih Klasifikasi</option>
@@ -65,7 +65,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="metode-pengadaan" class="col-sm-2 col-form-label">Metode pengadaan</label>
+                                        <label for="metode-pengadaan" class="col-sm-2 col-form-label">Metode pengadaan<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
                                             <select class="form-select w-75" name="metode-pengadaan">
                                                 <option selected="selected">Pilih Metode Pengadaaan</option>
@@ -75,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="jenis-kontrak" class="col-sm-2 col-form-label">Jenis Kontrak</label>
+                                        <label for="jenis-kontrak" class="col-sm-2 col-form-label">Jenis Kontrak<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
                                             <select class="form-select w-75" name="jenis-kontrak">
                                                 <option selected="selected">Pilih Jenis Kontrak</option>
@@ -85,7 +85,7 @@
                                         </div>
                                     </div>                                  
                                     <div class="form-group row">
-                                        <label for="requester" class="col-sm-2 col-form-label">Requester</label>
+                                        <label for="requester" class="col-sm-2 col-form-label">Requester<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
                                             <select class="form-select w-75" name="requester">
                                                 <option selected="selected">Pilih Requester</option>
@@ -164,6 +164,7 @@
                                     </div>
                                     {{-- <div class="card-footer"> --}}
                                         {{-- kembali ke detail persiapan pengadaan --}}
+                                        <p><span class="text-danger">*</span>Wajib Diisi</p>
                                         <button type="submit" class="btn btn-danger">Batal</button> 
                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                     {{-- </div> --}}
