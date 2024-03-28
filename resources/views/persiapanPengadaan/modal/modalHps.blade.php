@@ -36,7 +36,8 @@
                             <div class="form-group row">
                                 <label for="HPS-satuan" class="col-sm-2 col-form-label">HPS Satuan</label>
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control w-50" id="HPS-satuan" name="HPS-satuan"
+                                    <input type="text" class="form-control w-50"
+                                        id="hps-satuan-{{ $pekerjaanRincian->id }}" name="HPS-satuan"
                                         placeholder="masukan HPS satuan">
                                 </div>
                             </div>
@@ -52,15 +53,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (App\Models\Pekerjaan::getHpsRincian($pekerjaanRincian->nama) as $detailPekerjaanRincian)
+                                    @foreach (PekerjaanHelper::getHpsRincian($pekerjaanRincian->nama) as $detailPekerjaanRincian)
                                         <tr>
                                             <td>
-                                                <input type="checkbox" name="nama-pilihan" id="pilih-id">
+                                                <input type="radio" name="pilihan-hps"
+                                                    onclick="setHpsSatuan({{ $pekerjaanRincian->id }}, {{ $detailPekerjaanRincian->id }})">
                                             </td>
                                             <td>{{ $detailPekerjaanRincian->pengadaanRincian->pekerjaanRincian->maxPr->pr_no ?? '' }}
                                             </td>
                                             <td>{{ $detailPekerjaanRincian->nama }}</td>
-                                            <td>{{ 'Rp. ' . number_format($detailPekerjaanRincian->harga_satuan_negosiasi, 2, ',', '.') }}
+                                            <td id="harga-satuan-{{ $detailPekerjaanRincian->id }}">
+                                                {{ 'Rp. ' . number_format($detailPekerjaanRincian->harga_satuan_negosiasi, 2, ',', '.') }}
                                             </td>
                                             <td>{{ $detailPekerjaanRincian->created_at }}</td>
                                             <td>{{ $detailPekerjaanRincian->penawaran->perusahaan->nama }}</td>

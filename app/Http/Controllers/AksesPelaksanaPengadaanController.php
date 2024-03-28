@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pekerjaan;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
+use PekerjaanPanitiaAksesHelper;
 
 class AksesPelaksanaPengadaanController extends Controller
 {
@@ -11,7 +14,6 @@ class AksesPelaksanaPengadaanController extends Controller
      */
     public function index()
     {
-        return view('aksesPelaksanaPengadaan.index');
     }
 
     /**
@@ -33,9 +35,14 @@ class AksesPelaksanaPengadaanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        return view('aksesPelaksanaPengadaan.index', [
+
+            'detail_pekerjaan' => Pekerjaan::find($id),
+            'daftarAksesPanitas' => PekerjaanPanitiaAksesHelper::getArrayApprove(),
+            Debugbar::info(Pekerjaan::find($id)),
+        ]);
     }
 
     /**

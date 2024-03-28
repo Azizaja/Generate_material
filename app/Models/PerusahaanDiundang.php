@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class perusahaan extends Model
+class PerusahaanDiundang extends Model
 {
     use HasFactory;
 
-    protected $table = 'perusahaan';
+    protected $table = 'perusahaan_diundang';
 
     protected $guarded = ['id'];
 
-    public function satuanKerja(): BelongsTo
+    public function perusahaan(): BelongsTo
     {
-        return $this->belongsTo(SatuanKerja::class, 'satuan_kerja_id');
+        return $this->belongsTo(Perusahaan::class, 'perusahaan_id');
     }
 }

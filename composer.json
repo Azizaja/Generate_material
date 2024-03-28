@@ -27,11 +27,20 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
+
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Helpers/DataFormatterHelper.php",
+            "app/Helpers/PekerjaanHelper.php",
+            "app/Helpers/PekerjaanPanitiaHelper.php",
+            "app/Helpers/PekerjaanPanitiaAksesHelper.php"
+
+
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

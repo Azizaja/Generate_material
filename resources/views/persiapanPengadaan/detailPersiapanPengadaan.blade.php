@@ -33,33 +33,7 @@
                         <td><b>HPS</b></td>
                         <td>:</td>
                         <td>&nbsp
-                            @if ($detail_pekerjaan->currency_value == 1)
-                                @php
-                                    $idr_val_default = App\Models\Services\UserService::getCurrencyValue('IDR');
-                                @endphp
-                            @else
-                                @php
-                                    $idr_val_default = $detail_pekerjaan->currency_value;
-                                @endphp
-                            @endif
-                            @if ($detail_pekerjaan->currency_id == 'IDR')
-                                {{ 'Rp. ' .
-                                    number_format($detail_pekerjaan->hps, 2, ',', '.') .
-                                    ' / $' .
-                                    number_format($detail_pekerjaan->hps / $idr_val_default, 2, ',', '.') .
-                                    ' ( $1 = ' .
-                                    number_format($idr_val_default, 2, ',', '.') .
-                                    ' )' }}
-                            @endif
-                            @if ($detail_pekerjaan->currency_id == 'USD')
-                                {{ 'Rp. ' .
-                                    number_format($detail_pekerjaan->hps * $idr_val_default, 2, ',', '.') .
-                                    ' / $' .
-                                    number_format($detail_pekerjaan->hps, 2, ',', '.') .
-                                    ' ( $1 = ' .
-                                    number_format($idr_val_default, 2, ',', '.') .
-                                    ' )' }}
-                            @endif
+                            {{ PekerjaanHelper::getStringHPS($detail_pekerjaan->id) }}
                         </td>
                     </tr>
                 </table>
@@ -71,7 +45,7 @@
                     <tr>
                         <td><b>PR Number</b></td>
                         <td>:</td>
-                        <td>&nbsp {{ App\Models\Pekerjaan::getPrNumberString($detail_pekerjaan->id) }}</td>
+                        <td>&nbsp {{ PekerjaanHelper::getPrNumberString($detail_pekerjaan->id) }}</td>
                     </tr>
                     <tr>
                         <td><b>Metode</b></td>
@@ -81,7 +55,7 @@
                     <tr>
                         <td><b>Metode Kontrak</b></td>
                         <td>:</td>
-                        <td>&nbsp{{ App\Models\Pekerjaan::getMetodeKontrak($detail_pekerjaan->metode_kontrak) }}</td>
+                        <td>&nbsp{{ PekerjaanHelper::getMetodeKontrak($detail_pekerjaan->metode_kontrak) }}</td>
                     </tr>
                     <tr>
                         <td><b>Batas Lulus</b></td>
@@ -235,9 +209,8 @@
                             Log</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-                            href="#activity-resume" role="tab" aria-controls="activity-resume"
-                            aria-selected="false">Activity
+                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#activity-resume"
+                            role="tab" aria-controls="activity-resume" aria-selected="false">Activity
                             Resume</a>
                     </li>
                 </ul>

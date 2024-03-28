@@ -4,12 +4,16 @@ namespace App\Models;
 
 use App\Models\Bidang;
 use App\Models\SatuanKerja;
+use App\Models\PekerjaanLog;
 use App\Models\ApplicationUser;
 use App\Models\MetodePengadaan;
 use App\Models\PekerjaanPanitia;
 use App\Models\PekerjaanRincian;
 use App\Models\PenawaranRincian;
+use PekerjaanPanitiaAksesHelper;
 use App\Models\PekerjaanSubBidang;
+use App\Models\PerusahaanDiundang;
+use App\Models\PekerjaanPanitiaAkses;
 use App\Models\PekerjaanSubCommodity;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Database\Eloquent\Model;
@@ -60,6 +64,13 @@ class Pekerjaan extends Model
     const METODE_KONTRAK_TERIMA_JADI = 5;
     const METODE_KONTRAK_LOI = 6;
 
+    const STATUS_PERUSAHAAN_SESUAI_SPEC = 1;
+    const STATUS_PERUSAHAAN_TIDAK_SESUAI_SPEC = 2;
+    const STATUS_PEKERJAAN_RINCIAN_ADDITIONAL_COST = 3;
+
+    const STATUS_PERUSAHAAN_TIDAK_SESUAI_SPEC_BELUM_DIAPPROVE = 3;
+    const STATUS_PERUSAHAAN_SESUAI_SPEC_BELUM_DIAPPROVE = 4;
+
     public function pekerjaanPanitia(): HasMany
     {
         return $this->hasMany(PekerjaanPanitia::class, 'pekerjaan_id', 'id');
@@ -107,51 +118,70 @@ class Pekerjaan extends Model
         return $this->hasMany(PekerjaanRincian::class, 'pekerjaan_id', 'id');
     }
 
-    public static function getMetodeKontrak($metode)
+    public function perusahaanDiundang(): HasMany
     {
-        $texts = [
-            self::METODE_KONTRAK_LUMPSUM => 'Lumpsum',
-            self::METODE_KONTRAK_RINCIAN => 'Harga Satuan',
-            self::METODE_KONTRAK_GABUNGAN => 'Gabungan Lumpsum dan Harga Satuan',
-            self::METODE_KONTRAK_PROSENTASE => 'Prosentase',
-            self::METODE_KONTRAK_TERIMA_JADI => 'Terima Jadi (Turnkey)',
-            self::METODE_KONTRAK_LOI => 'Repeat Order/LOI',
-        ];
-
-        return $texts[$metode] ?? NULL;
+        return $this->hasMany(PerusahaanDiundang::class, 'pekerjaan_id', 'id');
     }
 
-    public static function getPrNumberString($pekerjaan_id)
+    public function pekerjaanLog(): HasMany
     {
-        $results = PekerjaanRincian::join('MAX_PR', 'PEKERJAAN_RINCIAN.PR_ID', '=', 'MAX_PR.ID')
-            ->where('PEKERJAAN_ID', $pekerjaan_id)
-            ->groupBy('PR_NO')
-            ->selectRaw('PR_NO, COUNT(PR_NO) AS JUMLAH')
-            ->get();
+        return $this->hasMany(PekerjaanLog::class, 'pekerjaan_id', 'id');
+    }
 
-        $str_prnumber = '';
-
-        foreach ($results as $key => $result) {
-            $prnumber = $result->PR_NO;
-            $prnumber_count = $result->JUMLAH;
-
-            $str_prnumber .= $prnumber . " (" . $prnumber_count . ")";
-
-            if ($key < count($results) - 1) {
-                $str_prnumber .= ", ";
-            }
+    public function isAllowedDelete()
+    {
+        $akses_hapus = PekerjaanPanitiaAksesHelper::isAllowed($this, PekerjaanPanitiaAkses::AKSES_HAPUS_PEKERJAAN);
+        if ($akses_hapus && $this->isAllowedView()) {
+            return true;
         }
-
-        return ($str_prnumber);
+        return false;
     }
-    public static function getHpsRincian($pekerjaan_rincian_nama)
-    {
-        $rincianHPS = PenawaranRincian::whereRaw("nama LIKE '%" . $pekerjaan_rincian_nama . "%'")
-            ->whereNotNull('harga_satuan_negosiasi')
-            ->limit(5)
-            ->orderBy('harga_satuan_negosiasi')
-            ->get();
 
-        return ($rincianHPS);
+    public function isAllowedView()
+    {
+        $tipeUser = 5;
+        $nama = 'Purchaser PGPAI 02';
+        switch ($tipeUser) {
+            case ApplicationUser::TIPE_PANITIA:
+                $panitias = $this->getPanitia();
+                if ($panitias) {
+                    if ($this->isPanitia() || $this->created_by == $nama) {
+                        return true;
+                    }
+                } else {
+                    if ($this->created_by == $nama) {
+                        return true;
+                    }
+                }
+                break;
+            case ApplicationUser::TIPE_ADMINISTRATOR_OPERASIONAL:
+            case ApplicationUser::TIPE_ADMINISTRATOR_SUPER:
+            case ApplicationUser::TIPE_PENGELOLA_ADMIN_LEGAL:
+                return true;
+                break;
+            default:
+                return false;
+                break;
+        }
+    }
+    public function getPanitia()
+    {
+        $panitias = PekerjaanPanitia::where('pekerjaan_id', $this->id)
+            ->orderBy('jabatan', 'asc');
+
+        return $panitias;
+    }
+
+    public function isPanitia()
+    {
+        $userId = 20301;
+        $tipeUser = 5;
+        $panitia = PekerjaanPanitia::where('pekerjaan_id', $this->id)
+            ->where('user_id', $userId)
+            ->first();
+        if ($panitia) {
+            return true;
+        }
+        return false;
     }
 }

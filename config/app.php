@@ -186,4 +186,12 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+
+    /* Default Variable for E-Proc */
+    'kelompok' => [
+        'batas_anggota' => env('BATAS_ANGGOTA_KELOMPOK', 19),
+    ],
+    'approval' => [
+        'panitia' => env('APPROVAL_PANITIA', 1),
+    ],
 ];

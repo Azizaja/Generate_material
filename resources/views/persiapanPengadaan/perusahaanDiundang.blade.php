@@ -14,17 +14,38 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>1234567890</td>
-                    <td>PT. Logistik</td>
-                    <td>email@perusahaan.com</td>
-                    <td>Jl. Jalan</td>
-                    <td>Logistik</td>
-                    <td>
-                        <p>catatan perusahaaan ini</p>
-                    </td>
-                </tr>
+                @foreach ($detail_pekerjaan->perusahaanDiundang as $perusahaanDiundang)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ DataFormatterHelper::formatNpwp($perusahaanDiundang->perusahaan->npwp) }}</td>
+                        <td>
+                            @if ($perusahaanDiundang->state == null)
+                                {{ $perusahaanDiundang->perusahaan->nama }}
+                                @php
+                                    $string_status = '';
+                                @endphp
+                            @endif
+                            @if ($perusahaanDiundang->state == App\Models\Pekerjaan::STATUS_PERUSAHAAN_TIDAK_SESUAI_SPEC)
+                                <p class="text-danger">{{ $perusahaanDiundang->perusahaan->nama }}</p>
+                                @php
+                                    $string_status = 'Tidak sesuai spesifikasi';
+                                @endphp
+                            @endif
+                            @if ($perusahaanDiundang->state == App\Models\Pekerjaan::STATUS_PERUSAHAAN_SESUAI_SPEC)
+                                <p>{{ $perusahaanDiundang->perusahaan->nama }}</p>
+                                @php
+                                    $string_status = '';
+                                @endphp
+                            @endif
+                        </td>
+                        <td>{{ $perusahaanDiundang->perusahaan->email }}</td>
+                        <td>{{ $perusahaanDiundang->perusahaan->alamat }}</td>
+                        <td>{{ $perusahaanDiundang->perusahaan->satuanKerja->nama ?? '-' }}</td>
+                        <td>
+                            <p>{{ $string_status }}</p>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

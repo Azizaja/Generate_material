@@ -12,13 +12,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Deskripsi</td>
-                    <td>Tahap</td>
-                    <td>Tanggal</td>
-                    <td>User/username</td>
-                    <td>Keterangan</td>
-                </tr>
+                @foreach ($detail_pekerjaan->pekerjaanLog as $pekerjaanLog)
+                    <tr>
+                        <td>{{ $pekerjaanLog->judul }}</td>
+                        <td>{{ PekerjaanHelper::getStatusString($detail_pekerjaan->status) }}</td>
+                        <td>{{ $pekerjaanLog->created_at }}</td>
+                        <td>{{ $pekerjaanLog->user_name }}</td>
+                        <td>{!! $pekerjaanLog->deskripsi !!}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

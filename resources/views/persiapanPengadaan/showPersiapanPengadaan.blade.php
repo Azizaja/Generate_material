@@ -2,7 +2,6 @@
 @section('title', 'Persiapan Pengadaan')
 
 @section('content')
-
     <div class="content-wrapper">
         <div class="container-fluid p-3">
             <div class="row">
@@ -166,13 +165,33 @@
 
 @push('scripts')
     <script>
-        function tambahBarisSpesifikasi() {
-            console.log('berhasil tambah baris');
-            $('#spesifikasi').append(
+        // $(document).on('click', '.remove', function() {
+        //     $(this).closest('tr').remove();
+        // });
+
+        // $(document).on('hide.bs.modal', '.modal', function(e) {
+        //     console.log('modal spesifikasi tertutup hidden');
+        //     $(this).find('.spesifikasi').find("tr:gt(0)").remove();
+        // });
+
+        // function tambahBarisSpesifikasi() {
+        //     console.log('berhasil tambah baris');
+        //     $('.spesifikasi').append(
+        //         '<tr>' +
+        //         '<td><input type="text" class="form-control" name="spesifikasi[]" placeholder="Spesifikasi"></td>' +
+        //         '<td><input type="text" class="form-control" name="keterangan[]" placeholder="Keterangan"></td>' +
+        //         '<td><button type="button" class="btn btn-danger btn-xs remove"><i class="fas fa-trash"></i></button></td>' +
+        //         '</tr>'
+        //     );
+        // }
+
+        function tambahBarisSpesifikasi(pekerjaanRincianId) {
+            console.log('berhasil tambah baris' + pekerjaanRincianId);
+            $('#spesifikasi-' + pekerjaanRincianId).append(
                 '<tr>' +
                 '<td><input type="text" class="form-control" name="spesifikasi[]" placeholder="Spesifikasi"></td>' +
                 '<td><input type="text" class="form-control" name="keterangan[]" placeholder="Keterangan"></td>' +
-                '<td><button type="button"onclick="hapusbaris()" class="btn btn-danger btn-xs remove"><i class="fas fa-trash"></i></button></td>' +
+                '<td><button type="button" class="btn btn-danger btn-xs remove" onclick="hapusbaris()"><i class="fas fa-trash"></i></button></td>' +
                 '</tr>'
             );
         }
@@ -187,11 +206,10 @@
             "autoWidth": false,
         });
 
-        $(document).ready(function () {
-         $('input[id="nama-pilihan"]').change(function () {
-            var hargaSatuan = $(this).closest('tr').find('td:eq(3)').text();
-            $('#HPS-satuan').val(hargaSatuan);
-            });
-        });
+        function setHpsSatuan(pekerjaanRincianId, detailPekerjaanRincianId) {
+            var hargaSatuan = $('#harga-satuan-' + detailPekerjaanRincianId).text().trim();
+            $('#hps-satuan-' + pekerjaanRincianId).val(hargaSatuan);
+            console.log(hargaSatuan);
+        }
     </script>
 @endpush
