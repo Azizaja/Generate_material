@@ -11,6 +11,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" action="">
+                        @csrf
                         <div class="card-body">
                             <div class="form-group row">
                                 <label for="nama-item" class="col-sm-2 col-form-label">Nama Item</label>
@@ -66,19 +67,23 @@
                                                 {{ 'Rp. ' . number_format($detailPekerjaanRincian->harga_satuan_negosiasi, 2, ',', '.') }}
                                             </td>
                                             <td>{{ $detailPekerjaanRincian->created_at }}</td>
-                                            <td>{{ $detailPekerjaanRincian->penawaran->perusahaan->nama }}</td>
+                                            {{-- <td>{{ $detailPekerjaanRincian->penawaran->perusahaan->nama }}</td> --}}
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <div class="mt-3">
-                                <button type="submit" class="btn btn-danger">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                        @empty
+                                            <tr>
+                                                <td colspan="6" class="text-center">Tidak Ada Data</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-danger">Batal</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endforeach
+    @endforeach

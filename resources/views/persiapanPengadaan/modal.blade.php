@@ -44,6 +44,7 @@
             <div class="modal-body">
                 {{-- form --}}
                 <form class="form-horizontal" action="">
+                    @csrf
                     <div class="card-body">
                         <div class="form-group row">
                             <label for="no-pengadaan" class="col-sm-2 col-form-label">Nomor Pengadaan</label>

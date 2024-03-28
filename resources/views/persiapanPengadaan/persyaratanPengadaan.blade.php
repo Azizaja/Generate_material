@@ -29,10 +29,10 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <a href="" class="btn btn-primary mb-2">
+                                    <a href="#modal-kualifikasi" data-toggle="modal" class="btn btn-primary mb-2">
                                         <i class="fas fa-plus-circle"></i> Buat Baru
                                     </a>
-                                    <a href="" class="btn btn-primary mb-2">
+                                    <a href="{{route('persiapan-pengadaan.konfigurasi-kualifikasi')}}" class="btn btn-primary mb-2">
                                         <i class="fas fa-cogs"></i> Konfigurasi
                                     </a>
                                 </div>
@@ -110,6 +110,8 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
+                    
+                     {{-- @include('persiapanPengadaan.modal.modalKualifikasi') --}}
                     <!-- /.card -->
                 </div>
             </div>
@@ -120,10 +122,10 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <a href="" class="btn btn-primary mb-2">
+                                    <a href="#modal-administrasi" data-toggle="modal" class="btn btn-primary mb-2">
                                         <i class="fas fa-plus-circle"></i> Buat Baru
                                     </a>
-                                    <a href="" class="btn btn-primary mb-2">
+                                    <a href="{{route('persiapan-pengadaan.konfigurasi-administrasi')}}" class="btn btn-primary mb-2">
                                         <i class="fas fa-cogs"></i> Konfigurasi
                                     </a>
                                 </div>
@@ -193,7 +195,6 @@
                                                     <i class="fas fa-trash"></i> Hapus
                                                 </a>
                                             </td>
-
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -211,10 +212,10 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <a href="" class="btn btn-primary mb-2">
+                                    <a href="#modal-teknis" data-toggle="modal" class="btn btn-primary mb-2">
                                         <i class="fas fa-plus-circle"></i> Buat Baru
                                     </a>
-                                    <a href="" class="btn btn-primary mb-2">
+                                    <a href="{{route('persiapan-pengadaan.konfigurasi-teknis')}}" class="btn btn-primary mb-2">
                                         <i class="fas fa-cogs"></i> Konfigurasi
                                     </a>
                                 </div>
@@ -302,10 +303,10 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <a href="#modal-kualifikasi" class="btn btn-primary mb-2">
+                                    <a href="#modal-kewajaran-harga" data-toggle="modal" class="btn btn-primary mb-2">
                                         <i class="fas fa-plus-circle"></i> Buat Baru
                                     </a>
-                                    <a href="" class="btn btn-primary mb-2">
+                                    <a href="{{route('persiapan-pengadaan.konfigurasi-kewajaran')}}" class="btn btn-primary mb-2">
                                         <i class="fas fa-cogs"></i> Konfigurasi
                                     </a>
                                 </div>
@@ -388,6 +389,12 @@
         </div>
     </div>
 </div>
+
+{{-- modal --}}
+{{-- @include('persiapanPengadaan.modal.modalKualifikasi')
+@include('persiapanPengadaan.modal.modalAdministrasi')
+@include('persiapanPengadaan.modal.modalTeknis')
+@include('persiapanPengadaan.modal.modalKewajaranHarga') --}}
 
 {{-- @push('scripts')
     <script>

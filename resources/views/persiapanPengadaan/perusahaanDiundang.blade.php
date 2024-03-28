@@ -1,6 +1,9 @@
 <div class="row">
     <div class="col-12">
         <h5 class="fw-bold">Perusahaan Diundang</h5>
+        <a href="{{ route('persiapan-pengadaan.undangan') }}" class="btn btn-primary btn-md mb-3">
+            <i class="fas fa-plus"></i> Tambah Perusahaan
+        </a>
         <table class="table table-bordered">
             <thead class="thead-light">
                 <tr>

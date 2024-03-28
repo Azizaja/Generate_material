@@ -12,6 +12,7 @@
                             <h5><b>Pengaturan Metode Pengadaaan</b></h5>
                         </div>
                             <form class="form-horizontal">
+                                @csrf
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <label for="no-pengadaan" class="col-sm-2 col-form-label">No Pengadaaan</label>
@@ -109,7 +110,7 @@
                                             <a href="#modal-bidang-material" class="btn btn-info btn-sm" data-toggle="modal">Tambah Bidang/Sub Bidang</a>
                                             <div class="table-responsive mt-3">
                                                 <table class="table table-bordered w-75">
-                                                    <thead>
+                                                    <thead class="thead-light">
                                                         <tr>
                                                             <th>Bidang</th>
                                                             <th>Sub Bidang</th>
@@ -140,7 +141,7 @@
                                             <a href="#modal-material" class="btn btn-info btn-sm" data-toggle="modal">Tambah Material</a>
                                             <div class="table-responsive mt-3">
                                                 <table class="table table-bordered w-75">
-                                                    <thead>
+                                                    <thead class="thead-light">
                                                         <tr>
                                                             <th>Material</th>
                                                             <th>Group Material</th>
@@ -170,7 +171,6 @@
                                     {{-- </div> --}}
                                 </div>
                             </form>
-                        {{-- </div> --}}
                     </div>
                 </div>
             </div>

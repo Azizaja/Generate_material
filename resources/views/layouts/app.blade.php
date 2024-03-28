@@ -174,7 +174,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link {{ request()->is('data-rfq') ? 'active' : '' }}">
+                                    <a href="{{ route('persiapan-pengadaan.sap')}}" class="nav-link {{ request()->is('persiapan-pengadaan/sap') ? 'active' : '' }}">
                                         <i class="nav-icon far fa-circle nav-icon"></i>
                                         <p>
                                             Data RFQ

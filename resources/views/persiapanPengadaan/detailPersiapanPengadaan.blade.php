@@ -70,9 +70,22 @@
                         <tr>
                             <td><b>Bobot</b></td>
                             <td>:</td>
-                            <td></td>
+                            <td>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td><b>Bobot Teknis</b></td>
+                                        <td>:</td>
+                                        <td>{{ $detail_pekerjaan->bobot_teknis }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Bobot Harga</b></td>
+                                        <td>:</td>
+                                        <td>{{ $detail_pekerjaan->bobot_harga }}</td>
+                                    </tr>
+                                </table>
+                            </td>
                         <tr>
-                        <tr>
+                        {{-- <tr>
                             <td><b>Bobot Teknis</b></td>
                             <td>:</td>
                             <td>{{ $detail_pekerjaan->bobot_teknis }}</td>
@@ -81,7 +94,7 @@
                             <td><b>Bobot Harga</b></td>
                             <td>:</td>
                             <td>{{ $detail_pekerjaan->bobot_harga }}</td>
-                        </tr>
+                        </tr> --}}
                     @else
                         <tr>
                             <td><b>Bobot</b></td>
@@ -261,7 +274,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
