@@ -54,7 +54,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (PekerjaanHelper::getHpsRincian($pekerjaanRincian->nama) as $detailPekerjaanRincian)
+                                    @forelse (PekerjaanHelper::getHpsRincian($pekerjaanRincian->nama) as $detailPekerjaanRincian)
                                         <tr>
                                             <td>
                                                 <input type="radio" name="pilihan-hps"
@@ -69,21 +69,21 @@
                                             <td>{{ $detailPekerjaanRincian->created_at }}</td>
                                             {{-- <td>{{ $detailPekerjaanRincian->penawaran->perusahaan->nama }}</td> --}}
                                         </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="6" class="text-center">Tidak Ada Data</td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                                <div class="mt-3">
-                                    <button type="submit" class="btn btn-danger">Batal</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </div>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">Tidak Ada Data</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-danger">Batal</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    @endforeach
+    </div>
+@endforeach
