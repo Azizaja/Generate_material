@@ -34,6 +34,7 @@
                 <div class="col-12">
                     <div class="card">
                         <form class="form-horizontal" action="">
+                            <input type="hidden" name="id_pengadaan" value="1"> {{-- id pengadaan value--}}
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead class="thead-light">

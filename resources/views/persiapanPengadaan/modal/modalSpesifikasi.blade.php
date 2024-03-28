@@ -11,6 +11,7 @@
                     </button>
                 </div>
                 <form class="form-horizontal" action="" enctype="multipart/form-data">
+                    @csrf
                     <div class="card-body">
                         <table class="table table-bordered">
                             <thead class="thead-light">
@@ -21,7 +22,7 @@
                                 </tr>
                             </thead>
                             <tbody id="spesifikasi">
-                                @if ($pekerjaanRincian->pekerjaanRincianSpec->count() <= 1)
+                                {{-- @if ($pekerjaanRincian->pekerjaanRincianSpec->count() <= 1)
                                     @foreach ($pekerjaanRincian->pekerjaanRincianSpec as $pekerjaanRincianSpec)
                                         <tr>
                                             <td>
@@ -58,7 +59,7 @@
                                             </button>
                                         </td>
                                     </tr>
-                                @endif
+                                @endif --}}
                             </tbody>
                         </table>
                         <div class="mt-3">

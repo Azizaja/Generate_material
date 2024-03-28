@@ -149,11 +149,13 @@
                         </div>
                         <div class="card-body">
                             <form class="form-horizontal" action="">
+                                @csrf
                                 <div class="table-responsive">
                                     <table id="datatable2" class="table table-bordered">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th>CHECKED ALL
+                                                <th class="text-center">
+                                                    <span>Pilih Semua</span>
                                                     <input type="checkbox" name="check-all" id="check-all">
                                                 </th>
                                                 <th>PERUSAHAAN</th>
@@ -163,26 +165,55 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <td class="text-center">
                                                     <input type="checkbox" name="check-all" id="check-all">
                                                 </td>
                                                 <td>
-                                                    <select class="form-select" id="perusahaan">
-                                                        <option value="1">PT. ABC</option>
-                                                        <option value="2">PT. DEF</option>
-                                                    </select>
+                                                        <table class="align-top table">
+                                                            <tr>
+                                                                <td width="25%"><b>Nama</b></td>
+                                                                <td>&nbsp BMI</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><b>Rating Div Logistik</b></td>
+                                                                <td>
+                                                                    <span class="fa fa-star"></span><span class="fa fa-star">
+                                                                    </span><span class="fa fa-star"></span><span class="fa fa-star">
+                                                                    </span><span class="fa fa-star"></span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><b>Rating Div GA</b></td>
+                                                                <td>
+                                                                </span><span class="fa fa-star"></span><span class="fa fa-star">
+                                                                </span><span class="fa fa-star"></span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><b>Alamat</b></td>
+                                                                <td>&nbsp -</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><b>Kota</b></td>
+                                                                <td>
+                                                                    &nbsp -
+                                                                </td>
+                                                            </tr>
+                                                        </table>
                                                 </td>
                                                 <td>
-                                                    <select class="form-select" id="sub-bidang-kualifikasi">
-                                                        <option value="1">[2817] - [INDUSTRI MESIN DAN PERALATAN KANTOR (BUKAN KOMPUTER DAN PERALATAN PERLENGKAPANNYA)] - [28172] - [INDUSTRI MESIN KANTOR DAN AKUNTANSI ELEKTRIK] - Non Kecil</option>
-                                                        <option value="2">[2817] - [INDUSTRI MESIN DAN PERALATAN KANTOR (BUKAN KOMPUTER DAN PERALATAN PERLENGKAPANNYA)] - [28172] - [INDUSTRI MESIN KANTOR DAN AKUNTANSI ELEKTRIK] - Non Kecil</option>
-                                                    </select>
+                                                    <ul>
+                                                        <li>contoh</li>
+                                                        <li>contoh</li>
+                                                        <li>contoh</li>
+                                                    </ul>
                                                 </td>
-                                                <td>
-                                                    <select class="form-select" id="material-sub-material">
-                                                        <option value="1">C0003 - COMPUTER PERIPHERAL 1 - C0003 - COMPUTER PERIPHERAL 1</option>
-                                                        <option value="2">C0003 - COMPUTER PERIPHERAL 1 - C0003 - COMPUTER PERIPHERAL 1</option>
-                                                    </select>
+                                                <td>                                                    
+                                                    <ul>
+                                                        <li>contoh</li>
+                                                        <li>contoh</li>
+                                                        <li>contoh</li>
+                                                    </ul>
                                                 </td>
                                             </tr>
                                         </tbody>

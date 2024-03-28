@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-        <h5 class="fw-bold">Rincian Item</h5>
+        <h5 class="fw-bold">Activity Resume</h5>
         <table class="table table-bordered">
             <thead class="thead-light">
                 <tr>

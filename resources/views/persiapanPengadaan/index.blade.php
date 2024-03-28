@@ -27,7 +27,7 @@
                                             <div class="card-header">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div>
-                                                        <a href="" class="btn btn-primary mb-2">
+                                                        <a href="{{ route('persiapan-pengadaan.sap')}}" class="btn btn-primary mb-2">
                                                             <i class="fas fa-plus-circle"></i> RFQ
                                                         </a>
                                                     </div>

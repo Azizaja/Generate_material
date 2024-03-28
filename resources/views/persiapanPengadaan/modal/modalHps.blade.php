@@ -11,6 +11,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" action="">
+                        @csrf
                         <div class="card-body">
                             <div class="form-group row">
                                 <label for="nama-item" class="col-sm-2 col-form-label">Nama Item</label>
@@ -52,7 +53,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (App\Models\Pekerjaan::getHpsRincian($pekerjaanRincian->nama) as $detailPekerjaanRincian)
+                                    @forelse (App\Models\Pekerjaan::getHpsRincian($pekerjaanRincian->nama) as $detailPekerjaanRincian)
                                         <tr>
                                             <td>
                                                 <input type="checkbox" name="nama-pilihan" id="pilih-id">
@@ -63,9 +64,13 @@
                                             <td>{{ 'Rp. ' . number_format($detailPekerjaanRincian->harga_satuan_negosiasi, 2, ',', '.') }}
                                             </td>
                                             <td>{{ $detailPekerjaanRincian->created_at }}</td>
-                                            <td>{{ $detailPekerjaanRincian->penawaran->perusahaan->nama }}</td>
+                                            {{-- <td>{{ $detailPekerjaanRincian->penawaran->perusahaan->nama }}</td> --}}
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">Tidak Ada Data</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                             <div class="mt-3">

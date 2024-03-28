@@ -1,6 +1,7 @@
 <div class="row">
     <h5 class="fw-bold">Pelaksana Pengadaan</h5>
     <form action="">
+        @csrf
         <div class="form-group row">
             <label for="nama-pelaksana" class="col-sm-2 form-label">Nama Tim</label>
             <div class="col-sm-10">

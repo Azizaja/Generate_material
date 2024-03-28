@@ -33,7 +33,7 @@
                                             <div class="card-header">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div>
-                                                        <a href="" class="btn btn-primary mb-2">
+                                                        <a href="{{ route('persiapan-pengadaan.sap')}}" class="btn btn-primary mb-2">
                                                             <i class="fas fa-plus-circle"></i> RFQ
                                                         </a>
                                                     </div>
@@ -155,10 +155,15 @@
         </div>
     </div>
 
-    {{-- modal pelaksana kegiatan --}}
+    {{-- modal perisapan pengadaan --}}
     @include('persiapanPengadaan.modal')
     @include('persiapanPengadaan.modal.modalHps')
     @include('persiapanPengadaan.modal.modalSpesifikasi')
+    @include('persiapanPengadaan.modal.modalKualifikasi')
+    @include('persiapanPengadaan.modal.modalAdministrasi')
+    @include('persiapanPengadaan.modal.modalKewajaranHarga')
+    @include('persiapanPengadaan.modal.modalTeknis')
+
 
 @endsection
 
