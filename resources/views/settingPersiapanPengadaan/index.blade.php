@@ -17,7 +17,7 @@
                                     <div class="form-group row">
                                         <label for="no-pengadaan" class="col-sm-2 col-form-label">No Pengadaaan</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control w-75" id="no-pengadaan" value="12RRIO90" name="no-pengadaan"
+                                            <input type="email" class="form-control w-75" id="no-pengadaan" value="" name="no-pengadaan"
                                                 disabled>
                                         </div>
                                     </div>
