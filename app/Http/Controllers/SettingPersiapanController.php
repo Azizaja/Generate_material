@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pekerjaan;
 use Illuminate\Http\Request;
 
 class SettingPersiapanController extends Controller
@@ -11,7 +12,9 @@ class SettingPersiapanController extends Controller
      */
     public function index()
     {
-        return view('settingPersiapanPengadaan.index');
+        return view('settingPersiapanPengadaan.index',[
+            'detail_pekerjaan' => Pekerjaan::all(),
+        ]);
     }
 
     /**

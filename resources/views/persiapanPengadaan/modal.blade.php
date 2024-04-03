@@ -49,15 +49,15 @@
                         <div class="form-group row">
                             <label for="no-pengadaan" class="col-sm-2 col-form-label">Nomor Pengadaan</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control w-50" id="no-pengadaan" value="Rp. 200.000"
-                                    name="no-pengadaan" disabled>
+                                <input type="text" class="form-control w-50" id="no-pengadaan" value="{{ $detail_pekerjaan->kode ?? '' }}"
+                                    name="no-pengadaan" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="nama-pengadaan" class="col-sm-2 col-form-label">Nama Pengadaan</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control w-50" id="nama-pengadaan"
-                                    name="nama-pengadaan" value="Pengadaan Bahan Baku" disabled>
+                                    name="nama-pengadaan" value="{{ $detail_pekerjaan->nama ?? 'N/A' }}" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -65,14 +65,12 @@
                             <div class="col-sm-10">
                                 <select class="form-select w-50" id="requester">
                                     <option selected="selected">Pilih Requester</option>
-                                    <option>Logistik</option>
-                                    <option>Produksi</option>
-                                    <option>Quality Control</option>
+                                    {{-- <option value="">{{ $detail_pekerjaan->created_by }}</option> --}}
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="cc-email" class="col-sm-2 col-form-label">Harga Satuan</label>
+                            <label for="cc-email" class="col-sm-2 col-form-label">CC Email</label>
                             <div class="col-sm-10">
                                 <input type="email" class="form-control w-50" id="cc-email" name="cc-email"
                                     placeholder="masukan CC">
@@ -94,7 +92,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                @forelse ($detail_pekerjaan->pekerjaanRincian as $rincianP)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $rincianP->maxPr->pr_no ?? '' }}</td>
+                                        <td>{{ $rincianP->maxPr->pr_line ?? '' }}</td>
+                                        <td>{{ $rincianP->maxPr->itemnum ?? '' }}</td>
+                                        <td>{{ $rincianP->nama }}</td>
+                                        <td>{{ $rincianP->volume }}</td>
+                                        <td>{{ $rincianP->satuan }}</td>
+                                        <td>
+                                            <textarea type="text" class="form-control" placeholder="Catatan Perubahan"
+                                                name="catatan-perubahan" rows="1"></textarea>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="8" class="text-center">Data tidak ditemukan</td>
+                                    </tr>
+                                @endforelse
+
+                                {{-- <tr>
                                     <td>1</td>
                                     <td>PR-1234</td>
                                     <td>1</td>
@@ -105,11 +123,11 @@
                                     <td>
                                         <textarea type="text" class="form-control" placeholder="Catatan Perubahan" name="catatan-perubahan"></textarea>
                                     </td>
-                                </tr>
+                                </tr> --}}
                             </tbody>
                         </table>
                     </div>
-                    <button type="submit" class="btn btn-danger">Batal</button>
+                    <button type="submit" class="btn btn-danger" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>
             </div>

@@ -21,7 +21,7 @@
                 @php
                     $total = 0;
                 @endphp
-                @foreach ($detail_pekerjaan->pekerjaanRincian as $rincianP)
+                @forelse ($detail_pekerjaan->pekerjaanRincian as $rincianP)
                     @php
                         $total += $rincianP->harga_satuan * $rincianP->volume;
                     @endphp
@@ -43,7 +43,11 @@
                                 class="btn btn-success btn-md">Spesifikasi</a>
                         </td>
                     </tr>
-                @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="10" class="text-center">Data tidak ditemukan</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

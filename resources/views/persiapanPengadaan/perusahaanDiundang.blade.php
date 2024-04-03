@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($detail_pekerjaan->perusahaanDiundang as $perusahaanDiundang)
+                @forelse ($detail_pekerjaan->perusahaanDiundang as $perusahaanDiundang)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ DataFormatterHelper::formatNpwp($perusahaanDiundang->perusahaan->npwp) }}</td>
@@ -48,7 +48,11 @@
                             <p>{{ $string_status }}</p>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center">Data tidak ditemukan</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

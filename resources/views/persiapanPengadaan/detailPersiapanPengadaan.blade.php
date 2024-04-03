@@ -21,7 +21,7 @@
                     <tr>
                         <td><b>Di Buat Oleh</b></td>
                         <td>:</td>
-                        <td>&nbsp{{ $detail_pekerjaan->created_by }}</td>
+                        <td>&nbsp{{ $detail_pekerjaan->created_by ?? '' }}</td>
                     </tr>
                     <tr>
                         <td><b>Unit kerja</b></td>
