@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\PekerjaanPanitia;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PekerjaanPanitiaAkses extends Model
 {
@@ -39,4 +41,9 @@ class PekerjaanPanitiaAkses extends Model
     const KODE_AKSES    = 1;
     const KODE_APPROVE    = 2;
     const KODE_READONLY    = 3;
+
+    public function pekerjaanPanitia(): BelongsTo
+    {
+        return $this->belongsTo(PekerjaanPanitia::class, 'pekerjaan_panitia_id', 'id');
+    }
 }

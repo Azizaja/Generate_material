@@ -15,8 +15,13 @@ class MetodePengadaan extends Model
 
     protected $guarded = ['id'];
 
-    public function MetodeEvaluasiPenawaran(): HasOne
+    public function metodeEvaluasiPenawaran(): HasOne
     {
         return $this->hasOne(MetodeEvaluasiPenawaran::class, 'id', 'metode_evaluasi_penawaran_id');
+    }
+
+    public function masterTahap(): HasMany
+    {
+        return $this->hasMany(MasterTahap::class, 'master_metode_pengadaan_id', 'master_metode_pengadaan_id');
     }
 }

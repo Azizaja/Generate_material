@@ -83,4 +83,23 @@ class ApplicationUser extends Model
 
         return $result;
     }
+    public static function doSelectPanitiaByInstansiSatuanKerjaAsArray($instansi_id = null, $satuan_kerja_id = null)
+    {
+        //$user = ApplicationUser::where('id', 20301)->first();
+
+        $users = self::where('instansi_id', $instansi_id)
+            //->where('satuan_kerja_id', $satuan_kerja_id)
+            ->where('tipe_user_id', self::TIPE_PANITIA)
+            ->get();
+        //if cridential ... , can edit after adding auth
+        // if ($satuan_kerja_id !== null && !$user->isDirekturUnitP2bj() && !$user->isAdministratorOperasional() && !$user->isAdministratorSuper() && !$user->isPanitia()) {
+        //     $critcopy->add(self::SATUAN_KERJA_ID, $satuan_kerja_id);
+        // }
+        $result = array();
+        foreach ($users as $user) {
+            $result[] = $user->nama;
+        }
+
+        return $result;
+    }
 }

@@ -1,8 +1,10 @@
 <?php
 
 use App\Models\Pekerjaan;
+use App\Models\PekerjaanPanitia;
 use App\Models\PekerjaanRincian;
 use App\Models\PenawaranRincian;
+use App\Models\PekerjaanPanitiaAkses;
 
 class PekerjaanHelper
 {
@@ -73,7 +75,9 @@ class PekerjaanHelper
     public static function getStringHPS($pekerjaan_id)
     {
         $detail_pekerjaan = Pekerjaan::find($pekerjaan_id);
-        if ($detail_pekerjaan->currency_value == 1) {
+        if ($detail_pekerjaan->currency_value == NULL) {
+            $idr_val_default = PekerjaanHelper::getCurrencyValue('IDR');
+        } elseif ($detail_pekerjaan->currency_value == 1) {
             $idr_val_default = PekerjaanHelper::getCurrencyValue('IDR');
         } else {
             $idr_val_default = $detail_pekerjaan->currency_value;
@@ -128,5 +132,27 @@ class PekerjaanHelper
     {
         $arr_status_string = self::getStatusStringArray();
         return $arr_status_string[$status];
+    }
+    public static function getAksesPanitiaByPekerjaanId($pekerjaan_id, $jenis_akses = null, $akses = null)
+    {
+        $subQuery = PekerjaanPanitia::select('id')
+            ->where('PEKERJAAN_ID', $pekerjaan_id);
+
+        $query = PekerjaanPanitiaAkses::whereIn('PEKERJAAN_PANITIA_ID', function ($query) use ($subQuery) {
+            $query->select('id')
+                ->fromSub($subQuery, 'sub_query');
+        });
+
+        if ($jenis_akses !== null) {
+            $query->where('AKSES', $jenis_akses);
+        }
+
+        if ($akses === 0) {
+            $query->whereNull('SEQUENCE');
+        } elseif ($akses === 1) {
+            $query->whereNotNull('SEQUENCE');
+        }
+
+        return $query->get();
     }
 }

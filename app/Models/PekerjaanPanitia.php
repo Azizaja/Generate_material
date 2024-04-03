@@ -30,4 +30,8 @@ class PekerjaanPanitia extends Model
     {
         return $this->hasOne(KelompokPanitia::class, 'id', 'kelompok_panitia_id');
     }
+    public function pekerjaanPanitiaAkses(): Hasone
+    {
+        return $this->hasOne(PekerjaanPanitiaAkses::class, 'pekerjaan_panitia_id', 'id');
+    }
 }

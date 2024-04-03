@@ -21,7 +21,7 @@
                 @php
                     $total = 0;
                 @endphp
-                @foreach ($detail_pekerjaan->pekerjaanRincian as $rincianP)
+                @forelse ($detail_pekerjaan->pekerjaanRincian as $rincianP)
                     @php
                         $total += $rincianP->harga_satuan * $rincianP->volume;
                     @endphp
@@ -30,9 +30,9 @@
                         <td>{{ $rincianP->maxPr->pr_no ?? '' }}</td>
                         <td>{{ $rincianP->maxPr->pr_line ?? '' }}</td>
                         <td>{{ $rincianP->maxPr->itemnum ?? '' }}</td>
-                        <td>{{ $rincianP->nama }}</td>
-                        <td>{{ $rincianP->volume }}</td>
-                        <td>{{ $rincianP->satuan }}</td>
+                        <td>{{ $rincianP->nama ?? '-' }}</td>
+                        <td>{{ $rincianP->volume ?? '-' }}</td>
+                        <td>{{ $rincianP->satuan ?? '-' }}</td>
                         <td class="text-right">{{ 'Rp. ' . number_format($rincianP->harga_satuan, 2, ',', '.') }}</td>
                         <td class="text-right">
                             {{ 'Rp. ' . number_format($rincianP->harga_satuan * $rincianP->volume, 2, ',', '.') }}</td>
@@ -43,7 +43,11 @@
                                 class="btn btn-success btn-md">Spesifikasi</a>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="10" class="text-center">Data tidak ditemukan</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

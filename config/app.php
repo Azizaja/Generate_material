@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -194,4 +194,7 @@ return [
     'approval' => [
         'panitia' => env('APPROVAL_PANITIA', 1),
     ],
+    'multi_pemenang' => [
+        'bobot' => env('MULTI_PEMENANG_BOBOT', 0),
+    ]
 ];

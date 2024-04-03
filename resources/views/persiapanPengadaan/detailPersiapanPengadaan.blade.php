@@ -85,7 +85,7 @@
                                 </table>
                             </td>
                         <tr>
-                        {{-- <tr>
+                            {{-- <tr>
                             <td><b>Bobot Teknis</b></td>
                             <td>:</td>
                             <td>{{ $detail_pekerjaan->bobot_teknis }}</td>
@@ -95,7 +95,7 @@
                             <td>:</td>
                             <td>{{ $detail_pekerjaan->bobot_harga }}</td>
                         </tr> --}}
-                    @else
+                        @else
                         <tr>
                             <td><b>Bobot</b></td>
                             <td>:</td>
@@ -178,10 +178,12 @@
         <a href="#usulan-perubahan" data-toggle="modal" class="btn btn-warning btn-sm mb-2">
             <i class="fas fa-plus-circle"></i> Usulan Perubahan
         </a>
+        @include('persiapanPengadaan.modal.modalUsulanPerubahan')
         <a href="{{ route('setting-persiapan.index') }}" class="btn btn-info btn-sm mb-2">
             <i class="fas fa-sliders-h"></i> Setting Persiapan Pengadaan
         </a>
-        <a href="{{ route('persiapan-pengadaan.undangan') }}" class="btn btn-primary btn-sm mb-2">
+        <a href="{{ route('persiapan-pengadaan.undangan', ['id' => $detail_pekerjaan->id]) }}"
+            class="btn btn-primary btn-sm mb-2">
             <i class="fas fa-mail-bulk"></i> Undang Penyedia (0)
         </a>
         <a href="" class="btn btn-success btn-sm mb-2">
