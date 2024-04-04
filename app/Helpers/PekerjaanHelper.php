@@ -8,6 +8,19 @@ use App\Models\PekerjaanPanitiaAkses;
 
 class PekerjaanHelper
 {
+    public static function getMetodeKontrakArr()
+    {
+        $arr = array();
+        $arr[Pekerjaan::METODE_KONTRAK_LUMPSUM] = 'Lumpsum';
+        $arr[Pekerjaan::METODE_KONTRAK_RINCIAN] = 'Harga Satuan';
+        $arr[Pekerjaan::METODE_KONTRAK_GABUNGAN] = 'Gabungan Lumpsum dan Harga Satuan';
+        $arr[Pekerjaan::METODE_KONTRAK_PROSENTASE] = 'Prosentase';
+        $arr[Pekerjaan::METODE_KONTRAK_TERIMA_JADI] = 'Terima Jadi (Turnkey)';
+        $arr[Pekerjaan::METODE_KONTRAK_LOI] = 'Repeat Order/LOI';
+
+        return $arr;
+    }
+
     public static function getMetodeKontrak($metode)
     {
         $texts = [
