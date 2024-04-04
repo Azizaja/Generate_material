@@ -184,4 +184,12 @@ class Pekerjaan extends Model
         }
         return false;
     }
+
+    public static function getCurrencyArray()
+  {
+    return array(
+		'IDR' => 'IDR',
+		'USD' => 'USD',
+    );
+  }
 }

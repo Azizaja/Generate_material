@@ -17,18 +17,18 @@
                         <label for="bidang-material">Bidang Material</label>
                         <select class="form-select" name="bidang-material" id="bidang-material">
                             <option value="" selected>Pilih Bidang Material</option>
-                            {{-- @foreach ($detail_pekerjaan->bidang as $bidangs)
-                                <option value="">[{{ $bidangs->kode }}] - [{{ $bidangs->nama }}]</option>
-                            @endforeach --}}
+                            @foreach ($bidang_material as $bidangs)
+                                <option value="{{$bidangs->kode}}">{{ $bidangs->kode }} - {{ $bidangs->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="sub-bidang">Sub Bidang</label>
                         <select class="form-select" name="sub-bidang" id="sub-bidang">
                             <option value="" selected>Pilih Sub Bidang Material</option>
-                            {{-- @foreach ($bidangs->subBidang as $subBidang)
-                                <option value="">[{{ $subBidang->kode }}] - [{{ $subBidang->nama }}]</option>
-                            @endforeach --}}
+                            @foreach ($sub_bidang_material as $subBidang)
+                                <option value="{{$subBidang->kode}}">{{ $subBidang->kode }} - {{ $subBidang->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">

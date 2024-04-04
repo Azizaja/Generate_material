@@ -28,7 +28,7 @@ Route::get('persiapan-pengadaan/konfigurasi-administrasi', [PersiapanPengadaanCo
 Route::get('persiapan-pengadaan/konfigurasi-teknis', [PersiapanPengadaanController::class, 'showKonfigurasiTeknis'])->name('persiapan-pengadaan.konfigurasi-teknis');
 Route::get('persiapan-pengadaan/sap', [PersiapanPengadaanController::class, 'showSAPRFQ'])->name('persiapan-pengadaan.sap');
 Route::get('persiapan-pengadaan/detailRFQ', [PersiapanPengadaanController::class, 'showDetailRFQ'])->name('persiapan-pengadaan.detailRFQ');
-Route::resource('setting-persiapan', SettingPersiapanController::class);
+// Route::resource('setting-persiapan', SettingPersiapanController::class);
 
-
+Route::get('/persiapan-pengadaan/setting-perispan-pengadaan/{id}', [SettingPersiapanController::class, 'show'])->name('setting-persiapan.show');
 Route::get('/persiapan-pengadaan/akses-pelaksana-pengadaan/{id}', [AksesPelaksanaPengadaanController::class, 'show'])->name('akses-pelaksana-pengadaan.show');

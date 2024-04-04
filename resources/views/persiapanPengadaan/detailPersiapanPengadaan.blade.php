@@ -179,7 +179,7 @@
             <i class="fas fa-plus-circle"></i> Usulan Perubahan
         </a>
         @include('persiapanPengadaan.modal.modalUsulanPerubahan')
-        <a href="{{ route('setting-persiapan.index') }}" class="btn btn-info btn-sm mb-2">
+        <a href="{{ route('setting-persiapan.show', ['id' => $detail_pekerjaan->id]) }}" class="btn btn-info btn-sm mb-2">
             <i class="fas fa-sliders-h"></i> Setting Persiapan Pengadaan
         </a>
         <a href="{{ route('persiapan-pengadaan.undangan', ['id' => $detail_pekerjaan->id]) }}"
