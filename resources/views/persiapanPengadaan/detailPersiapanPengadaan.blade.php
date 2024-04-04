@@ -184,7 +184,7 @@
         </a>
         <a href="{{ route('persiapan-pengadaan.undangan', ['id' => $detail_pekerjaan->id]) }}"
             class="btn btn-primary btn-sm mb-2">
-            <i class="fas fa-mail-bulk"></i> Undang Penyedia (0)
+            <i class="fas fa-mail-bulk"></i> Undang Penyedia
         </a>
         <a href="" class="btn btn-success btn-sm mb-2">
             <i class="fas fa-clipboard-check"></i> Register

@@ -55,8 +55,11 @@
                                     <div class="col-sm-10">
                                         <select class="form-select w-75" name="tahun-anggaran">
                                             <option selected="selected">Pilih Tahun Anggaran</option>
-                                            <option value="1">2024</option>
-                                            <option>2023</option>
+                                            @foreach ($pekerjaans as $pekerjaan)
+                                                <option value="{{ $pekerjaan->tahun }}"
+                                                    {{ $pekerjaan->tahun == $detail_pekerjaan->tahun ? 'selected' : '' }}>
+                                                    {{ $pekerjaan->tahun }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -77,8 +80,11 @@
                                     <div class="col-sm-10">
                                         <select class="form-select w-75" name="metode-pengadaan">
                                             <option selected="selected">Pilih Metode Pengadaaan</option>
-                                            <option value="{{$detail_pekerjaan->metodePengadaan->nama ?? ''}}">
-                                                {{$detail_pekerjaan->metodePengadaan->nama ?? ''}} </option>
+                                                @foreach ($metode_pengadaans as $metode)
+                                                <option value="{{ $metode->id }}"
+                                                    {{ $metode->id == $detail_pekerjaan->metodePengadaan->id ? 'selected' : '' }}>
+                                                    {{ $metode->nama }}</option>
+                                                @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -88,10 +94,12 @@
                                     <div class="col-sm-10">
                                         <select class="form-select w-75" name="jenis-kontrak">
                                             <option selected="selected">Pilih Jenis Kontrak</option>
-                                            {{-- @foreach (PekerjaanHelper::getMetodeKontrak() as $metode => $label)
-                                            <option value="{{ $metode }}">{{ $label }}</option>
-                                        @endforeach --}}
-                                         </select>
+                                            @foreach (PekerjaanHelper::getMetodeKontrakArr() as $metode)
+                                                <option value="{{ $metode }}"
+                                                    {{ $metode == $detail_pekerjaan->metode_kontrak ? 'selected' : '' }}>
+                                                    {{ $metode }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -101,7 +109,9 @@
                                         <select class="form-select w-75" name="requester">
                                             <option selected="selected">Pilih Requester</option>
                                             @foreach (App\Models\ApplicationUser::doSelectPanitiaByInstansiSatuanKerjaAsArray(1) as $panitia)
-                                                <option value="{{ $panitia }}">{{ $panitia }}</option>
+                                                <option value="{{ $panitia }}"
+                                                    {{ $panitia == $detail_pekerjaan->requester ? 'selected' : '' }}>
+                                                    {{ $panitia }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -111,8 +121,13 @@
                                         Pemenang</label>
                                     <div class="col-sm-10">
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                            <label class="form-check-label" for="exampleCheck2">Gunakan Status Multi
+                                            @if ($detail_pekerjaan->status_multi_pemenang == 1)
+                                            <input type="checkbox" class="form-check-input" id="multi-pemenang-check" checked>
+                                                @else
+                                                <input type="checkbox" class="form-check-input" id="multi-pemenang-check">
+                                            @endif
+                                            
+                                            <label class="form-check-label" for="multi-pemenang-check">Gunakan Status Multi
                                                 Pemenang</label>
                                         </div>
                                     </div>
@@ -150,7 +165,7 @@
                                                         @endforeach
                                                     @empty
                                                         <tr>
-                                                            <td colspan="3" class="text-center">Tidak Ada Data</td>
+                                                            <td colspan="4" class="text-center">Tidak Ada Data</td>
                                                         </tr>
                                                     @endforelse
                                                 </tbody>
@@ -189,7 +204,7 @@
                                                         </tr>
                                                     @empty
                                                         <tr>
-                                                            <td colspan="2" class="text-center">Tidak Ada Data</td>
+                                                            <td colspan="3" class="text-center">Tidak Ada Data</td>
                                                         </tr>
                                                     @endforelse
                                                 </tbody>
