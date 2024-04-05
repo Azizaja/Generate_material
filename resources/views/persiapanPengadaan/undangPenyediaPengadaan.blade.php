@@ -157,15 +157,21 @@
                                                             @if ($perusahaanDiundang->state == App\Models\Pekerjaan::STATUS_PERUSAHAAN_SESUAI_SPEC)
                                                                 <p>{{ $perusahaanDiundang->perusahaan->nama }}</p>
                                                                 @php
-                                                                    $string_status = '';
+                                                                    $string_status = 'Sesuai Spesifikasi';
                                                                 @endphp
                                                             @endif
                                                         </td>
-                                                        <td>{{ $perusahaanDiundang->perusahaan->dpp_nomor }}</td>
+                                                        @php
+                                                            $perusahaan = new App\Models\Perusahaan();
+                                                            $statusDrt = $perusahaan->getStatusDrt();
+                                                        @endphp
+                                                        <td>{{ $perusahaanDiundang->perusahaan->dpp_nomor }}
+                                                            {!! $statusDrt !!}
+                                                        </td>
                                                         <td>{{ $perusahaanDiundang->perusahaan->satuanKerja->nama ?? '-' }}
                                                         </td>
                                                         <td>
-                                                            <p>{{ $string_status }}</p>
+                                                            <p><b>Status : </b>{{ $string_status }}</p>
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-primary">

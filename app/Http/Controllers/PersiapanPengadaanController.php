@@ -8,6 +8,7 @@ use App\Models\MetodePengadaan;
 use Illuminate\Http\Request;
 use App\Models\Pekerjaan;
 use App\Models\PenawaranRincian;
+use App\Models\Perusahaan;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use App\Models\Services\UserService;
 
@@ -83,6 +84,49 @@ class PersiapanPengadaanController extends Controller
     }
     public function showUndanganPenyedia($id)
     {
+        // $query = Perusahaan::query();
+
+        // $sql_calon_diundang = Pekerjaan::find($id)->getSqlCalonPenyediaDiundang();
+
+        // if (isset($sql_calon_diundang)) {
+        //     $query->whereIn('id', function ($query) use ($sql_calon_diundang) {
+        //         $query->select('id')
+        //             ->from('perusahaan')
+        //             ->whereRaw("id IN ($sql_calon_diundang)");
+        //     });
+        // }
+
+
+        // $penyedias = $query->where('status_rule', Perusahaan::STATUS_APPR)
+        //     ->orWhere('status_rule', Perusahaan::STATUS_DISETUJUI)
+        //     ->orWhere('status_rule', Perusahaan::STATUS_MENUNGGU_APPROVAL)
+        //     ->orderBy('nama', 'asc')
+        //     ->get();
+
+        // $c = Perusahaan::where('status_rule', Perusahaan::STATUS_APPR)
+        //     ->orWhere('status_rule', Perusahaan::STATUS_DISETUJUI)
+        //     ->orWhere('status_rule', Perusahaan::STATUS_MENUNGGU_APPROVAL)
+        //     ->orderBy('nama', 'asc');
+
+        // if ($this->kategori_id == 0) {
+        //     $sql_calon_diundang = $this->pekerjaan->getSqlCalonPenyediaDiundang();
+        //     if ($sql_calon_diundang) {
+        //         $c->whereIn('id', function ($query) use ($sql_calon_diundang) {
+        //             $query->select(DB::raw('PERUSAHAAN_ID'))
+        //                 ->from('PERUSAHAAN_SPESIFIKASI')
+        //                 ->whereIn(DB::raw('SUB_BIDANG_ID'), function ($subQuery) use ($sql_calon_diundang) {
+        //                     $subQuery->select(DB::raw('SUB_BIDANG_ID'))
+        //                         ->from('PERUSAHAAN_SPESIFIKASI')
+        //                         ->whereRaw($sql_calon_diundang);
+        //                 });
+        //         });
+        //     }
+        // }
+
+        // $penyedias = $c->get();
+
+        //DebugBar::info($penyedias);
+
         return view('persiapanPengadaan.undangPenyediaPengadaan', [
             'detail_pekerjaan' => Pekerjaan::find($id),
         ]);
