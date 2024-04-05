@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Models\Pekerjaan;
 use App\Models\SubBidang;
+use App\Models\KualifikasiGroupDetail;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PekerjaanSubBidang extends Model
 {
@@ -25,8 +27,8 @@ class PekerjaanSubBidang extends Model
     {
         return $this->belongsTo(SubBidang::class, 'sub_bidang_id', 'id');
     }
-    public function kualifikasiGroupDetail(): HasMany
+    public function kualifikasiGroupDetail(): HasOne
     {
-        return $this->hasMany(KualifikasiGroupDetail::class, 'id', 'kualifikasi_group_detail_id');
+        return $this->hasOne(KualifikasiGroupDetail::class, 'id', 'kualifikasi_group_detail_id');
     }
 }

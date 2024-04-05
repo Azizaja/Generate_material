@@ -13,6 +13,7 @@ use App\Models\PenawaranRincian;
 use PekerjaanPanitiaAksesHelper;
 use App\Models\PekerjaanSubBidang;
 use App\Models\PerusahaanDiundang;
+use Illuminate\Support\Facades\DB;
 use App\Models\PekerjaanPanitiaAkses;
 use App\Models\PekerjaanSubCommodity;
 use Barryvdh\Debugbar\Facades\Debugbar;
@@ -186,10 +187,74 @@ class Pekerjaan extends Model
     }
 
     public static function getCurrencyArray()
-  {
-    return array(
-		'IDR' => 'IDR',
-		'USD' => 'USD',
-    );
-  }
+    {
+        return array(
+            'IDR' => 'IDR',
+            'USD' => 'USD',
+        );
+    }
+
+    public function getSqlCalonPenyediaDiundang2()
+    {
+        $pekerjaan_id = $this->id;
+        $pekerjaan_sub_bidangs = $this->pekerjaanSubBidang;
+
+        $sqlQueries = [];
+
+        if ($pekerjaan_sub_bidangs->isNotEmpty()) {
+            foreach ($pekerjaan_sub_bidangs as $pekerjaan_sub_bidang) {
+                $subBidangId = $pekerjaan_sub_bidang->subBidang->id;
+                echo 'subBidangId = ' . $subBidangId;
+                $kualifikasiGroupDetailId = optional($pekerjaan_sub_bidang->kualifikasiGroupDetail)->id;
+                echo 'kualifikasiGroupDetailId = ' . $kualifikasiGroupDetailId;
+
+                $query = DB::table('perusahaan_spesifikasi')
+                    ->select('perusahaan_id')
+                    ->where('sub_bidang_id', $subBidangId);
+
+                if ($kualifikasiGroupDetailId) {
+                    $query->where('kualifikasi_group_detail_id', '>=', $kualifikasiGroupDetailId);
+                }
+
+                $sqlQueries[] = $query->toSql();
+            }
+        }
+
+        return implode(' UNION ', $sqlQueries);
+    }
+    public function getCalonPenyediaDiundangQuery($pekerjaan)
+    {
+        $query = Perusahaan::query()->where('status_rule', Perusahaan::STATUS_APPR)
+            ->orWhere('status_rule', Perusahaan::STATUS_DISETUJUI)
+            ->orWhere('status_rule', Perusahaan::STATUS_MENUNGGU_APPROVAL)
+            ->orderBy('nama', 'asc');
+
+        // $query->whereIn('id', function ($subQuery) use ($pekerjaan) {
+        //     $subQuery->select('perusahaan_id')
+        //         ->from('perusahaan_spesifikasi')
+        //         ->whereIn('sub_bidang_id', function ($subSubQuery) use ($pekerjaan) {
+        //             $subSubQuery->select('sub_bidang_id')
+        //                 ->from('pekerjaan_sub_bidang')
+        //                 ->where('pekerjaan_id', $pekerjaan->id)
+        //                 ->whereColumn('kualifikasi_group_detail_id', '>=', 'perusahaan_spesifikasi.kualifikasi_group_detail_id');
+        //         })
+        //         ->orWhereIn('sub_bidang_id', function ($subSubQuery) use ($pekerjaan) {
+        //             $subSubQuery->select('sub_bidang_id')
+        //                 ->from('pekerjaan_sub_bidang')
+        //                 ->where('pekerjaan_id', $pekerjaan->id);
+        //         });
+        // });
+
+        // $query->orWhereIn('id', function ($subQuery) use ($pekerjaan) {
+        //     $subQuery->select('perusahaan_id')
+        //         ->from('perusahaan_commodity')
+        //         ->whereIn('sub_commodity_id', function ($subSubQuery) use ($pekerjaan) {
+        //             $subSubQuery->select('sub_commodity_id')
+        //                 ->from('pekerjaan_sub_commodity')
+        //                 ->where('pekerjaan_id', $pekerjaan->id);
+        //         });
+        // });
+
+        return $query;
+    }
 }

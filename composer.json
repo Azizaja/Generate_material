@@ -36,10 +36,12 @@
         "files": [
             "app/Helpers/DataFormatterHelper.php",
             "app/Helpers/PekerjaanHelper.php",
-            "app/Helpers/PekerjaanPanitiaHelper.php",
             "app/Helpers/PekerjaanPanitiaAksesHelper.php",
-            "app/Helpers/PekerjaanPersyaratanHelper.php"
-
+            "app/Helpers/PekerjaanPanitiaHelper.php",
+            "app/Helpers/PekerjaanPersyaratanHelper.php",
+            "app/Helpers/PerusahaanHelper.php",
+            "app/Helpers/PerusahaanIjinUsahaHelper.php",
+            "app/Helpers/UserHelper.php"
         ]
     },
     "scripts": {
