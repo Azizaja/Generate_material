@@ -17,18 +17,20 @@
                         <label for="bidang-material">Bidang Material</label>
                         <select class="form-select" name="bidang-material" id="bidang-material">
                             <option value="" selected>Pilih Bidang Material</option>
-                            {{-- @foreach ($detail_pekerjaan->bidang as $bidangs)
-                                <option value="">[{{ $bidangs->kode }}] - [{{ $bidangs->nama }}]</option>
-                            @endforeach --}}
+                            @foreach ($bidang_materials as $bidang)
+                                {{-- <option value="{{$bidang->kode}}">{{ $bidang->kode }} - {{ $bidang->nama }}</option> --}}
+                                <option value="{{$bidang->kode}}">{{ $bidang->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="sub-bidang">Sub Bidang</label>
                         <select class="form-select" name="sub-bidang" id="sub-bidang">
                             <option value="" selected>Pilih Sub Bidang Material</option>
-                            {{-- @foreach ($bidangs->subBidang as $subBidang)
-                                <option value="">[{{ $subBidang->kode }}] - [{{ $subBidang->nama }}]</option>
-                            @endforeach --}}
+                            @foreach ($sub_bidang_materials as $subBidang)
+                                {{-- <option value="{{$subBidang->kode}}">{{ $subBidang->kode }} - {{ $subBidang->nama }}</option> --}}
+                                <option value="{{$subBidang->kode}}">{{ $subBidang->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
@@ -65,21 +67,29 @@
                     @csrf
                     <input type="hidden" name="type" value="material_id">
                     <div class="form-group">
-                        <label for="material-group">Bidang Material</label>
+                        <label for="material-group">Group Material</label>
                         <select class="form-select" name="material-group" id="material-group">
-                            <option value="" selected>Material Group</option>
-                            {{-- @foreach ($detail_pekerjaan->bidang as $bidangs)
-                                <option value="">[{{ $bidangs->kode }}] - [{{ $bidangs->nama }}]</option>
+                            <option value="" selected>Pilih Material Group</option>
+                            {{-- @foreach ($pekerjaans->pekerjaanSubCommodity as $pekerjaanSubCommodity)
+                                <option value="">{{ $pekerjaanSubCommodity->kode }} -{{ $pekerjaanSubCommodity->nama }}</option>
                             @endforeach --}}
+                                @foreach ($group_materials as $item)
+                                    {{-- <option value="{{$item->kode}}">{{ $item->kode }} - {{ $item->nama }}</option> --}}
+                                    <option value="{{$item->kode}}">{{ $item->nama }}</option>
+                                @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="material">Sub Bidang</label>
+                        <label for="material">Material</label>
                         <select class="form-select" name="material" id="material">
-                            <option value="" selected>Material</option>
+                            <option value="" selected>Pilih Material</option>
                             {{-- @foreach ($bidangs->subBidang as $subBidang)
                                 <option value="">[{{ $subBidang->kode }}] - [{{ $subBidang->nama }}]</option>
                             @endforeach --}}
+                            @foreach ($materials as $item)
+                                {{-- <option value="{{$item->kode}}">{{ $item->kode }} - {{ $item->nama }}</option> --}}
+                                <option value="{{$item->kode}}">{{ $item->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
