@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evaluasi;
+use App\Models\KualifikasiGroupDetail;
 use App\Models\MasterTahap;
 use App\Models\MetodePengadaan;
 use Illuminate\Http\Request;
@@ -11,6 +12,9 @@ use App\Models\PenawaranRincian;
 use App\Models\Perusahaan;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use App\Models\Services\UserService;
+use App\Models\SubBidang;
+use Illuminate\Support\Facades\DB;
+use App\Models\Bidang;
 
 class PersiapanPengadaanController extends Controller
 {
@@ -84,48 +88,33 @@ class PersiapanPengadaanController extends Controller
     }
     public function showUndanganPenyedia($id)
     {
-        // $query = Perusahaan::query();
-
-        // $sql_calon_diundang = Pekerjaan::find($id)->getSqlCalonPenyediaDiundang();
-
-        // if (isset($sql_calon_diundang)) {
-        //     $query->whereIn('id', function ($query) use ($sql_calon_diundang) {
-        //         $query->select('id')
-        //             ->from('perusahaan')
-        //             ->whereRaw("id IN ($sql_calon_diundang)");
-        //     });
+        // if ($this->divisi_id > 0) {
+        //     $c->add(PerusahaanPeer::SATUAN_KERJA_ID, $this->divisi_id);
         // }
 
+        $query = Perusahaan::query();
 
-        // $penyedias = $query->where('status_rule', Perusahaan::STATUS_APPR)
-        //     ->orWhere('status_rule', Perusahaan::STATUS_DISETUJUI)
-        //     ->orWhere('status_rule', Perusahaan::STATUS_MENUNGGU_APPROVAL)
-        //     ->orderBy('nama', 'asc')
-        //     ->get();
+        $sql_calon_diundang = Pekerjaan::find($id)->getSqlCalonPenyediaDiundang99();
 
-        // $c = Perusahaan::where('status_rule', Perusahaan::STATUS_APPR)
-        //     ->orWhere('status_rule', Perusahaan::STATUS_DISETUJUI)
-        //     ->orWhere('status_rule', Perusahaan::STATUS_MENUNGGU_APPROVAL)
-        //     ->orderBy('nama', 'asc');
+        if ($sql_calon_diundang) {
+            $penyedias = $query->whereIn('ID', array_column(DB::select($sql_calon_diundang), 'PERUSAHAAN_ID'))
+                ->where(function ($query) {
+                    $query->where('status_rule', Perusahaan::STATUS_APPR)
+                        ->orWhere('status_rule', Perusahaan::STATUS_DISETUJUI)
+                        ->orWhere('status_rule', Perusahaan::STATUS_MENUNGGU_APPROVAL);
+                })
+                ->orderBy('nama', 'asc')
+                ->get();
+        } else {
+            $penyedias = $query->where('STATUS_RULE', Perusahaan::STATUS_APPR)
+                ->orWhere('STATUS_RULE', Perusahaan::STATUS_DISETUJUI)
+                ->orWhere('STATUS_RULE', Perusahaan::STATUS_MENUNGGU_APPROVAL)
+                ->orderBy('NAMA')
+                ->get();
+        }
 
-        // if ($this->kategori_id == 0) {
-        //     $sql_calon_diundang = $this->pekerjaan->getSqlCalonPenyediaDiundang();
-        //     if ($sql_calon_diundang) {
-        //         $c->whereIn('id', function ($query) use ($sql_calon_diundang) {
-        //             $query->select(DB::raw('PERUSAHAAN_ID'))
-        //                 ->from('PERUSAHAAN_SPESIFIKASI')
-        //                 ->whereIn(DB::raw('SUB_BIDANG_ID'), function ($subQuery) use ($sql_calon_diundang) {
-        //                     $subQuery->select(DB::raw('SUB_BIDANG_ID'))
-        //                         ->from('PERUSAHAAN_SPESIFIKASI')
-        //                         ->whereRaw($sql_calon_diundang);
-        //                 });
-        //         });
-        //     }
-        // }
 
-        // $penyedias = $c->get();
-
-        //DebugBar::info($penyedias);
+        DebugBar::info($penyedias);
 
         return view('persiapanPengadaan.undangPenyediaPengadaan', [
             'detail_pekerjaan' => Pekerjaan::find($id),
@@ -160,5 +149,24 @@ class PersiapanPengadaanController extends Controller
     public function ShowDetailRFQ()
     {
         return view('RFQ.detailRFQ');
+    }
+    public function getSubBidang(Request $request)
+    {
+        DebugBar::info('masuk');
+        // Ambil id bidang material yang dipilih dari request
+        $bidangId = $request->input('bidang_id');
+
+        // Query untuk mendapatkan sub bidang berdasarkan bidang material yang dipilih
+        $subBidangMaterials = SubBidang::where('bidang_id', $bidangId)->pluck('nama', 'id');
+        $kualifikasi = KualifikasiGroupDetail::where('group_id', Bidang::find($bidangId)->group_id)
+            ->select('id', 'nama', 'pekerjaan_batas_bawah', 'pekerjaan_batas_atas')
+            ->get();
+
+        $data = [
+            'sub_bidang' => $subBidangMaterials,
+            'kualifikasi' => $kualifikasi
+        ];
+        // Kirimkan data sub bidang dalam format JSON
+        return response()->json($data);
     }
 }

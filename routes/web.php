@@ -32,3 +32,5 @@ Route::get('persiapan-pengadaan/detailRFQ', [PersiapanPengadaanController::class
 
 Route::get('/persiapan-pengadaan/setting-perispan-pengadaan/{id}', [SettingPersiapanController::class, 'show'])->name('setting-persiapan.show');
 Route::get('/persiapan-pengadaan/akses-pelaksana-pengadaan/{id}', [AksesPelaksanaPengadaanController::class, 'show'])->name('akses-pelaksana-pengadaan.show');
+
+Route::post('/get-sub-bidang', [PersiapanPengadaanController::class, 'getSubBidang'])->name('get-sub-bidang');

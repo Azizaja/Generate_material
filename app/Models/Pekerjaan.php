@@ -222,6 +222,50 @@ class Pekerjaan extends Model
 
         return implode(' UNION ', $sqlQueries);
     }
+    public function getCalonPenyediaDiundangQuery3($pekerjaan)
+    {
+        $query = Perusahaan::query()->where('status_rule', Perusahaan::STATUS_APPR)
+            ->orWhere('status_rule', Perusahaan::STATUS_DISETUJUI)
+            ->orWhere('status_rule', Perusahaan::STATUS_MENUNGGU_APPROVAL)
+            ->orderBy('nama', 'asc');
+
+        $pekerjaan_sub_bidangs = $this->pekerjaanSubBidang;
+
+        if ($pekerjaan_sub_bidangs) {
+            echo 'pekerjaan_sub_bidangs ada';
+            $query->whereIn('id', function ($subQuery) use ($pekerjaan) {
+                $subQuery->select('perusahaan_id')
+                    ->from('perusahaan_spesifikasi')
+                    ->whereIn('sub_bidang_id', function ($subSubQuery) use ($pekerjaan) {
+                        $subSubQuery->select('sub_bidang_id')
+                            ->from('pekerjaan_sub_bidang')
+                            ->where('pekerjaan_id', $pekerjaan->id)
+                            ->whereColumn('kualifikasi_group_detail_id', '>=', 'perusahaan_spesifikasi.kualifikasi_group_detail_id');
+                    })
+                    ->orWhereIn('sub_bidang_id', function ($subSubQuery) use ($pekerjaan) {
+                        $subSubQuery->select('sub_bidang_id')
+                            ->from('pekerjaan_sub_bidang')
+                            ->where('pekerjaan_id', $pekerjaan->id);
+                    });
+            });
+        }
+
+        // $pekerjaan_materials = $this->pekerjaanSubCommodity;
+        // if ($pekerjaan_materials) {
+        //     echo 'pekerjaan_materials ada';
+        //     $query->orWhereIn('id', function ($subQuery) use ($pekerjaan) {
+        //         $subQuery->select('perusahaan_id')
+        //             ->from('perusahaan_commodity')
+        //             ->whereIn('sub_commodity_id', function ($subSubQuery) use ($pekerjaan) {
+        //                 $subSubQuery->select('sub_commodity_id')
+        //                     ->from('pekerjaan_sub_commodity')
+        //                     ->where('pekerjaan_id', $pekerjaan->id);
+        //             });
+        //     });
+        // }
+
+        return $query;
+    }
     public function getCalonPenyediaDiundangQuery($pekerjaan)
     {
         $query = Perusahaan::query()->where('status_rule', Perusahaan::STATUS_APPR)
@@ -229,21 +273,21 @@ class Pekerjaan extends Model
             ->orWhere('status_rule', Perusahaan::STATUS_MENUNGGU_APPROVAL)
             ->orderBy('nama', 'asc');
 
-        // $query->whereIn('id', function ($subQuery) use ($pekerjaan) {
-        //     $subQuery->select('perusahaan_id')
-        //         ->from('perusahaan_spesifikasi')
-        //         ->whereIn('sub_bidang_id', function ($subSubQuery) use ($pekerjaan) {
-        //             $subSubQuery->select('sub_bidang_id')
-        //                 ->from('pekerjaan_sub_bidang')
-        //                 ->where('pekerjaan_id', $pekerjaan->id)
-        //                 ->whereColumn('kualifikasi_group_detail_id', '>=', 'perusahaan_spesifikasi.kualifikasi_group_detail_id');
-        //         })
-        //         ->orWhereIn('sub_bidang_id', function ($subSubQuery) use ($pekerjaan) {
-        //             $subSubQuery->select('sub_bidang_id')
-        //                 ->from('pekerjaan_sub_bidang')
-        //                 ->where('pekerjaan_id', $pekerjaan->id);
-        //         });
-        // });
+        $query->whereIn('id', function ($subQuery) use ($pekerjaan) {
+            $subQuery->select('perusahaan_id')
+                ->from('perusahaan_spesifikasi')
+                ->whereIn('sub_bidang_id', function ($subSubQuery) use ($pekerjaan) {
+                    $subSubQuery->select('sub_bidang_id')
+                        ->from('pekerjaan_sub_bidang')
+                        ->where('pekerjaan_id', $pekerjaan->id)
+                        ->whereColumn('kualifikasi_group_detail_id', '>=', 'perusahaan_spesifikasi.kualifikasi_group_detail_id');
+                })
+                ->orWhereIn('sub_bidang_id', function ($subSubQuery) use ($pekerjaan) {
+                    $subSubQuery->select('sub_bidang_id')
+                        ->from('pekerjaan_sub_bidang')
+                        ->where('pekerjaan_id', $pekerjaan->id);
+                });
+        });
 
         // $query->orWhereIn('id', function ($subQuery) use ($pekerjaan) {
         //     $subQuery->select('perusahaan_id')
@@ -256,5 +300,95 @@ class Pekerjaan extends Model
         // });
 
         return $query;
+    }
+    public function test()
+    {
+        $query = Perusahaan::query();
+
+        if ($this->kategori_id == 0) {
+            $sql_calon_diundang = $this->pekerjaan->getSqlCalonPenyediaDiundang();
+            if ($sql_calon_diundang) {
+                $query->whereIn('id', function ($query) use ($sql_calon_diundang) {
+                    $query->select(DB::raw('PERUSAHAAN_ID'))
+                        ->from('PERUSAHAAN_SPESIFIKASI')
+                        ->whereIn('SUB_BIDANG_ID', $sql_calon_diundang);
+                });
+            }
+        }
+        $penyedias = $query->where('STATUS_RULE', Perusahaan::STATUS_APPR)
+            ->orWhere('STATUS_RULE', Perusahaan::STATUS_DISETUJUI)
+            ->orWhere('STATUS_RULE', Perusahaan::STATUS_MENUNGGU_APPROVAL)
+            ->orderBy('NAMA')
+            ->get();
+    }
+
+    public function getSqlCalonPenyediaDiundang99()
+    {
+        $pekerjaan_id = $this->id;
+        //cek apakah ada bidang/subbidang
+        $pekerjaan_sub_bidangs = $this->pekerjaanSubBidang;
+        $status_sub_bidang = false;
+        $strsql = '';
+        if ($pekerjaan_sub_bidangs) {
+            $status_sub_bidang = true;
+            $strsql_bidang = '';
+            $csub = count($pekerjaan_sub_bidangs);
+            $i = 1;
+            foreach ($pekerjaan_sub_bidangs as $pekerjaan_sub_bidang) {
+                if ($pekerjaan_sub_bidang->kualifikasiGroupDetail) {
+                    $kualifikasi_group_detail_id = $pekerjaan_sub_bidang->kualifikasiGroupDetail->id;
+                }
+                if ($pekerjaan_sub_bidang->kualifikasiGroupDetail) {
+                    $sql = " SELECT PERUSAHAAN_ID FROM PERUSAHAAN_SPESIFIKASI WHERE SUB_BIDANG_ID =" .
+                        $pekerjaan_sub_bidang->sub_bidang_id . " AND KUALIFIKASI_GROUP_DETAIL_ID >= " . $kualifikasi_group_detail_id;
+                    $strsql_bidang = $strsql_bidang . $sql;
+                } else {
+                    $sql = " SELECT PERUSAHAAN_ID FROM PERUSAHAAN_SPESIFIKASI WHERE SUB_BIDANG_ID =" .
+                        $pekerjaan_sub_bidang->sub_bidang_id;
+                    $strsql_bidang = $strsql_bidang . $sql;
+                }
+                if ($csub > 1) {
+                    if (($i >= 1) && ($i < $csub)) {
+                        $strsql_bidang = $strsql_bidang . ' UNION ';
+                    }
+                }
+
+                $i++;
+            }
+        }
+        //cek apakah ada group material/material
+        $pekerjaan_materials = $this->pekerjaanSubCommodity;
+        $status_material = false;
+        if ($pekerjaan_materials) {
+            $status_material = true;
+            $strsql_material = '';
+            $csub = count($pekerjaan_materials);
+            $i = 1;
+            foreach ($pekerjaan_materials as $pekerjaan_material) {
+                $sql = " SELECT PERUSAHAAN_ID FROM PERUSAHAAN_COMMODITY WHERE SUB_COMMODITY_ID =" .
+                    $pekerjaan_material->sub_commodity_id;
+                $strsql_material = $strsql_material . $sql;
+
+                if ($csub > 1) {
+                    if (($i >= 1) && ($i < $csub)) {
+                        $strsql_material = $strsql_material . ' UNION ';
+                    }
+                }
+                $i++;
+            }
+        }
+
+        if (($strsql_bidang) && ($strsql_material)) {
+            $strsql = $strsql_bidang . ' UNION ' . $strsql_material;
+        }
+
+        if (($strsql_bidang) && (!$strsql_material)) {
+            $strsql = $strsql_bidang;
+        }
+
+        if ((!$strsql_bidang) && ($strsql_material)) {
+            $strsql = $strsql_material;
+        }
+        return $strsql;
     }
 }

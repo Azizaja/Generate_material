@@ -19,7 +19,8 @@
                             <option value="" selected>Pilih Bidang Material</option>
                             @foreach ($bidang_materials as $bidang)
                                 {{-- <option value="{{$bidang->kode}}">{{ $bidang->kode }} - {{ $bidang->nama }}</option> --}}
-                                <option value="{{$bidang->kode}}">{{ $bidang->nama }}</option>
+                                <option value="{{ $bidang->id }}">
+                                    {{ $bidang->nama }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -27,19 +28,12 @@
                         <label for="sub-bidang">Sub Bidang</label>
                         <select class="form-select" name="sub-bidang" id="sub-bidang">
                             <option value="" selected>Pilih Sub Bidang Material</option>
-                            @foreach ($sub_bidang_materials as $subBidang)
-                                {{-- <option value="{{$subBidang->kode}}">{{ $subBidang->kode }} - {{ $subBidang->nama }}</option> --}}
-                                <option value="{{$subBidang->kode}}">{{ $subBidang->nama }}</option>
-                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="kualifikasi">Kualifikasi</label>
                         <select class="form-select" name="kualifikassi" id="kualifikasi">
                             <option value="" selected>Pilih Kualifikasi</option>
-                            {{-- @foreach ($subBidang->kualifikasiGroupDetail as $kualifikasi)
-                                <option value="">[{{ $kualifikasi->kode }}] - [{{ $kualifikasi->nama }}]</option>
-                            @endforeach --}}
                         </select>
                     </div>
                 </div>
@@ -73,10 +67,10 @@
                             {{-- @foreach ($pekerjaans->pekerjaanSubCommodity as $pekerjaanSubCommodity)
                                 <option value="">{{ $pekerjaanSubCommodity->kode }} -{{ $pekerjaanSubCommodity->nama }}</option>
                             @endforeach --}}
-                                @foreach ($group_materials as $item)
-                                    {{-- <option value="{{$item->kode}}">{{ $item->kode }} - {{ $item->nama }}</option> --}}
-                                    <option value="{{$item->kode}}">{{ $item->nama }}</option>
-                                @endforeach
+                            @foreach ($group_materials as $item)
+                                {{-- <option value="{{$item->kode}}">{{ $item->kode }} - {{ $item->nama }}</option> --}}
+                                <option value="{{ $item->kode }}">{{ $item->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
@@ -88,7 +82,7 @@
                             @endforeach --}}
                             @foreach ($materials as $item)
                                 {{-- <option value="{{$item->kode}}">{{ $item->kode }} - {{ $item->nama }}</option> --}}
-                                <option value="{{$item->kode}}">{{ $item->nama }}</option>
+                                <option value="{{ $item->kode }}">{{ $item->nama }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -100,3 +94,57 @@
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#bidang-material').change(function() {
+            var bidangId = $(this).val();
+            if (bidangId) {
+                $.ajax({
+                    url: '{{ route('get-sub-bidang') }}',
+                    type: 'POST',
+                    data: {
+                        bidang_id: bidangId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        var subBidang = response.sub_bidang;
+                        var kualifikasi = response.kualifikasi;
+
+
+                        $('#sub-bidang').empty();
+                        $('#sub-bidang').append(
+                            '<option value="" disabled>Pilih Sub Bidang Material</option>'
+                        );
+                        $.each(subBidang, function(key, value) {
+                            $('#sub-bidang').append('<option value="' + key +
+                                '">' +
+                                value + '</option>');
+                        });
+
+                        $('#kualifikasi').empty();
+                        $('#kualifikasi').append(
+                            '<option value="" disabled>Pilih Sub Bidang Material</option>'
+                        );
+
+                        $.each(kualifikasi, function(index, value) {
+                            $stringValueKualifikasi = value.nama + '( ' + 'Rp.' +
+                                value
+                                .pekerjaan_batas_bawah + ' sampai ' + 'Rp.' + value
+                                .pekerjaan_batas_atas + ' ) ';
+                            $('#kualifikasi').append('<option value="' + value.id +
+                                '">' +
+                                $stringValueKualifikasi + '</option>');
+                        });
+
+
+                    }
+                });
+            } else {
+                $('#sub-bidang').empty();
+            }
+        });
+    });
+</script>

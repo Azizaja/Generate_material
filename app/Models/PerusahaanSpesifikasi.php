@@ -12,4 +12,9 @@ class PerusahaanSpesifikasi extends Model
     protected $table = 'perusahaan_spesifikasi';
 
     protected $guarded = ['id'];
+
+    public function kualifikasiGroupDetail()
+    {
+        return $this->belongsTo(KualifikasiGroupDetail::class, 'kualifikasi_group_detail_id');
+    }
 }
