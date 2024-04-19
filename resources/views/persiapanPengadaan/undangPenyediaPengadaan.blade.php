@@ -231,7 +231,104 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            @forelse ($penyedias as $penyedia)
+                                                @if ($penyedia->id != $detail_pekerjaan->perusahaanDiundang->pluck('perusahaan_id')->contains($penyedia->id))
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <input type="checkbox" name="check-all" id="check-all">
+                                                        </td>
+                                                        <td>
+                                                            <table class="align-top table">
+                                                                <tr>
+                                                                    <td width="25%"><b>Nama</b></td>
+                                                                    <td>{{ $penyedia->nama }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Rating Div Logistik</b></td>
+                                                                    <td>
+                                                                        {!! $penyedia->getStar('Logistik') !!}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Rating Div GA</b></td>
+                                                                    <td>
+                                                                        {!! $penyedia->getStar('GA') !!}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Alamat</b></td>
+                                                                    <td>{{ $penyedia->alamat }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Kota</b></td>
+                                                                    <td>
+                                                                        &nbsp{{ $penyedia->kota_id ? $penyedia->mKota->nama_kota . ', ' . $penyedia->mKota->mPropinsi->nama_propinsi . ', ' . $penyedia->mKota->mPropinsi->mNegara->nama_negara : '-' }}
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                        <td>
+                                                            <ul>
+                                                                @foreach ($penyedia->perusahaanSpesifikasi as $perusahaanSpesifikasi)
+                                                                    @php
+                                                                        $pekerjaan_sub_bidang = App\Models\PekerjaanSubBidang::where(
+                                                                            'pekerjaan_id',
+                                                                            $detail_pekerjaan->id,
+                                                                        )
+                                                                            ->where(
+                                                                                'sub_bidang_id',
+                                                                                $perusahaanSpesifikasi->sub_bidang_id,
+                                                                            )
+                                                                            ->get();
+                                                                    @endphp
+                                                                    <li>
+                                                                        {{-- {{ Barryvdh\Debugbar\Facades\DebugBar::info(
+                                                                            'psb : ' . $pekerjaan_sub_bidang,
+                                                                            $detail_pekerjaan->pekerjaanSubBidang->pluck('sub_bidang_id')->contains($perusahaanSpesifikasi->sub_bidang_id),
+                                                                        ) }} --}}
+
+
+                                                                        @if ($detail_pekerjaan->pekerjaanSubBidang->pluck('sub_bidang_id')->contains($perusahaanSpesifikasi->sub_bidang_id))
+                                                                            {!! '<b>' . $perusahaanSpesifikasi->subBidang->nama . '</b>' !!}
+                                                                        @else
+                                                                            {{ $perusahaanSpesifikasi->subBidang->nama }}
+                                                                        @endif
+                                                                        {{ ' [' }}
+                                                                        @if ($pekerjaan_sub_bidang->isNotEmpty())
+                                                                            @if ($perusahaanSpesifikasi->kualifikasi_group_detail_id >= $pekerjaan_sub_bidang->kualifikasi_group_detail_id)
+                                                                                {!! '<b>' . $perusahaanSpesifikasi->kualifikasiGroupDetail->nama . '</b>' . ']' !!}
+                                                                            @else
+                                                                                {{ $perusahaanSpesifikasi->kualifikasiGroupDetail->nama . ']' }}
+                                                                            @endif
+                                                                        @else
+                                                                            {{ (optional($perusahaanSpesifikasi->kualifikasiGroupDetail)->nama ?? '') . ']' }}
+                                                                        @endif
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </td>
+                                                        <td>
+                                                            <ul>
+                                                                @foreach ($penyedia->perusahaanCommodity as $perusahaanCommodity)
+                                                                    <li>
+                                                                        @if ($detail_pekerjaan->pekerjaanSubCommodity->pluck('sub_commodity_id')->contains($perusahaanCommodity->sub_commodity_id))
+                                                                            {!! '<b>' .
+                                                                                $perusahaanCommodity->mSubCommodity->kode .
+                                                                                ' - ' .
+                                                                                $perusahaanCommodity->mSubCommodity->nama .
+                                                                                '</b>' !!}
+                                                                        @else
+                                                                            {{ $perusahaanCommodity->mSubCommodity->kode . ' - ' . $perusahaanCommodity->mSubCommodity->nama }}
+                                                                        @endif
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @empty
+                                            @endforelse
+                                            {{-- <tr>
                                                 <td class="text-center">
                                                     <input type="checkbox" name="check-all" id="check-all">
                                                 </td>
@@ -284,7 +381,7 @@
                                                         <li>contoh</li>
                                                     </ul>
                                                 </td>
-                                            </tr>
+                                            </tr> --}}
                                         </tbody>
                                     </table>
                                 </div>

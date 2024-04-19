@@ -15,6 +15,7 @@ use App\Models\Services\UserService;
 use App\Models\SubBidang;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bidang;
+use App\Models\MaxRfq;
 
 class PersiapanPengadaanController extends Controller
 {
@@ -114,10 +115,11 @@ class PersiapanPengadaanController extends Controller
         }
 
 
-        DebugBar::info($penyedias);
+        //DebugBar::info($penyedias, Pekerjaan::find($id)->perusahaanDiundang);
 
         return view('persiapanPengadaan.undangPenyediaPengadaan', [
             'detail_pekerjaan' => Pekerjaan::find($id),
+            'penyedias' => $penyedias,
         ]);
     }
 
@@ -143,30 +145,15 @@ class PersiapanPengadaanController extends Controller
 
     public function ShowSAPRFQ()
     {
-        return view('RFQ.index');
+        return view('RFQ.index', [
+            'rfqs' => MaxRfq::all(),
+        ]);
     }
 
-    public function ShowDetailRFQ()
+    public function ShowDetailRFQ($id)
     {
-        return view('RFQ.detailRFQ');
-    }
-    public function getSubBidang(Request $request)
-    {
-        DebugBar::info('masuk');
-        // Ambil id bidang material yang dipilih dari request
-        $bidangId = $request->input('bidang_id');
-
-        // Query untuk mendapatkan sub bidang berdasarkan bidang material yang dipilih
-        $subBidangMaterials = SubBidang::where('bidang_id', $bidangId)->pluck('nama', 'id');
-        $kualifikasi = KualifikasiGroupDetail::where('group_id', Bidang::find($bidangId)->group_id)
-            ->select('id', 'nama', 'pekerjaan_batas_bawah', 'pekerjaan_batas_atas')
-            ->get();
-
-        $data = [
-            'sub_bidang' => $subBidangMaterials,
-            'kualifikasi' => $kualifikasi
-        ];
-        // Kirimkan data sub bidang dalam format JSON
-        return response()->json($data);
+        return view('RFQ.detailRFQ', [
+            'rfq' => MaxRfq::find($id),
+        ]);
     }
 }

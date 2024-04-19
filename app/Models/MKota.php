@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PerusahaanCommodity extends Model
+class MKota extends Model
 {
     use HasFactory;
 
-    protected $table = 'perusahaan_commodity';
+    protected $table = 'm_kota';
 
     protected $guarded = ['id'];
 
-    public function mSubCommodity()
+    public function mPropinsi()
     {
-        return $this->belongsTo(MSubCommodity::class, 'sub_commodity_id');
+        return $this->belongsTo(MPropinsi::class, 'propinsi_id');
     }
 }

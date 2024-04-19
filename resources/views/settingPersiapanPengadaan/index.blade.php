@@ -40,7 +40,7 @@
                                     <label for="mata-uang" class="col-sm-2 col-form-label">Mata Uang</label>
                                     <div class="col-sm-10">
                                         <select class="form-select w-75" name="mata uang">
-                                            <option selected="selected">Pilih Mata Uang</option>
+                                            <option selected="selected" disabled>Pilih Mata Uang</option>
                                             @foreach (App\Models\Pekerjaan::getCurrencyArray() as $currency)
                                                 {{-- <option value="{{ $currency }}">{{ $currency }}</option> --}}
                                                 <option value="{{ $currency }}"
@@ -54,7 +54,7 @@
                                     <label for="tahun-anggaran" class="col-sm-2 col-form-label">Tahun Anggaran</label>
                                     <div class="col-sm-10">
                                         <select class="form-select w-75" name="tahun-anggaran">
-                                            <option selected="selected">Pilih Tahun Anggaran</option>
+                                            <option selected="selected" disabled>Pilih Tahun Anggaran</option>
                                             @for ($tahun = date('Y') + 1; $tahun >= 2019; $tahun--)
                                                 <option value="{{ $tahun }}" placeholder="Isi Tahun (2022)"
                                                     {{ $tahun == $detail_pekerjaan->tahun ? 'selected' : '' }}>
@@ -68,10 +68,13 @@
                                     <label for="klasifikasi" class="col-sm-2 col-form-label">Klasifikasi<span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <select class="form-select w-75" name="klasifikasi">
-                                            <option selected="selected">Pilih Klasifikasi</option>
-                                            <option value="1">Pengadaan Barang</option>
-                                            <option>Jasa Lainnya</option>
+                                        <select class="form-select w-75" name="klasifikasi" id="klasifikasi">
+                                            <option selected="selected" disabled>Pilih Klasifikasi</option>
+                                            @foreach (App\Models\Klasifikasi::where('is_deleted', 0)->get() as $klasifikasi)
+                                                <option value="{{ $klasifikasi->id }}"
+                                                    {{ $detail_pekerjaan->klasifikasi_id != null && $klasifikasi->id == $detail_pekerjaan->klasifikasi_id ? 'selected' : '' }}>
+                                                    {{ $klasifikasi->nama }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -80,10 +83,10 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
                                         <select class="form-select w-75" name="metode-pengadaan">
-                                            <option selected="selected">Pilih Metode Pengadaaan</option>
+                                            <option selected="selected" disabled>Pilih Metode Pengadaaan</option>
                                             @foreach ($metode_pengadaans as $metode)
                                                 <option value="{{ $metode->id }}"
-                                                    {{ $metode->id == $detail_pekerjaan->metodePengadaan->id ? 'selected' : '' }}>
+                                                    {{ $detail_pekerjaan->metode_pengadaan_id != null && $metode->id == $detail_pekerjaan->metodePengadaan->id ? 'selected' : '' }}>
                                                     {{ $metode->nama }}</option>
                                             @endforeach
                                         </select>
@@ -94,7 +97,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
                                         <select class="form-select w-75" name="jenis-kontrak">
-                                            <option selected="selected">Pilih Jenis Kontrak</option>
+                                            <option selected="selected" disabled>Pilih Jenis Kontrak</option>
                                             @foreach (PekerjaanHelper::getMetodeKontrakArr() as $metode_kontrak)
                                                 <option value="{{ $metode_kontrak }}"
                                                     {{ $metode_kontrak == PekerjaanHelper::getMetodeKontrak($detail_pekerjaan->metode_kontrak) ? 'selected' : '' }}>
@@ -108,7 +111,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
                                         <select class="form-select w-75" name="requester">
-                                            <option selected="selected">Pilih Requester</option>
+                                            <option selected="selected" disabled>Pilih Requester</option>
                                             @foreach (App\Models\ApplicationUser::doSelectPanitiaByInstansiSatuanKerjaAsArray(1) as $panitia)
                                                 <option value="{{ $panitia }}"
                                                     {{ $panitia == $detail_pekerjaan->requester ? 'selected' : '' }}>
@@ -129,7 +132,8 @@
                                                 <input type="checkbox" class="form-check-input" id="multi-pemenang-check">
                                             @endif
 
-                                            <label class="form-check-label" for="multi-pemenang-check">Gunakan Status Multi
+                                            <label class="form-check-label" for="multi-pemenang-check">Gunakan Status
+                                                Multi
                                                 Pemenang</label>
                                         </div>
                                     </div>
@@ -228,7 +232,34 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById("klasifikasi").addEventListener("change", getDataBidang);
 
+        function getDataBidang() {
+            var klasifikasi_id = document.getElementById("klasifikasi").value;
+            $.ajax({
+                url: '{{ route('get-bidang') }}',
+                type: 'POST',
+                data: {
+                    klasifikasi_id: klasifikasi_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                dataType: 'json',
+                success: function(response) {
+                    $('#bidang-material').empty();
+                    $('#bidang-material').append(
+                        '<option value="" disabled>Pilih Bidang Material</option>'
+                    );
+                    $.each(response, function(key, value) {
+                        $('#bidang-material').append('<option value="' + key +
+                            '">' +
+                            value + '</option>');
+                    });
+
+                }
+            });
+        }
+    </script>
     {{-- modal. --}}
     @include('settingPersiapanPengadaan.modal')
 @endsection

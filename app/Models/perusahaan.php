@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use PerusahaanIjinUsahaHelper;
 
 class Perusahaan extends Model
@@ -67,6 +68,18 @@ class Perusahaan extends Model
     public function satuanKerja(): BelongsTo
     {
         return $this->belongsTo(SatuanKerja::class, 'satuan_kerja_id');
+    }
+    public function perusahaanSpesifikasi(): HasMany
+    {
+        return $this->hasMany(PerusahaanSpesifikasi::class, 'perusahaan_id', 'id');
+    }
+    public function mKota(): BelongsTo
+    {
+        return $this->belongsTo(MKota::class, 'kota_id');
+    }
+    public function perusahaanCommodity(): HasMany
+    {
+        return $this->hasMany(PerusahaanCommodity::class, 'perusahaan_id', 'id');
     }
     public function getStatusDrt()
     {
@@ -197,5 +210,83 @@ class Perusahaan extends Model
         }
 
         return false;
+    }
+    public function getStar($div)
+    {
+        if ($div == 'GA') {
+            $rating = ceiL($this->getRatingGA());
+        } elseif ($div == 'Logistik') {
+            $rating = ceiL($this->getRatingLogistik());
+        }
+        // Konversi nilai rating dari rentang 1-100 menjadi rentang 1-5
+        $stars = ceil($rating / 20.0); // Menggunakan 20.0 untuk memastikan hasilnya float
+
+        // Tambahkan variabel untuk menangani bintang setengah
+        $halfStar = false;
+
+        // Pemeriksaan untuk bintang setengah
+        if ($rating % 20 >= 5 && $rating % 20 <= 15) {
+            $halfStar = true;
+        }
+
+        // Khusus untuk nilai rating 100, karena sisa bagi 100 akan menjadi 0
+        if ($rating == 100) {
+            $halfStar = false;
+        }
+
+        $starIcons = '';
+        for ($i = 1; $i <= 5; $i++) {
+            if ($i <= $stars) {
+                $starIcons .= '<span class="fa fa-star"style="color: #FFD43B;"></span>';
+            } elseif ($halfStar && $i == $stars + 1) {
+                $starIcons .= '<span class="fa fa-star-half"style="color: #FFD43B;"></span>';
+            } else {
+                $starIcons .= '';
+            }
+        }
+        if ($starIcons == '') {
+            $starIcons = 'Belum ada penilaian';
+        }
+        return $starIcons;
+    }
+
+
+    public function getRatingGA()
+    {
+        $average = 0;
+        $penilaians = Cpr::where('perusahaan_id', $this->id)
+            ->where('nilai', '!=', 0)
+            ->where('updated_by', 'Admin Verifikasi Logistik')
+            ->where('created_by', 'Admin Verifikasi Logistik')
+            ->get();
+        if (!$penilaians->isEmpty()) {
+            $cPenilaian = count($penilaians);
+            $jumPenilaian = 0;
+            foreach ($penilaians as $penilaian) {
+                $jumPenilaian = $jumPenilaian + $penilaian->nilai;
+            }
+            $average = round($jumPenilaian / $cPenilaian, 1);
+        }
+
+        return $average;
+    }
+    public function getRatingLogistik()
+    {
+        $average = 0;
+        $penilaians = Cpr::where('perusahaan_id', $this->id)
+            ->where('nilai', '!=', 0)
+            ->where('created_by', 'Admin Verifikasi GA')
+            ->where('updated_by', 'Admin Verifikasi GA')
+            ->get();
+        if (!$penilaians->isEmpty()) {
+            $cPenilaian = count($penilaians);
+            $jumPenilaian = 0;
+            foreach ($penilaians as $penilaian) {
+                $jumPenilaian = $jumPenilaian + $penilaian->nilai;
+            }
+            $average = round($jumPenilaian / $cPenilaian, 1);
+        }
+
+        return $average;
     }
 }

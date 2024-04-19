@@ -34,51 +34,36 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <a href="{{ route('persiapan-pengadaan.detailRFQ') }}" title="detail RFQ">
-                                                            <i class="fas fa-search"></i> 123456
-                                                        </a>
-                                                    </td>
-                                                    <td>yang</td>
-                                                    <td>semua</td>
-                                                    <td>ada disinni</td>
-                                                    <td>kita sudah </td>
-                                                    <td>sholat</td>
-                                                    <td>
-                                                        <a href="" class="btn btn-success btn-xs"
-                                                            title="Detail Pengadaan">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                        <a href="" class="btn btn-primary btn-xs"
-                                                            title="Tambahkan Pengadaan">
-                                                            <i class="fas fa-plus"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <a href="{{ route('persiapan-pengadaan.detailRFQ') }}" title="detail RFQ">
-                                                            <i class="fas fa-search"></i> 123456
-                                                        </a>
-                                                    </td>
-                                                    <td>yang</td>
-                                                    <td>semua</td>
-                                                    <td>ada disinni</td>
-                                                    <td>kita sudah </td>
-                                                    <td>sholat</td>
-                                                    <td>
-                                                        <a href="" class="btn btn-success btn-xs"
-                                                            title="Detail Pengadaan">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                        <a href="" class="btn btn-primary btn-xs"
-                                                            title="Tambahkan Pengadaan">
-                                                            <i class="fas fa-plus"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-
+                                                @forelse ($rfqs as $rfq)
+                                                    <tr>
+                                                        <td>
+                                                            <a href="{{ route('persiapan-pengadaan.detailRFQ', ['id' => $rfq->id]) }}"
+                                                                title="detail RFQ">
+                                                                <i class="fas fa-search"></i> {{ $rfq->rfq_num }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $rfq->rfq_desc }}</td>
+                                                        <td>{{ RfqHelper::getStatusString($rfq->status) }}</td>
+                                                        <td class="text-center">{{ $rfq->req_date ?? '-' }}</td>
+                                                        <td class="text-center">{{ $rfq->rep_date ?? '-' }}</td>
+                                                        <td>{{ '[' . $rfq->site . '] ' . RfqHelper::getStringMaxRfq('ekgrp', $rfq->site) }}
+                                                        </td>
+                                                        <td>
+                                                            <a href="" class="btn btn-success btn-xs"
+                                                                title="Detail Pengadaan">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                            <a href="" class="btn btn-primary btn-xs"
+                                                                title="Tambahkan Pengadaan">
+                                                                <i class="fas fa-plus"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="7" class="text-center">Tidak Ada Data</td>
+                                                    </tr>
+                                                @endforelse
                                             </tbody>
                                         </table>
                                     </div>

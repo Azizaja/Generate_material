@@ -17,4 +17,12 @@ class PerusahaanSpesifikasi extends Model
     {
         return $this->belongsTo(KualifikasiGroupDetail::class, 'kualifikasi_group_detail_id');
     }
+    public function subBidang()
+    {
+        return $this->belongsTo(SubBidang::class, 'sub_bidang_id');
+    }
+    public function kualifikasi()
+    {
+        return $this->belongsTo(Kualifikasi::class, 'kualifikasi_id');
+    }
 }

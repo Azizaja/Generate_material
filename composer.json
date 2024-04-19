@@ -41,6 +41,7 @@
             "app/Helpers/PekerjaanPersyaratanHelper.php",
             "app/Helpers/PerusahaanHelper.php",
             "app/Helpers/PerusahaanIjinUsahaHelper.php",
+            "app/Helpers/RfqHelper.php",
             "app/Helpers/UserHelper.php"
         ]
     },
