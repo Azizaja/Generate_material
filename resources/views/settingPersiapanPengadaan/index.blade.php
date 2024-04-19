@@ -110,7 +110,7 @@
                                     <label for="requester" class="col-sm-2 col-form-label">Requester<span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <select class="form-select w-75" name="requester">
+                                        <select class="form-select select2 w-75" name="requester">
                                             <option selected="selected" disabled>Pilih Requester</option>
                                             @foreach (App\Models\ApplicationUser::doSelectPanitiaByInstansiSatuanKerjaAsArray(1) as $panitia)
                                                 <option value="{{ $panitia }}"
@@ -165,7 +165,8 @@
                                                                 </td>
                                                                 <td>
                                                                     <a href="" class="btn btn-danger btn-sm"
-                                                                        data-toggle="modal">Hapus</a>
+                                                                        title="hapus" data-toggle="modal"><i
+                                                                            class="fas fa-trash"></i></a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -205,7 +206,8 @@
                                                             </td>
                                                             <td>
                                                                 <a href="" class="btn btn-danger btn-sm"
-                                                                    data-toggle="modal">Hapus</a>
+                                                                    title="hapus" data-toggle="modal"><i
+                                                                        class="fas fa-trash"></i></a>
                                                             </td>
                                                         </tr>
                                                     @empty
@@ -222,8 +224,9 @@
                                 {{-- kembali ke detail persiapan pengadaan --}}
                                 <p><span class="text-danger">*</span>Wajib Diisi</p>
                                 <a href="{{ route('persiapan-pengadaan.show', ['id' => $detail_pekerjaan->id]) }}"
-                                    type="submit" class="btn btn-danger">Batal</a>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                    type="submit" class="btn btn-danger"><i class="fas fa-times"></i> Batal</a>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>
+                                    Simpan</button>
                                 {{-- </div> --}}
                             </div>
                         </form>

@@ -1,5 +1,6 @@
 <div class="row">
-    <h5 class="fw-bold">Pelaksana Pengadaan</h5>
+    <h5 class="fw-bold p-2">Pelaksana Pengadaan</h5>
+    <div class="col-12">
     <form action="">
         @csrf
         <div class="form-group row">
@@ -29,12 +30,13 @@
             </div>
         </div>
         <div>
-            <button type="submit" class="btn btn-primary btn-md mb-2">Tambahkan</button>
+            <button type="submit" class="btn btn-primary btn-md mb-2"><i class="fas fa-save"></i> Tambahkan</button>
             <a href="{{ route('akses-pelaksana-pengadaan.show', ['id' => $detail_pekerjaan->id]) }}"
-                class="btn btn-primary btn-md mb-2">Akses Pelaksana
+                class="btn btn-primary btn-md mb-2"><i class="fas fa-pen"></i> Akses Pelaksana
                 Pengadaan</a>
         </div>
     </form>
+    </div>
     <div class="col-12">
         <table class="table table-bordered">
             <thead class="thead-light">

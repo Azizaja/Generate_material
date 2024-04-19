@@ -36,8 +36,8 @@
                         </div>
                         <div class="mt-3">
                             <p><span class="text-danger">*</span>Wajib Diisi</p>
-                            <button type="submit" class="btn btn-danger">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i> Batal</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                         </div>
                     </div>
                 </form>

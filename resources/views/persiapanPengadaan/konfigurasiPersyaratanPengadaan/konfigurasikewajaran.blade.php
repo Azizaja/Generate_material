@@ -49,8 +49,9 @@
                                     </div>
                                     {{-- <div class="card-footer"> --}}
                                         {{-- kembali ke detail persiapan pengadaan --}}
-                                        <button type="submit" class="btn btn-danger">Batal</button> 
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <a href="{{ route('persiapan-pengadaan.show', ['id' => $detail_pekerjaan->id]) }}"
+                                            class="btn btn-danger"><i class="fas fa-times"></i> Batal</a> 
+                                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                                     {{-- </div> --}}
                                 </div>
                             </form>

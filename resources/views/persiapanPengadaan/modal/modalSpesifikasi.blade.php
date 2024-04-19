@@ -181,8 +181,8 @@
                             </tbody>
                         </table>
                         <div class="mt-3">
-                            <button type="submit" class="btn btn-danger">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i> Batal</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                         </div>
                     </div>
                 </form>
@@ -255,8 +255,8 @@
                             </tbody>
                         </table>
                         <div class="mt-3">
-                            <button type="submit" class="btn btn-danger">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i> Batal</button>
+                            <button type="submit" class="btn btn-primary"> <i class="fas fa-save"></i>Simpan</button>
                         </div>
                     </div>
                 </form>

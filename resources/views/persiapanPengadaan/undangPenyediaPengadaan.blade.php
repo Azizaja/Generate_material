@@ -195,14 +195,14 @@
                                                                         d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0">
                                                                     </path>
                                                                 </svg>
-                                                                Hapus
+                                                                <i class="fas fa-trash"></i> Hapus
                                                             </button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                        <a href="#" class="btn btn-danger">Hapus Semua Perusahaan</a>
+                                        <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i> Hapus Semua Perusahaan</a>
                                     </div>
                                 </div>
                             </div>
@@ -386,7 +386,7 @@
                                     </table>
                                 </div>
                                 {{-- <div class="card-footer"> --}}
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                                 {{-- </div> --}}
                             </form>
                         </div>

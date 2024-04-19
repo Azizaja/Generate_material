@@ -9,13 +9,13 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5><b>Konfigurasi Syarat Administrasi</b></h5>
+                            <h5><b>Konfigurasi Syarat Teknis</b></h5>
                         </div>
                             <form class="form-horizontal">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="kualifikasi" class="col-form-label">Konfigurasi Syarat Administrasi</label>
+                                        <label for="kualifikasi" class="col-form-label">Konfigurasi Syarat Teknis</label>
                                             <div class="table-responsive mt-3">
                                                 <table class="table table-bordered">
                                                     <thead>
@@ -49,8 +49,9 @@
                                     </div>
                                     {{-- <div class="card-footer"> --}}
                                         {{-- kembali ke detail persiapan pengadaan --}}
-                                        <button type="submit" class="btn btn-danger">Batal</button> 
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <a href="{{ route('persiapan-pengadaan.show', ['id' => $detail_pekerjaan->id]) }}"
+                                            class="btn btn-danger"><i class="fas fa-times"></i> Batal</a> 
+                                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                                     {{-- </div> --}}
                                 </div>
                             </form>
