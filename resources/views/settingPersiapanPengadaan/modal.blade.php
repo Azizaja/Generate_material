@@ -15,7 +15,7 @@
                     <input type="hidden" name="type" value="bidang_material">
                     <div class="form-group">
                         <label for="bidang-material">Bidang Material</label>
-                        <select class="form-select" name="bidang-material" id="bidang-material">
+                        <select class="form-select select2" name="bidang-material" id="bidang-material">
                             <option value="" selected>Pilih Bidang Material</option>
                             @foreach ($bidang_materials as $bidang)
                                 {{-- <option value="{{$bidang->kode}}">{{ $bidang->kode }} - {{ $bidang->nama }}</option> --}}
@@ -148,3 +148,5 @@
         });
     });
 </script>
+
+

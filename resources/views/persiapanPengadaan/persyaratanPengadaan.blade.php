@@ -24,6 +24,8 @@
                     role="tabpanel" aria-labelledby="{{ $rawNama }}-tab">
                     <div class="col-12">
                         <div class="card">
+                            {{-- tambah kondisi jika panitia pengadaan dan direktur pengadaan bisa buat baru dan konfigurasi persyaratan --}}
+
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
@@ -31,9 +33,36 @@
                                             class="btn btn-primary mb-2">
                                             <i class="fas fa-plus-circle"></i> Buat Baru
                                         </a>
-                                        <a href="" class="btn btn-primary mb-2">
-                                            <i class="fas fa-cogs"></i> Konfigurasi
-                                        </a>
+
+                                        @if ($tabPersyaratan->nama == 'Kualifikasi')
+                                            
+                                            <a href="{{ route('persiapan-pengadaan.konfigurasi-kualifikasi', ['id' => $detail_pekerjaan->id]) }}"
+                                                class="btn btn-primary mb-2">
+                                                <i class="fas fa-cogs"></i> Konfigurasi
+                                            </a>
+                                            
+                                        @elseif ($tabPersyaratan->nama == 'Administrasi')
+                                            
+                                            <a href="{{ route('persiapan-pengadaan.konfigurasi-administrasi', ['id' => $detail_pekerjaan->id]) }}"
+                                                class="btn btn-primary mb-2">
+                                                <i class="fas fa-cogs"></i> Konfigurasi
+                                            </a>
+                                            
+                                        @elseif ($tabPersyaratan->nama == 'Teknis')
+                                            
+                                            <a href="{{ route('persiapan-pengadaan.konfigurasi-teknis', ['id' => $detail_pekerjaan->id]) }}"
+                                                class="btn btn-primary mb-2">
+                                                <i class="fas fa-cogs"></i> Konfigurasi
+                                            </a>
+                                            
+                                        @elseif ($tabPersyaratan->nama == 'Kewajaran Harga')
+                                            
+                                            <a href="{{ route('persiapan-pengadaan.konfigurasi-kewajaran', ['id' => $detail_pekerjaan->id]) }}"
+                                                class="btn btn-primary mb-2">
+                                                <i class="fas fa-cogs"></i> Konfigurasi
+                                            </a>
+                                            
+                                        @endif
                                     </div>
                                 </div>
                             </div>

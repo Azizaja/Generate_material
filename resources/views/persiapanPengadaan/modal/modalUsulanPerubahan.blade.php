@@ -83,8 +83,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <button type="submit" class="btn btn-danger">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i> Batal</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                 </form>
             </div>
         </div>

@@ -121,24 +121,33 @@ class PersiapanPengadaanController extends Controller
         ]);
     }
 
-    public function showKonfigurasiKualifikasi()
+    public function showKonfigurasiKualifikasi($id)
     {
-        return view('persiapanPengadaan.persyaratanPengadaan.konfigurasiKualifikasi');
+        
+        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiKualifikasi',[
+            'detail_pekerjaan' => Pekerjaan::find($id),
+        ]);
     }
 
-    public function showKonfigurasiKewajaran()
+    public function showKonfigurasiKewajaran($id)
     {
-        return view('persiapanPengadaan.persyaratanPengadaan.konfigurasiKewajaran');
+        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiKewajaran',[
+            'detail_pekerjaan' => Pekerjaan::find($id),
+        ]);
     }
 
-    public function showKonfigurasiAdministrasi()
+    public function showKonfigurasiAdministrasi($id)
     {
-        return view('persiapanPengadaan.persyaratanPengadaan.konfigurasiAdministrasi');
+        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiAdministrasi',[
+            'detail_pekerjaan' => Pekerjaan::find($id),
+        ]);
     }
 
-    public function showKonfigurasiTeknis()
+    public function showKonfigurasiTeknis($id)
     {
-        return view('persiapanPengadaan.persyaratanPengadaan.konfigurasiTeknis');
+        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiTeknis',[
+            'detail_pekerjaan' => Pekerjaan::find($id),
+        ]);
     }
 
     public function ShowSAPRFQ()
