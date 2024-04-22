@@ -15,6 +15,14 @@ class MetodePengadaan extends Model
 
     protected $guarded = ['id'];
 
+    const PENILAIAN_PRAKUALIFIKASI = 'PRAKUALIFIKASI';
+    const PENILAIAN_PASCAKUALIFIKASI = 'PASCAKUALIFIKASI';
+    const PENUNJUKAN_LANGSUNG = 'PENUNJUKAN_LANGSUNG';
+    const PEMILIHAN_LANGSUNG = 'PEMILIHAN_LANGSUNG';
+    const PENUNJUKAN_LANGSUNG_ID = 36;
+    const PEMILIHAN_LANGSUNG_ID  = 37;
+    const PEMBELIAN_LANGSUNG_ID = 35;
+
     public function metodeEvaluasiPenawaran(): HasOne
     {
         return $this->hasOne(MetodeEvaluasiPenawaran::class, 'id', 'metode_evaluasi_penawaran_id');
