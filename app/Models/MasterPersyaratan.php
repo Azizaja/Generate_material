@@ -9,6 +9,10 @@ class MasterPersyaratan extends Model
 {
     use HasFactory;
 
+    protected $table = 'master_persyaratan';
+
+    protected $guarded = ['id'];
+
     const TIPE_NILAI_TEKNIS         = 2;
     const TIPE_PERSYARATAN_ALL        = 0;
     const TIPE_PERSYARATAN_DOKUMEN    = 1;
