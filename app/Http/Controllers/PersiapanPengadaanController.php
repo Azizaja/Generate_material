@@ -15,7 +15,9 @@ use App\Models\Services\UserService;
 use App\Models\SubBidang;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bidang;
+use App\Models\MasterPersyaratan;
 use App\Models\MaxRfq;
+use Barryvdh\Debugbar\Twig\Extension\Debug;
 
 class PersiapanPengadaanController extends Controller
 {
@@ -125,7 +127,24 @@ class PersiapanPengadaanController extends Controller
 
     public function showKonfigurasiKualifikasi($id)
     {
-        
+
+        $request = request();
+        $pekerjaan = Pekerjaan::find($id);
+        $query = MasterPersyaratan::query();
+
+        if ($pekerjaan->metodePengadaan->sistemPengadaanId == MetodePengadaan::PENUNJUKAN_LANGSUNG) {
+            if ($request->input('evaluasi_id') == Evaluasi::ADMINISTRASI){
+                $query->where('evaluasi_id', Evaluasi::ADMINISTRASI)
+                ->orWhere('evaluasi_id', Evaluasi::KUALIFIKASI);
+            }else{
+                $query->where('evaluasi_id', $request->input('evaluasi_id'));
+            }
+        } else {
+            $query->where('evaluasi_id', $request->input('evaluasi_id'));
+        }
+
+        DebugBar::info($query->get());
+
         return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiKualifikasi',[
             'detail_pekerjaan' => Pekerjaan::find($id),
         ]);
