@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ApplicationUser;
 use App\Models\Evaluasi;
 use App\Models\KualifikasiGroupDetail;
 use App\Models\MasterTahap;
@@ -16,6 +17,9 @@ use App\Models\SubBidang;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bidang;
 use App\Models\MaxRfq;
+use PhpParser\Node\Stmt\TryCatch;
+use App\Models\PekerjaanPanitia;
+use PekerjaanHelper;
 
 class PersiapanPengadaanController extends Controller
 {
@@ -125,29 +129,29 @@ class PersiapanPengadaanController extends Controller
 
     public function showKonfigurasiKualifikasi($id)
     {
-        
-        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiKualifikasi',[
+
+        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiKualifikasi', [
             'detail_pekerjaan' => Pekerjaan::find($id),
         ]);
     }
 
     public function showKonfigurasiKewajaran($id)
     {
-        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiKewajaran',[
+        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiKewajaran', [
             'detail_pekerjaan' => Pekerjaan::find($id),
         ]);
     }
 
     public function showKonfigurasiAdministrasi($id)
     {
-        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiAdministrasi',[
+        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiAdministrasi', [
             'detail_pekerjaan' => Pekerjaan::find($id),
         ]);
     }
 
     public function showKonfigurasiTeknis($id)
     {
-        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiTeknis',[
+        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiTeknis', [
             'detail_pekerjaan' => Pekerjaan::find($id),
         ]);
     }
@@ -164,5 +168,70 @@ class PersiapanPengadaanController extends Controller
         return view('RFQ.detailRFQ', [
             'rfq' => MaxRfq::find($id),
         ]);
+    }
+
+    public function createPengadaan($id)
+    {
+        $rfq = MaxRfq::find($id);
+        $lines = $rfq->MaxRfqline;
+
+        $no_perkiraan          = $rfq->id;
+        $tgl_rencana_pengadaan = date('Y-m-d');
+        $anggaran              = 0;
+        $sumberdana            = '';
+        $lokasi                = '';
+        $no_surat_perintah     = '';
+        $satuan_kerja_id       = ApplicationUser::find(20300)->id;
+
+        try {
+            DB::beginTransaction();
+
+            $item_header = '';
+            $service = '';
+
+            // foreach ($lines as $line) {
+            //     if ($line->line_type == 'ITEM') {
+            //         $item_header = $line->line_desc;
+            //     } else {
+            //         $service = $line->line_type;
+            //     }
+            // }
+
+            $pekerjaan = new Pekerjaan();
+            $pekerjaan->kode = $rfq->rfq_num;
+            $pekerjaan->nama = $rfq->rfq_desc;
+            $pekerjaan->no_perkiraan =  $no_perkiraan;
+            $pekerjaan->tanggal_rencana_pengadaan = $tgl_rencana_pengadaan;
+            $pekerjaan->anggaran = $anggaran;
+            $pekerjaan->hps = $anggaran;
+            $pekerjaan->pengguna_anggaran_id = ApplicationUser::find(20300)->id; //blm diset
+            $pekerjaan->tahun = date('Y');
+            $pekerjaan->satuan_kerja_id = $satuan_kerja_id;
+            $pekerjaan->ppn = 10; //default PJB
+            $pekerjaan->import_from = 'SAP';
+            $pekerjaan->status = Pekerjaan::STATUS_MENUNGGU_PERSETUJUAN_URUSAN_PENGADAAN;
+            $pekerjaan->currency_id = 'IDR';
+            $pekerjaan->currency_value = 1;
+            $pekerjaan->created_by = ApplicationUser::find(20300)->nama;
+            $pekerjaan->updated_by = ApplicationUser::find(20300)->nama;
+            $pekerjaan->save();
+
+
+            // Creating Panitia automatically
+            $pekerjaan_id = $pekerjaan->id;
+            PekerjaanHelper::setPanitiaPekerjaan($pekerjaan_id);
+            //PekerjaanPanitia::createAksesPanitia($pekerjaan_id);
+
+            // // Linking RFQ-Pekerjaan
+            // $rfq->setStatus(MaxRfq::PEKERJAAN);
+            // $rfq->setMaxId($pekerjaan_id);
+            // $rfq->save();
+        } catch (\Exception $e) {
+            dump($e);
+            DebugBar::info($e);
+            DB::rollBack();
+        }
+
+        dd($item_header);
     }
 }

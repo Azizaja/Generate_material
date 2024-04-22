@@ -26,8 +26,10 @@ Route::get('persiapan-pengadaan/konfigurasi-kualifikasi/{id}', [PersiapanPengada
 Route::get('persiapan-pengadaan/konfigurasi-kewajaran/{id}', [PersiapanPengadaanController::class, 'showKonfigurasiKewajaran'])->name('persiapan-pengadaan.konfigurasi-kewajaran');
 Route::get('persiapan-pengadaan/konfigurasi-administrasi/{id}', [PersiapanPengadaanController::class, 'showKonfigurasiAdministrasi'])->name('persiapan-pengadaan.konfigurasi-administrasi');
 Route::get('persiapan-pengadaan/konfigurasi-teknis/{id}', [PersiapanPengadaanController::class, 'showKonfigurasiTeknis'])->name('persiapan-pengadaan.konfigurasi-teknis');
+
 Route::get('persiapan-pengadaan/sap', [PersiapanPengadaanController::class, 'showSAPRFQ'])->name('persiapan-pengadaan.sap');
 Route::get('persiapan-pengadaan/sap/show/{id}', [PersiapanPengadaanController::class, 'showDetailRFQ'])->name('persiapan-pengadaan.detailRFQ');
+Route::get('persiapan-pengadaan/sap/create-pengadaan/{id}', [PersiapanPengadaanController::class, 'createPengadaan'])->name('persiapan-pengadaan.createPengadaan');
 // Route::resource('setting-persiapan', SettingPersiapanController::class);
 
 Route::get('/persiapan-pengadaan/setting-perispan-pengadaan/{id}', [SettingPersiapanController::class, 'show'])->name('setting-persiapan.show');

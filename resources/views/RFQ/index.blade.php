@@ -49,14 +49,17 @@
                                                         <td>{{ '[' . $rfq->site . '] ' . RfqHelper::getStringMaxRfq('ekgrp', $rfq->site) }}
                                                         </td>
                                                         <td>
-                                                            <a href="" class="btn btn-success btn-xs"
-                                                                title="Detail Pengadaan">
+                                                            <a href="{{ route('persiapan-pengadaan.detailRFQ', ['id' => $rfq->id]) }}"
+                                                                class="btn btn-success btn-xs" title="Detail Pengadaan">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
-                                                            <a href="" class="btn btn-primary btn-xs"
-                                                                title="Tambahkan Pengadaan">
-                                                                <i class="fas fa-plus"></i>
-                                                            </a>
+                                                            @if ($rfq->status == 0)
+                                                                <a href="{{ route('persiapan-pengadaan.createPengadaan', ['id' => $rfq->id]) }}"
+                                                                    class="btn btn-primary btn-xs"
+                                                                    title="Tambahkan Pengadaan">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </a>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @empty
