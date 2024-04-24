@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::get('/persiapan-pengadaan', [PersiapanPengadaanController::class, 'index'])->name('persiapan-pengadaan.index');
 Route::get('/persiapan-pengadaan/show/{id}', [PersiapanPengadaanController::class, 'showPekerjaan'])->name('persiapan-pengadaan.show');
 Route::get('persiapan-pengadaan/undang-penyedia/{id}', [PersiapanPengadaanController::class, 'showUndanganPenyedia'])->name('persiapan-pengadaan.undangan');
-Route::get('persiapan-pengadaan/konfigurasi-kualifikasi/{id}', [PersiapanPengadaanController::class, 'showKonfigurasiKualifikasi'])->name('persiapan-pengadaan.konfigurasi-kualifikasi');
+Route::get('persiapan-pengadaan/konfigurasi-kualifikasi', [PersiapanPengadaanController::class, 'showKonfigurasiKualifikasi'])->name('persiapan-pengadaan.konfigurasi-kualifikasi');
 Route::get('persiapan-pengadaan/konfigurasi-kewajaran/{id}', [PersiapanPengadaanController::class, 'showKonfigurasiKewajaran'])->name('persiapan-pengadaan.konfigurasi-kewajaran');
 Route::get('persiapan-pengadaan/konfigurasi-administrasi/{id}', [PersiapanPengadaanController::class, 'showKonfigurasiAdministrasi'])->name('persiapan-pengadaan.konfigurasi-administrasi');
 Route::get('persiapan-pengadaan/konfigurasi-teknis/{id}', [PersiapanPengadaanController::class, 'showKonfigurasiTeknis'])->name('persiapan-pengadaan.konfigurasi-teknis');

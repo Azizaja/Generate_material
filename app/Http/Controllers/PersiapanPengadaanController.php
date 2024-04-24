@@ -62,7 +62,6 @@ class PersiapanPengadaanController extends Controller
 
         if ($metode_pengadaan) {
             $masterTahap = MasterTahap::where('master_metode_pengadaan_id', $metode_pengadaan->master_metode_pengadaan_id)->get();
-
             foreach ($masterTahap as $tahap) {
                 if ($tahap->evaluasi_id > 0) {
                     $evaluasi = Evaluasi::find($tahap->evaluasi_id);
@@ -84,6 +83,7 @@ class PersiapanPengadaanController extends Controller
             //     }
             // }
         }
+
         DebugBar::info($tabPersyaratans);
         return view('persiapanPengadaan.showPersiapanPengadaan', [
             'pekerjaans' => Pekerjaan::all(),
@@ -129,24 +129,28 @@ class PersiapanPengadaanController extends Controller
         ]);
     }
 
-    public function showKonfigurasiKualifikasi($id)
+    public function showKonfigurasiKualifikasi(Request $request)
     {
-
-        $request = request();
+        // dd($request->all());
+        $id = $request->id;
         $pekerjaan = Pekerjaan::find($id);
-        $query = MasterPersyaratan::query();
 
-        if ($pekerjaan->metodePengadaan->sistemPengadaanId == MetodePengadaan::PENUNJUKAN_LANGSUNG) {
-            if ($request->input('evaluasi_id') == Evaluasi::ADMINISTRASI) {
-                $query->where('evaluasi_id', Evaluasi::ADMINISTRASI)
-                    ->orWhere('evaluasi_id', Evaluasi::KUALIFIKASI);
+        if ($pekerjaan->metode_pengadaan_id == MetodePengadaan::PENUNJUKAN_LANGSUNG) {
+            if ($request->evaluasi == Evaluasi::ADMINISTRASI) {
+                $query = MasterPersyaratan::where('evaluasi_id', Evaluasi::ADMINISTRASI)
+                    ->orWhere('evaluasi_id', Evaluasi::KUALIFIKASI)
+                    ->where('is_deleted', 0);
             } else {
-                $query->where('evaluasi_id', $request->input('evaluasi_id'));
+                $query = MasterPersyaratan::where('evaluasi_id', $request->evaluasi)->where('is_deleted', 0);
             }
         } else {
-            $query->where('evaluasi_id', $request->input('evaluasi_id'));
+            $query = MasterPersyaratan::where('evaluasi_id', $request->evaluasi)->where('is_deleted', 0);
         }
-
+        
+        $query = MasterPersyaratan::whereNull('parent_id')
+        ->where('evaluasi_id', $request->evaluasi)
+        ->where('is_deleted', 0)
+        ->get();
         DebugBar::info($query->get());
 
         return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiKualifikasi', [
@@ -238,7 +242,7 @@ class PersiapanPengadaanController extends Controller
 
             // Creating Panitia automatically
             $pekerjaan_id = $pekerjaan->id;
-            PekerjaanHelper::setPanitiaPekerjaan($pekerjaan_id);
+            // PekerjaanHelper::setPanitiaPekerjaan($pekerjaan_id);
             //PekerjaanPanitia::createAksesPanitia($pekerjaan_id);
 
             // // Linking RFQ-Pekerjaan

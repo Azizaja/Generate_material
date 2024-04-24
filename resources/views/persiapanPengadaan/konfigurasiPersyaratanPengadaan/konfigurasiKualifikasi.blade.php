@@ -35,7 +35,7 @@
                                                             <td>Logistik dan perencanaan gudang pengendalian
                                                                 komoditas</td>
                                                             <td>
-                                                                <select class="form-select w-50" id="jenis">
+                                                                <select class="form-select" id="jenis">
                                                                     <option selected="selected">Pilih Jenis</option>
                                                                     <option>Pembukaan dan Evaluasi</option>
                                                                     <option>Pembukaan</option>
