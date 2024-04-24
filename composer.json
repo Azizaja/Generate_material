@@ -35,6 +35,8 @@
         },
         "files": [
             "app/Helpers/DataFormatterHelper.php",
+            "app/Helpers/EprocLoggerHelper.php",
+            "app/Helpers/MPositionCredentialHelper.php",
             "app/Helpers/PekerjaanHelper.php",
             "app/Helpers/PekerjaanPanitiaAksesHelper.php",
             "app/Helpers/PekerjaanPanitiaHelper.php",

@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Pekerjaan;
+use App\Models\AnggotaKelompok;
+use App\Models\ApplicationUser;
+use App\Models\KelompokPanitia;
+use App\Models\PekerjaanPanitiaAkses;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PekerjaanPanitia extends Model
 {
@@ -34,4 +39,11 @@ class PekerjaanPanitia extends Model
     {
         return $this->hasOne(PekerjaanPanitiaAkses::class, 'pekerjaan_panitia_id', 'id');
     }
+
+    const JABATAN_PPK             = AnggotaKelompok::JABATAN_PPK;
+    const JABATAN_KETUA         = AnggotaKelompok::JABATAN_KETUA;
+    const JABATAN_SEKRETARIS     = AnggotaKelompok::JABATAN_SEKRETARIS;
+    const JABATAN_ANGGOTA1         = AnggotaKelompok::JABATAN_ANGGOTA;
+    const JABATAN_ANGGOTA2         = AnggotaKelompok::JABATAN_ANGGOTA2;
+    const JABATAN_ANGGOTA3         = AnggotaKelompok::JABATAN_ANGGOTA3;
 }
