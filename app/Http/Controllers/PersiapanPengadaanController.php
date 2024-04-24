@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ApplicationUser;
-use App\Models\Evaluasi;
-use App\Models\KualifikasiGroupDetail;
-use App\Models\MasterTahap;
-use App\Models\MetodePengadaan;
-use Illuminate\Http\Request;
-use App\Models\Pekerjaan;
-use App\Models\PenawaranRincian;
-use App\Models\Perusahaan;
-use Barryvdh\Debugbar\Facades\Debugbar;
-use App\Models\Services\UserService;
-use App\Models\SubBidang;
-use Illuminate\Support\Facades\DB;
-use App\Models\Bidang;
-use App\Models\MasterPersyaratan;
-use App\Models\MaxRfq;
-use PhpParser\Node\Stmt\TryCatch;
-use App\Models\PekerjaanPanitia;
 use PekerjaanHelper;
+use App\Models\Bidang;
+use App\Models\MaxRfq;
+use App\Models\History;
+use App\Models\Evaluasi;
+use App\Models\Pekerjaan;
+use App\Models\SubBidang;
+use App\Models\Perusahaan;
+use App\Models\MasterTahap;
+use PekerjaanPanitiaHelper;
+use Illuminate\Http\Request;
+use App\Models\ApplicationUser;
+use App\Models\MetodePengadaan;
+use App\Models\PekerjaanRincian;
+use App\Models\PenawaranRincian;
+use App\Models\MasterPersyaratan;
+use Illuminate\Support\Facades\DB;
+use App\Models\Services\UserService;
+use App\Models\KualifikasiGroupDetail;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Barryvdh\Debugbar\Twig\Extension\Debug;
+use EprocLoggerHelper;
 
 class PersiapanPengadaanController extends Controller
 {
@@ -234,23 +236,98 @@ class PersiapanPengadaanController extends Controller
             $pekerjaan->created_by = ApplicationUser::find(20300)->nama;
             $pekerjaan->updated_by = ApplicationUser::find(20300)->nama;
             $pekerjaan->save();
-
+            //dump($pekerjaan);
 
             // Creating Panitia automatically
             $pekerjaan_id = $pekerjaan->id;
             PekerjaanHelper::setPanitiaPekerjaan($pekerjaan_id);
-            //PekerjaanPanitia::createAksesPanitia($pekerjaan_id);
-
+            PekerjaanPanitiaHelper::createAksesPanitia($pekerjaan_id);
+            //die();
             // // Linking RFQ-Pekerjaan
-            // $rfq->setStatus(MaxRfq::PEKERJAAN);
-            // $rfq->setMaxId($pekerjaan_id);
-            // $rfq->save();
+            $rfq->status = MaxRfq::PEKERJAAN;
+            $rfq->max_id = $pekerjaan_id;
+            $rfq->save();
+            //dump($rfq);
+
+            $idtampil = 0;
+            foreach ($lines as $line) {
+                $hargahps      = 0;
+                $tgl_kebutuhan = date('Y-m-d');
+                $tgl_req       = date('Y-m-d');
+                $spesifikasi   = '';
+                $spesifikasi2  = '';
+                $noupb         = '';
+                $nosdkal       = '';
+                $noreq         = '';
+                $nowo          = '';
+                $wodesc        = '';
+                $tipereq       = '';
+                $kodebarang    = '';
+                $idanggaran    = '';
+                $idtampil++;
+                $pekerjaan_rincian = new PekerjaanRincian();
+                $pekerjaan_rincian->pekerjaan_id = $pekerjaan_id;
+                $pekerjaan_rincian->nama = $line->line_desc;
+                $pekerjaan_rincian->volume = $line->order_qty;
+                $pekerjaan_rincian->satuan = $line->line_unit;
+                $pekerjaan_rincian->tipe = 1;
+                $pekerjaan_rincian->pajak = 0;
+                $pekerjaan_rincian->harga_satuan = $hargahps;
+                $pekerjaan_rincian->harga_satuan_oe = $hargahps;
+                $pekerjaan_rincian->tglkebutuhan = $tgl_kebutuhan;
+                $pekerjaan_rincian->spesifikasi = $spesifikasi;
+                $pekerjaan_rincian->noupb = $noupb;
+                $pekerjaan_rincian->nosdkal = $nosdkal;
+                $pekerjaan_rincian->nohps = '';
+                $pekerjaan_rincian->noreq = $noreq;
+                $pekerjaan_rincian->nowo = $nowo;
+                $pekerjaan_rincian->tglreq = $tgl_req;
+                $pekerjaan_rincian->wodesc = $wodesc;
+                $pekerjaan_rincian->stockcode =  $line->itemnum;
+                $pekerjaan_rincian->kodebarang = $kodebarang;
+                $pekerjaan_rincian->kodedistrik = $satuan_kerja_id;
+
+                // $pekerjaan_rincian->kode_anggaran = $idanggaran;
+                // $pekerjaan_rincian->peruntukan = $lokasi;
+                // $pekerjaan_rincian->dsrusulan = $no_surat_perintah;
+
+                $pekerjaan_rincian->idtampil = $idtampil;
+                $pekerjaan_rincian->pr_id = json_decode($line->other_attr, true)['PR_ID'];
+                $pekerjaan_rincian->save();
+                //dump($pekerjaan_rincian);
+
+                // $pekerjaan_rincian->subnohps = $subnohps;
+
+                // link rfq-pekerjaan
+                $line->max_id = $pekerjaan_rincian->id;
+                $line->save();
+                //dump($line);
+            }
+
+
+            //history pekerjaan
+            $pekerjaan_id   = $pekerjaan->id;
+            $pengadaan_id   = null;
+            $kode_pekerjaan = $pekerjaan->kode;
+            $nama_pekerjaan = $pekerjaan->nama;
+            $kode_tahap     = History::BUAT_PAKET;
+            $status         = Pekerjaan::STATUS_MENUNGGU_PERSETUJUAN_URUSAN_PENGADAAN;
+            $deskripsi      = 'Buat Paket Kode : ' . $pekerjaan->kode . '<br/>Nama : ' . $pekerjaan->nama;
+            $description    = 'Work Package Code : ' . $pekerjaan->kode . ' Name : ' . $pekerjaan->nama;
+
+            eprocLoggerHelper::HistoryHeaderlog($pekerjaan_id, $kode_pekerjaan, $nama_pekerjaan, $status, $pengadaan_id);
+            //eprocLoggerHelper::Historylog($pekerjaan_id, $pengadaan_id, $deskripsi, $status, $kode_tahap);
+            $history_id = eprocLoggerHelper::getHistorylogId($pekerjaan_id, $deskripsi, $status, $kode_tahap, $pengadaan_id);
+            eprocLoggerHelper::PekerjaanLog($kode_tahap, 'Work Package Created', $description, 0, $history_id, $pekerjaan_id);
+
+            //die();
+            DB::commit();
+            return redirect()->route('persiapan-pengadaan.index')->with('success', 'Pengadaan berhasil dibuat');
         } catch (\Exception $e) {
-            dump($e);
+            throw $e;
             DebugBar::info($e);
             DB::rollBack();
+            return redirect()->route('persiapan-pengadaan.index')->with('error', 'Pengadaan gagal dibuat');
         }
-
-        dd($item_header);
     }
 }

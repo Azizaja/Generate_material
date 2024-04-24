@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -31,5 +32,10 @@ class MetodePengadaan extends Model
     public function masterTahap(): HasMany
     {
         return $this->hasMany(MasterTahap::class, 'master_metode_pengadaan_id', 'master_metode_pengadaan_id');
+    }
+
+    public function sistemPengadaan(): BelongsTo
+    {
+        return $this->belongsTo(SistemPengadaan::class, 'sistem_pengadaan_id', 'id');
     }
 }

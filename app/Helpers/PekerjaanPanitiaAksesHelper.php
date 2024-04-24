@@ -33,6 +33,27 @@ class PekerjaanPanitiaAksesHelper
         return $arr;
     }
 
+    public static function getArrayApprove()
+    {
+        $arr = array();
+        $arr[PekerjaanPanitiaAkses::AKSES_REGISTER_PEKERJAAN]         = 'Register Pekerjaan'; //pekerjaan
+        $arr[PekerjaanPanitiaAkses::AKSES_APPROVAL_LAKSANAKAN_LELANG] = 'Laksanakan Lelang'; //pengadaan
+        $arr[PekerjaanPanitiaAkses::AKSES_PEMBUKAAN_PENAWARAN]         = 'Pembukaan Penawaran'; //pengadaan
+        $arr[PekerjaanPanitiaAkses::AKSES_EVALUASI_ADMINISTRASI]     = 'Evaluasi Administrasi'; //pengadaan
+        $arr[PekerjaanPanitiaAkses::AKSES_EVALUASI_TEKNIS]             = 'Evaluasi Teknis'; //pengadaan
+        $arr[PekerjaanPanitiaAkses::AKSES_EVALUASI_KEWAJARAN_HARGA]     = 'Evaluasi Kewajaran Harga'; //pengadaan
+        $arr[PekerjaanPanitiaAkses::AKSES_EVALUASI_KUALIFIKASI]         = 'Evaluasi Kualifikasi'; //pengadaan
+        $arr[PekerjaanPanitiaAkses::AKSES_KLARIFIKASI]                 = 'Beauty Contest'; //pengadaan
+        $arr[PekerjaanPanitiaAkses::AKSES_NEGOSIASI]                 = 'Negosiasi'; //pengadaan
+        $arr[PekerjaanPanitiaAkses::AKSES_PENETAPAN_PEMENANG]         = 'Penetapan Pemenang'; //pengadaan
+        $arr[PekerjaanPanitiaAkses::AKSES_MASA_SANGGAH]                 = 'Masa Sanggah'; //pengadaan
+        $arr[PekerjaanPanitiaAkses::AKSES_PENUNJUKAN_PEMENANGAN]     = 'Penunjukan Pemenang'; //pengadaan
+        $arr[PekerjaanPanitiaAkses::AKSES_APPROVAL_UNDANG_PENYEDIA] = 'Approval Undang Penyedia'; //pengadaan
+        $arr[PekerjaanPanitiaAkses::AKSES_UBAH_JADWAL]                 = 'Mengubah Jadwal'; //pengadaan
+
+        return $arr;
+    }
+
     public static function isAllowed(Pekerjaan $pekerjaan, $akses_id = null)
     {
         if (config('app.approval.panitia')) {
@@ -68,26 +89,6 @@ class PekerjaanPanitiaAksesHelper
         } else {
             return true;
         }
-    }
-    public static function getArrayApprove()
-    {
-        $arr = array();
-        $arr[PekerjaanPanitiaAkses::AKSES_REGISTER_PEKERJAAN]         = 'Register Pekerjaan'; //pekerjaan
-        $arr[PekerjaanPanitiaAkses::AKSES_APPROVAL_LAKSANAKAN_LELANG] = 'Laksanakan Lelang'; //pengadaan
-        $arr[PekerjaanPanitiaAkses::AKSES_PEMBUKAAN_PENAWARAN]         = 'Pembukaan Penawaran'; //pengadaan
-        $arr[PekerjaanPanitiaAkses::AKSES_EVALUASI_ADMINISTRASI]     = 'Evaluasi Administrasi'; //pengadaan
-        $arr[PekerjaanPanitiaAkses::AKSES_EVALUASI_TEKNIS]             = 'Evaluasi Teknis'; //pengadaan
-        $arr[PekerjaanPanitiaAkses::AKSES_EVALUASI_KEWAJARAN_HARGA]     = 'Evaluasi Kewajaran Harga'; //pengadaan
-        $arr[PekerjaanPanitiaAkses::AKSES_EVALUASI_KUALIFIKASI]         = 'Evaluasi Kualifikasi'; //pengadaan
-        $arr[PekerjaanPanitiaAkses::AKSES_KLARIFIKASI]                 = 'Beauty Contest'; //pengadaan
-        $arr[PekerjaanPanitiaAkses::AKSES_NEGOSIASI]                 = 'Negosiasi'; //pengadaan
-        $arr[PekerjaanPanitiaAkses::AKSES_PENETAPAN_PEMENANG]         = 'Penetapan Pemenang'; //pengadaan
-        $arr[PekerjaanPanitiaAkses::AKSES_MASA_SANGGAH]                 = 'Masa Sanggah'; //pengadaan
-        $arr[PekerjaanPanitiaAkses::AKSES_PENUNJUKAN_PEMENANGAN]     = 'Penunjukan Pemenang'; //pengadaan
-        $arr[PekerjaanPanitiaAkses::AKSES_APPROVAL_UNDANG_PENYEDIA] = 'Approval Undang Penyedia'; //pengadaan
-        $arr[PekerjaanPanitiaAkses::AKSES_UBAH_JADWAL]                 = 'Mengubah Jadwal'; //pengadaan
-
-        return $arr;
     }
 
     public static function getValueAkses($kode, $pekerjaan_panitia_id)

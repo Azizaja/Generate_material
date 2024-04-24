@@ -102,4 +102,21 @@ class ApplicationUser extends Model
 
         return $result;
     }
+
+    public function getUserKodeJabatan()
+    {
+        $sekarang = date("Y-m-d");
+        $m_position = MPosition::where('application_user_id', $this->id)
+            ->where('begin_date', '<=', $sekarang)
+            ->where(function ($query) use ($sekarang) {
+                $query->whereDate('end_date', '>', $sekarang)
+                    ->orWhereNull('end_date');
+            })
+            ->first();
+        if ($m_position) {
+            return $m_position->position;
+        } else {
+            return 'Tidak Memiliki Jabatan';
+        }
+    }
 }

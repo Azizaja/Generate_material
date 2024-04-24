@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Bidang;
+use App\Models\Perusahaan;
 use App\Models\SatuanKerja;
 use App\Models\PekerjaanLog;
 use App\Models\ApplicationUser;
@@ -21,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 
 class Pekerjaan extends Model
 {
@@ -390,5 +392,47 @@ class Pekerjaan extends Model
             $strsql = $strsql_material;
         }
         return $strsql;
+    }
+
+    public static function getAdaAksesPanitia($pekerjaan_id)
+    {
+        $pekerjaan_akses_panitias = PekerjaanPanitiaAkses::whereIn('PEKERJAAN_PANITIA_ID', function ($query) use ($pekerjaan_id) {
+            $query->select('ID')
+                ->from('pekerjaan_panitia')
+                ->where('PEKERJAAN_ID', $pekerjaan_id);
+        })->get();
+
+        if ($pekerjaan_akses_panitias->isNotEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteAllPekerjaanPanitiaAkses()
+    {
+        $pekerjaan_id = $this->id;
+        $pekerjaan_akses_panitias = PekerjaanPanitiaAkses::whereIn('PEKERJAAN_PANITIA_ID', function ($query) use ($pekerjaan_id) {
+            $query->select('ID')
+                ->from('pekerjaan_panitia')
+                ->where('PEKERJAAN_ID', $pekerjaan_id);
+        })->get();
+
+        foreach ($pekerjaan_akses_panitias as $v) {
+            $v->delete();
+        }
+    }
+
+    public function getPekerjaanPanitiaByKelompokPanitia($kelompok_panitia = NULL)
+    {
+        $query = PekerjaanPanitia::query();
+
+        $query->where('pekerjaan_id', $this->id);
+        if ($kelompok_panitia) {
+            $query->where('kelompok_panitia_id', $kelompok_panitia->id);
+        }
+        $pekerjaanPanitia = $query->orderBy('urutan', 'asc')->get();
+
+        return $pekerjaanPanitia;
     }
 }

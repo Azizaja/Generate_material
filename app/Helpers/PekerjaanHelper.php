@@ -2,6 +2,7 @@
 
 use App\Models\AnggotaKelompok;
 use App\Models\ApplicationUser;
+use App\Models\KelompokPanitia;
 use App\Models\Pekerjaan;
 use App\Models\PekerjaanPanitia;
 use App\Models\PekerjaanRincian;
@@ -173,118 +174,38 @@ class PekerjaanHelper
         return $query->get();
     }
 
-    // public static function setPanitiaPekerjaan($pekerjaan_id)
-    // {
-    //     $user_id = ApplicationUser::find(20300)->id;
-    //     $anggota_kelompok = AnggotaKelompok::where('user_id', $user_id)->first();
-    //     if ($anggota_kelompok) {
-    //         $anggota_kelompoks = AnggotaKelompok::where('kelompok_id', $anggota_kelompok->kelompok_id)
-    //             ->orderBy('jabatan')
-    //             ->get();
+    public static function setPanitiaPekerjaan($pekerjaan_id)
+    {
+        $user_id = ApplicationUser::find(20300)->id;
+        $anggota_kelompok = AnggotaKelompok::where('user_id', $user_id)->first();
+        if ($anggota_kelompok) {
+            $anggota_kelompoks = AnggotaKelompok::where('kelompok_id', $anggota_kelompok->kelompok_id)
+                ->orderBy('jabatan')
+                ->get();
 
-    //         // foreach ($anggota_kelompoks as $anggota_kelompok) {
-    //         //     echo 'user_id :' . $anggota_kelompok->user_id . '<br>';
-    //         // }
+            // foreach ($anggota_kelompoks as $anggota_kelompok) {
+            //     echo 'user_id :' . $anggota_kelompok->user_id . '<br>';
+            // }
 
-    //         try {
-    //             DB::beginTransaction();
-    //             $x = 1;
-    //             foreach ($anggota_kelompoks as $anggota_kelompok) {
-    //                 $pekerjaan_panitia = new PekerjaanPanitia();
-    //                 $pekerjaan_panitia->kelompok_panitia_id = $anggota_kelompok->kelompok_id;
-    //                 $pekerjaan_panitia->pekerjaan_id = $pekerjaan_id;
-    //                 $pekerjaan_panitia->user_id = $anggota_kelompok->user_id;
-    //                 $pekerjaan_panitia->jabatan = $anggota_kelompok->jabatan;
-    //                 $pekerjaan_panitia->urutan = $x;
+            try {
+                DB::beginTransaction();
+                $x = 1;
+                foreach ($anggota_kelompoks as $anggota_kelompok) {
+                    $pekerjaan_panitia = new PekerjaanPanitia();
+                    $pekerjaan_panitia->kelompok_panitia_id = $anggota_kelompok->kelompok_id;
+                    $pekerjaan_panitia->pekerjaan_id = $pekerjaan_id;
+                    $pekerjaan_panitia->user_id = $anggota_kelompok->user_id;
+                    $pekerjaan_panitia->jabatan = $anggota_kelompok->jabatan;
+                    $pekerjaan_panitia->urutan = $x;
 
-    //                 $pekerjaan_panitia->save();
-    //                 $x++;
-    //             }
-    //             DB::commit();
-    //         } catch (Exception $e) {
-    //             DB::rollBack();
-    //             throw $e;
-    //         }
-    //     }
-    // }
-    // public static function createAksesPanitia($pekerjaan_id)
-    // {
-    //     $pekerjaan = PekerjaanPeer::retrieveByPK($pekerjaan_id);
-    //     if (!$pekerjaan->getAdaAksesPanitia($pekerjaan_id)) {
-    //         //cek apakah ada pekerjaan panitia
-    //         $c = new Criteria;
-    //         $c->add(PekerjaanPanitiaPeer::PEKERJAAN_ID, $pekerjaan_id);
-    //         $pekerjaan_panitia = PekerjaanPanitiaPeer::doSelectOne($c);
-    //         if (!$pekerjaan_panitia) {
-    //             PekerjaanPeer::setPanitiaPekerjaan($pekerjaan_id);
-    //         }
-
-    //         $c = new Criteria;
-    //         $c->add(KelompokPanitiaPeer::KODE, $pekerjaan_id);
-    //         $kelompok_panitia = KelompokPanitiaPeer::doSelectOne($c);
-
-    //         $pekerjaan_panitias = $pekerjaan->getPekerjaanPanitiaByKelompokPanitia($kelompok_panitia);
-    //         $array_panitia_akses = PekerjaanPanitiaAksesPeer::getArrayAkses();
-    //         $array_panitia_approve = PekerjaanPanitiaAksesPeer::getArrayApprove();
-
-    //         // default di isi semua akses
-    //         $con = propel::getConnection();
-    //         $con->begin();
-    //         try {
-    //             $pekerjaan->deleteAllPekerjaanPanitiaAkses($con);
-
-    //             $default = array(
-    //                 PekerjaanPanitiaAksesPeer::AKSES_APPROVAL_LAKSANAKAN_LELANG => array(
-    //                     'type'        => 'and',
-    //                     'jabatan'    => array(PekerjaanPanitiaPeer::JABATAN_PPK, PekerjaanPanitiaPeer::JABATAN_KETUA),
-    //                 ),
-    //                 PekerjaanPanitiaAksesPeer::AKSES_PENETAPAN_PEMENANG => array(
-    //                     'type'        => 'and',
-    //                     'jabatan'    => array(PekerjaanPanitiaPeer::JABATAN_PPK, PekerjaanPanitiaPeer::JABATAN_KETUA),
-    //                 ),
-    //                 PekerjaanPanitiaAksesPeer::AKSES_PENUNJUKAN_PEMENANGAN => array(
-    //                     'type'        => 'and',
-    //                     'jabatan'    => array(PekerjaanPanitiaPeer::JABATAN_PPK, PekerjaanPanitiaPeer::JABATAN_KETUA),
-    //                 )
-    //             );
-
-
-    //             foreach ($array_panitia_akses as $key => $akses) {
-    //                 foreach ($pekerjaan_panitias as $panitia) {
-    //                     $check = MPositionCredentialPeer::getInAkses($key, $panitia->getUser()->getUserKodeJabatan());
-    //                     if ($check) {
-    //                         $pekerjaan_panitia_akses = new PekerjaanPanitiaAkses();
-    //                         $pekerjaan_panitia_akses->setPekerjaanPanitiaId($panitia->getId());
-    //                         $pekerjaan_panitia_akses->setAkses($key);
-    //                         $pekerjaan_panitia_akses->setState(0);
-    //                         $check_read = MPositionCredentialPeer::getInAksesReadonly($key, $panitia->getUser()->getUserKodeJabatan());
-    //                         if ($check_read) {
-    //                             $pekerjaan_panitia_akses->setReadOnly(1);
-    //                         }
-    //                         $pekerjaan_panitia_akses->setCreatedAt(date("Y-m-d H:i:s"));
-    //                         $pekerjaan_panitia_akses->setCreatedBy(sfContext::getInstance()->getUser()->getId());
-    //                         $pekerjaan_panitia_akses->save($con);
-    //                     }
-
-    //                     $check = MPositionCredentialPeer::getInApprove($key, $panitia->getUser()->getUserKodeJabatan());
-    //                     if ($check) {
-    //                         $pekerjaan_panitia_akses = new PekerjaanPanitiaAkses();
-    //                         $pekerjaan_panitia_akses->setPekerjaanPanitiaId($panitia->getId());
-    //                         $pekerjaan_panitia_akses->setAkses($key);
-    //                         $pekerjaan_panitia_akses->setState(0);
-    //                         $pekerjaan_panitia_akses->setCreatedAt(date("Y-m-d H:i:s"));
-    //                         $pekerjaan_panitia_akses->setCreatedBy(sfContext::getInstance()->getUser()->getId());
-    //                         $pekerjaan_panitia_akses->setSequence(1);
-    //                         //print_r($pekerjaan_panitia_akses);
-    //                         $pekerjaan_panitia_akses->save($con);
-    //                     }
-    //                 }
-    //             }
-
-    //             $con->commit();
-    //         } catch (Exception $e) {
-    //             $con->rollback();
-    //         }
-    //     }
-    // }
+                    $pekerjaan_panitia->save();
+                    $x++;
+                }
+                DB::commit();
+            } catch (Exception $e) {
+                DB::rollBack();
+                throw $e;
+            }
+        }
+    }
 }
