@@ -27,10 +27,8 @@ use App\Models\PekerjaanPersyaratan;
 use App\Models\Services\UserService;
 use App\Models\PekerjaanSubCommodity;
 use App\Models\KualifikasiGroupDetail;
-use App\Models\PekerjaanPersyaratan;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Barryvdh\Debugbar\Twig\Extension\Debug;
-use EprocLoggerHelper;
 use PekerjaanPersyaratanHelper;
 
 class PersiapanPengadaanController extends Controller
