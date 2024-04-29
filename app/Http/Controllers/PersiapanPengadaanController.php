@@ -27,8 +27,11 @@ use App\Models\PekerjaanPersyaratan;
 use App\Models\Services\UserService;
 use App\Models\PekerjaanSubCommodity;
 use App\Models\KualifikasiGroupDetail;
+use App\Models\PekerjaanPersyaratan;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Barryvdh\Debugbar\Twig\Extension\Debug;
+use EprocLoggerHelper;
+use PekerjaanPersyaratanHelper;
 
 class PersiapanPengadaanController extends Controller
 {
@@ -69,7 +72,6 @@ class PersiapanPengadaanController extends Controller
 
         if ($metode_pengadaan) {
             $masterTahap = MasterTahap::where('master_metode_pengadaan_id', $metode_pengadaan->master_metode_pengadaan_id)->get();
-
             foreach ($masterTahap as $tahap) {
                 if ($tahap->evaluasi_id > 0) {
                     $evaluasi = Evaluasi::find($tahap->evaluasi_id);
@@ -91,6 +93,7 @@ class PersiapanPengadaanController extends Controller
             //     }
             // }
         }
+
         DebugBar::info($tabPersyaratans);
         return view('persiapanPengadaan.showPersiapanPengadaan', [
             'pekerjaans' => Pekerjaan::all(),
@@ -136,49 +139,59 @@ class PersiapanPengadaanController extends Controller
         ]);
     }
 
-    public function showKonfigurasiKualifikasi($id)
+    public function showKonfigurasi(Request $request)
     {
-
-        $request = request();
+        // dd($request->all());
+        $id = $request->id;
+        // dd($id);
         $pekerjaan = Pekerjaan::find($id);
-        $query = MasterPersyaratan::query();
+        $master_persyaratan_id = MasterPersyaratan::all();
+        // dd($pekerjaan->metodePengadaan->sistemPengadaan());
 
-        if ($pekerjaan->metodePengadaan->sistemPengadaanId == MetodePengadaan::PENUNJUKAN_LANGSUNG) {
-            if ($request->input('evaluasi_id') == Evaluasi::ADMINISTRASI) {
-                $query->where('evaluasi_id', Evaluasi::ADMINISTRASI)
-                    ->orWhere('evaluasi_id', Evaluasi::KUALIFIKASI);
+        if ($pekerjaan->metodePengadaan->sistem_pengadaan_id == MetodePengadaan::PENUNJUKAN_LANGSUNG) {
+            if ($request->evaluasi == Evaluasi::ADMINISTRASI) {
+                $persyaratans = MasterPersyaratan::where('evaluasi_id', Evaluasi::ADMINISTRASI)
+                    ->orWhere('evaluasi_id', Evaluasi::KUALIFIKASI)
+                    ->where('is_deleted', 0)
+                    ->get();
             } else {
-                $query->where('evaluasi_id', $request->input('evaluasi_id'));
+                $persyaratans = MasterPersyaratan::where('evaluasi_id', $request->evaluasi)->where('is_deleted', 0)->get();
             }
         } else {
-            $query->where('evaluasi_id', $request->input('evaluasi_id'));
+            $persyaratans = MasterPersyaratan::where('evaluasi_id', $request->evaluasi)->where('is_deleted', 0)->get();
         }
 
-        DebugBar::info($query->get());
+        $persyaratans = MasterPersyaratan::whereNull('parent_id')
+            ->where('evaluasi_id', $request->evaluasi)
+            ->where('is_deleted', 0)
+            ->get();
+        // DebugBar::info($persyaratans);
 
-        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiKualifikasi', [
-            'detail_pekerjaan' => Pekerjaan::find($id),
-        ]);
-    }
+        $peksyr = PekerjaanPersyaratan::where('pekerjaan_persyaratan.evaluasi_id', $request->evaluasi)
+            ->where('pekerjaan_persyaratan.pekerjaan_id', $id)
+            // ->join('master_persyaratan', 'pekerjaan_persyaratan.master_persyaratan_id', '=', 'master_persyaratan.id')
+            // ->select('master_persyaratan.jenis')
+            ->select('pekerjaan_persyaratan.master_persyaratan_id')
+            // ->distinct()
+            ->get();
+        // ->toArray();
 
-    public function showKonfigurasiKewajaran($id)
-    {
-        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiKewajaran', [
+        // dd($peksyr);
+        $peksyarat = array();
+        foreach ($peksyr as $key => $value) {
+            $peksyarat[] = $value->master_persyaratan_id;
+        }
+        // $this->peksyarat = $peksyarat;
+        DebugBar::info($peksyarat);
+        //         $peksyarat = PekerjaanPersyaratanHelper::getByEvaluasiAndPekerjaanAndUser($request->evaluasi, $id, 20300);
+        //         DebugBar::info($peksyarat);
+        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiPersyaratan', [
             'detail_pekerjaan' => Pekerjaan::find($id),
-        ]);
-    }
-
-    public function showKonfigurasiAdministrasi($id)
-    {
-        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiAdministrasi', [
-            'detail_pekerjaan' => Pekerjaan::find($id),
-        ]);
-    }
-
-    public function showKonfigurasiTeknis($id)
-    {
-        return view('persiapanPengadaan.konfigurasiPersyaratanPengadaan.konfigurasiTeknis', [
-            'detail_pekerjaan' => Pekerjaan::find($id),
+            'persyaratans' => $persyaratans,
+            'evaluasi' => Evaluasi::find($request->evaluasi)->nama,
+            'master_persyaratan_id' => $master_persyaratan_id,
+            'peksyarat' => $peksyarat,
+            // 'peksyr' => $peksyr,
         ]);
     }
 
