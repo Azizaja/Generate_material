@@ -18,6 +18,10 @@ class MasterPersyaratan extends Model
     const TIPE_PERSYARATAN_DOKUMEN    = 1;
     const TIPE_PERSYARATAN_FORMAL        = 2;
 
+    public function evaluasi(){
+        return $this->belongsTo(Evaluasi::class, 'id','evaluasi_id');
+    }
+
     public static function getTipePersyaratan()
     {
         return array(
