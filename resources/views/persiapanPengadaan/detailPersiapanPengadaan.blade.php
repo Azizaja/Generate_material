@@ -122,15 +122,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($detail_pekerjaan->bidang as $bidangs)
-                                @foreach ($bidangs->subBidang as $subBidang)
-                                    <tr>
-                                        <td>[{{ $bidangs->kode }}] - [{{ $bidangs->nama }}]</td>
-                                        <td>[{{ $subBidang->kode }}] - [{{ $subBidang->nama }}]</td>
-                                        <td class="text-center">
-                                            {{ $subBidang->kualifikasiGroupDetail->nama ?? '-' }}</td>
-                                    </tr>
-                                @endforeach
+
+                            @forelse ($detail_pekerjaan->pekerjaanSubBidang as $pekerjaanSubBidang)
+                                <tr>
+                                    <td>[{{ $pekerjaanSubBidang->subBidang->bidang->kode }}] -
+                                        [{{ $pekerjaanSubBidang->subBidang->bidang->nama }}]</td>
+                                    <td>[{{ $pekerjaanSubBidang->subBidang->kode }}] -
+                                        [{{ $pekerjaanSubBidang->subBidang->nama }}]</td>
+                                    <td class="text-center">
+                                        {{ $pekerjaanSubBidang->kualifikasiGroupDetail->nama ?? '-' }}</td>
+                                </tr>
                             @empty
                                 <tr>
                                     <td colspan="3" class="text-center">Tidak Ada Data</td>
@@ -179,7 +180,8 @@
             <i class="fas fa-plus-circle"></i> Usulan Perubahan
         </a>
         @include('persiapanPengadaan.modal.modalUsulanPerubahan')
-        <a href="{{ route('setting-persiapan.show', ['id' => $detail_pekerjaan->id]) }}" class="btn btn-info btn-sm mb-2">
+        <a href="{{ route('setting-persiapan.show', ['id' => $detail_pekerjaan->id]) }}"
+            class="btn btn-info btn-sm mb-2">
             <i class="fas fa-sliders-h"></i> Setting Persiapan Pengadaan
         </a>
         <a href="{{ route('persiapan-pengadaan.undangan', ['id' => $detail_pekerjaan->id]) }}"

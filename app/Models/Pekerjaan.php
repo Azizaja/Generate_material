@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pekerjaan extends Model
 {
@@ -129,6 +130,16 @@ class Pekerjaan extends Model
     public function pekerjaanLog(): HasMany
     {
         return $this->hasMany(PekerjaanLog::class, 'pekerjaan_id', 'id');
+    }
+
+    public function pekerjaanPersyaratan(): HasMany
+    {
+        return $this->hasMany(PekerjaanPersyaratan::class, 'pekerjaan_id', 'id');
+    }
+
+    public function klasifikasi(): HasOne
+    {
+        return $this->hasOne(Klasifikasi::class, 'id', 'klasifikasi_id');
     }
 
     public function isAllowedDelete()

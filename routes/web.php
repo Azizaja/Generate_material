@@ -32,9 +32,15 @@ Route::get('persiapan-pengadaan/sap/show/{id}', [PersiapanPengadaanController::c
 Route::get('persiapan-pengadaan/sap/create-pengadaan/{id}', [PersiapanPengadaanController::class, 'createPengadaan'])->name('persiapan-pengadaan.createPengadaan');
 // Route::resource('setting-persiapan', SettingPersiapanController::class);
 
-Route::get('/persiapan-pengadaan/setting-perispan-pengadaan/{id}', [SettingPersiapanController::class, 'show'])->name('setting-persiapan.show');
+Route::get('/persiapan-pengadaan/setting-persiapan-pengadaan/{id}', [SettingPersiapanController::class, 'show'])->name('setting-persiapan.show');
+Route::post('/persiapan-pengadaan/setting-persiapan-pengadaan', [SettingPersiapanController::class, 'updateSettingPersiapanPengadaan'])->name('setting-persiapan.store');
+
 Route::get('/persiapan-pengadaan/akses-pelaksana-pengadaan/{id}', [AksesPelaksanaPengadaanController::class, 'show'])->name('akses-pelaksana-pengadaan.show');
 
+Route::post('/store-sub-bidang', [SettingPersiapanController::class, 'storeSubBidang'])->name('store-sub-bidang');
+Route::post('/store-sub-commodity', [SettingPersiapanController::class, 'storeSubCommodity'])->name('store-sub-commodity');
+Route::delete('/delete-sub-bidang/{id}', [SettingPersiapanController::class, 'deleteSubBidang'])->name('delete-sub-bidang');
+Route::delete('/delete-sub-commodity/{id}', [SettingPersiapanController::class, 'deleteSubCommodity'])->name('delete-sub-commodity');
 Route::post('/get-bidang', [SettingPersiapanController::class, 'getBidang'])->name('get-bidang');
 Route::post('/get-sub-bidang', [SettingPersiapanController::class, 'getSubBidang'])->name('get-sub-bidang');
 Route::post('/get-m-sub-commodity', [SettingPersiapanController::class, 'getMSubCommodity'])->name('get-m-sub-commodity');

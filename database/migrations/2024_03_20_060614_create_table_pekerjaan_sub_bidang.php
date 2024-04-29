@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pekerjaan_sub_bidang', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('pekerjaan_id');
             $table->unsignedBigInteger('sub_bidang_id');
             $table->unsignedBigInteger('kualifikasi_group_detail_id')->nullable();
@@ -20,9 +21,6 @@ return new class extends Migration
             $table->string('created_by', 100)->nullable();
             $table->string('updated_by', 100)->nullable();
             $table->timestamps();
-
-            // Define primary key
-            $table->primary(['pekerjaan_id', 'sub_bidang_id']);
         });
     }
 

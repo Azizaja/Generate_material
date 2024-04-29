@@ -25,7 +25,17 @@ class PekerjaanHelper
 
         return $arr;
     }
-
+    public static function getMetodeKontrakString($metode_kontrak)
+    {
+        $arr_metode_kontrak_string = array(
+            Pekerjaan::METODE_KONTRAK_LUMPSUM => 'Lumpsum',
+            Pekerjaan::METODE_KONTRAK_RINCIAN => 'Harga Satuan',
+            Pekerjaan::METODE_KONTRAK_GABUNGAN => 'Gabungan Lumpsum dan Harga Satuan',
+            Pekerjaan::METODE_KONTRAK_PROSENTASE => 'Prosentase',
+            Pekerjaan::METODE_KONTRAK_TERIMA_JADI => 'Terima Jadi (Turnkey)',
+        );
+        return $arr_metode_kontrak_string[$metode_kontrak];
+    }
     public static function getMetodeKontrak($metode)
     {
         $texts = [

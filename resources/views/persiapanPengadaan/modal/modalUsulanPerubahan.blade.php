@@ -33,8 +33,8 @@
                             <div class="col-sm-10">
                                 <select class="form-select w-50" id="requester">
                                     <option selected="selected" hidden>Pilih Requester</option>
-                                    @foreach (App\Models\ApplicationUser::doSelectPanitiaByInstansiSatuanKerjaAsArray(1) as $panitia)
-                                        <option value="{{ $panitia }}">{{ $panitia }}</option>
+                                    @foreach (App\Models\ApplicationUser::doSelectPanitiaByInstansiSatuanKerjaAsArray(1) as $value => $text)
+                                        <option value="{{ $value }}">{{ $text }}</option>
                                     @endforeach
                                 </select>
                             </div>

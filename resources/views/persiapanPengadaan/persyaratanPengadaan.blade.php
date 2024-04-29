@@ -33,35 +33,30 @@
                                             class="btn btn-primary mb-2">
                                             <i class="fas fa-plus-circle"></i> Buat Baru
                                         </a>
-
+                                        <a href="{{ route('persiapan-pengadaan.konfigurasi-kualifikasi', ['id' => $detail_pekerjaan->id, 'evaluasi_id']) }}"
+                                            class="btn btn-primary mb-2">
+                                            <i class="fas fa-cogs"></i> Konfigurasi
+                                        </a>
                                         @if ($tabPersyaratan->nama == 'Kualifikasi')
-                                            
                                             <a href="{{ route('persiapan-pengadaan.konfigurasi-kualifikasi', ['id' => $detail_pekerjaan->id]) }}"
                                                 class="btn btn-primary mb-2">
                                                 <i class="fas fa-cogs"></i> Konfigurasi
                                             </a>
-                                            
                                         @elseif ($tabPersyaratan->nama == 'Administrasi')
-                                            
                                             <a href="{{ route('persiapan-pengadaan.konfigurasi-administrasi', ['id' => $detail_pekerjaan->id]) }}"
                                                 class="btn btn-primary mb-2">
                                                 <i class="fas fa-cogs"></i> Konfigurasi
                                             </a>
-                                            
                                         @elseif ($tabPersyaratan->nama == 'Teknis')
-                                            
                                             <a href="{{ route('persiapan-pengadaan.konfigurasi-teknis', ['id' => $detail_pekerjaan->id]) }}"
                                                 class="btn btn-primary mb-2">
                                                 <i class="fas fa-cogs"></i> Konfigurasi
                                             </a>
-                                            
                                         @elseif ($tabPersyaratan->nama == 'Kewajaran Harga')
-                                            
                                             <a href="{{ route('persiapan-pengadaan.konfigurasi-kewajaran', ['id' => $detail_pekerjaan->id]) }}"
                                                 class="btn btn-primary mb-2">
                                                 <i class="fas fa-cogs"></i> Konfigurasi
                                             </a>
-                                            
                                         @endif
                                     </div>
                                 </div>

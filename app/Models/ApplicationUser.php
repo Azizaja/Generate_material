@@ -95,9 +95,9 @@ class ApplicationUser extends Model
         // if ($satuan_kerja_id !== null && !$user->isDirekturUnitP2bj() && !$user->isAdministratorOperasional() && !$user->isAdministratorSuper() && !$user->isPanitia()) {
         //     $critcopy->add(self::SATUAN_KERJA_ID, $satuan_kerja_id);
         // }
-        $result = array();
+        $result = [];
         foreach ($users as $user) {
-            $result[] = $user->nama;
+            $result[$user->id] = $user->nama;
         }
 
         return $result;

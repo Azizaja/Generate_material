@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PekerjaanPersyaratan extends Model
+class UserLog extends Model
 {
     use HasFactory;
 
-    protected $table = 'pekerjaan_persyaratan';
+    protected $table = 'user_log';
 
     protected $guarded = ['id'];
 
-    const TIPE_PILIHAN_BENAR_SALAH = 1;
-
-    const TIPE_NILAI = 2;
+    public $timestamps = false;
 }

@@ -31,4 +31,21 @@ class History extends Model
     const NEGOSIASI = 'NEGOSIASI';
     const PENUNJUKAN_PEMENANG = 'PENUNJUKAN_PEMENANG';
     const SELESAI_PENGADAAN = 'SELESAI_PENGADAAN';
+
+    public static function getStatusHistoryPekerjaanArray()
+    {
+        return array(
+            Pekerjaan::STATUS_PERENCANAAN => Pekerjaan::STATUS_PERENCANAAN,
+            Pekerjaan::STATUS_MENUNGGU_PERSETUJUAN_URUSAN_PENGADAAN => Pekerjaan::STATUS_MENUNGGU_PERSETUJUAN_URUSAN_PENGADAAN,
+            Pekerjaan::STATUS_BERJALAN => Pekerjaan::STATUS_BERJALAN,
+            Pekerjaan::STATUS_SELESAI_PENGADAAN => Pekerjaan::STATUS_SELESAI_PENGADAAN,
+            Pekerjaan::STATUS_BATAL => Pekerjaan::STATUS_BATAL
+        );
+    }
+
+    public static function getStatusHistoryPekerjaan($status)
+    {
+        $arr_status_string = self::getStatusHistoryPekerjaanArray();
+        return $arr_status_string[$status];
+    }
 }

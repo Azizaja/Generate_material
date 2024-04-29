@@ -11,21 +11,23 @@
                         <div class="card-header">
                             <h5><b>Pengaturan Metode Pengadaaan</b></h5>
                         </div>
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" method="POST" action="{{ route('setting-persiapan.store') }}">
                             @csrf
+                            <input type="hidden" id="ppn" name="ppn" value="{{ config('app.default.ppn') }}">
+                            <input type="hidden" id="hps_tampil" name="hps_tampil"
+                                value="{{ $detail_pekerjaan->hps_tampil }}">
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="no-pengadaan" class="col-sm-2 col-form-label">No Pengadaaan</label>
+                                    <label for="id" class="col-sm-2 col-form-label">No Pengadaaan</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control w-75" id="no-pengadaan"
-                                            value="{{ $detail_pekerjaan->kode ?? '' }}" name="no-pengadaan" readonly>
+                                        <input type="email" class="form-control w-75" id="id"
+                                            value="{{ $detail_pekerjaan->id ?? '' }}" name="id" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="nama-pengadaan" class="col-sm-2 col-form-label">Nama Pengadaan</label>
+                                    <label for="nama" class="col-sm-2 col-form-label">Nama Pengadaan</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control w-75" id="nama-pengadaan"
-                                            name="nama-pengadaan"
+                                        <input type="text" class="form-control w-75" id="nama" name="nama"
                                             value="{{ $detail_pekerjaan->nama ?? 'Masukan Nama Pengadaan' }}">
                                     </div>
                                 </div>
@@ -37,9 +39,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="mata-uang" class="col-sm-2 col-form-label">Mata Uang</label>
+                                    <label for="currency_id" class="col-sm-2 col-form-label">Mata Uang</label>
                                     <div class="col-sm-10">
-                                        <select class="form-select w-75" name="mata uang">
+                                        <select class="form-select w-75" name="currency_id">
                                             <option selected="selected" disabled>Pilih Mata Uang</option>
                                             @foreach (App\Models\Pekerjaan::getCurrencyArray() as $currency)
                                                 {{-- <option value="{{ $currency }}">{{ $currency }}</option> --}}
@@ -51,9 +53,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="tahun-anggaran" class="col-sm-2 col-form-label">Tahun Anggaran</label>
+                                    <label for="tahun" class="col-sm-2 col-form-label">Tahun Anggaran</label>
                                     <div class="col-sm-10">
-                                        <select class="form-select w-75" name="tahun-anggaran">
+                                        <select class="form-select w-75" name="tahun">
                                             <option selected="selected" disabled>Pilih Tahun Anggaran</option>
                                             @for ($tahun = date('Y') + 1; $tahun >= 2019; $tahun--)
                                                 <option value="{{ $tahun }}" placeholder="Isi Tahun (2022)"
@@ -79,10 +81,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="metode-pengadaan" class="col-sm-2 col-form-label">Metode pengadaan<span
+                                    <label for="metode_pengadaan" class="col-sm-2 col-form-label">Metode pengadaan<span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <select class="form-select w-75" name="metode-pengadaan">
+                                        <select class="form-select w-75" name="metode_pengadaan">
                                             <option selected="selected" disabled>Pilih Metode Pengadaaan</option>
                                             @foreach ($metode_pengadaans as $metode)
                                                 <option value="{{ $metode->id }}"
@@ -93,15 +95,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="jenis-kontrak" class="col-sm-2 col-form-label">Jenis Kontrak<span
+                                    <label for="metode_kontrak" class="col-sm-2 col-form-label">Jenis Kontrak<span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <select class="form-select w-75" name="jenis-kontrak">
+                                        <select class="form-select w-75" name="metode_kontrak">
                                             <option selected="selected" disabled>Pilih Jenis Kontrak</option>
-                                            @foreach (PekerjaanHelper::getMetodeKontrakArr() as $metode_kontrak)
-                                                <option value="{{ $metode_kontrak }}"
-                                                    {{ $metode_kontrak == PekerjaanHelper::getMetodeKontrak($detail_pekerjaan->metode_kontrak) ? 'selected' : '' }}>
-                                                    {{ $metode_kontrak }}</option>
+                                            @foreach (PekerjaanHelper::getMetodeKontrakArr() as $value => $text)
+                                                <option value="{{ $value }}"
+                                                    {{ $text == PekerjaanHelper::getMetodeKontrak($detail_pekerjaan->metode_kontrak) ? 'selected' : '' }}>
+                                                    {{ $text }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -112,24 +114,25 @@
                                     <div class="col-sm-10">
                                         <select class="form-select select2 w-75" name="requester">
                                             <option selected="selected" disabled>Pilih Requester</option>
-                                            @foreach (App\Models\ApplicationUser::doSelectPanitiaByInstansiSatuanKerjaAsArray(1) as $panitia)
-                                                <option value="{{ $panitia }}"
-                                                    {{ $panitia == $detail_pekerjaan->requester ? 'selected' : '' }}>
-                                                    {{ $panitia }}</option>
+                                            @foreach (App\Models\ApplicationUser::doSelectPanitiaByInstansiSatuanKerjaAsArray(1) as $value => $text)
+                                                <option value="{{ $value }}"
+                                                    {{ $value == $detail_pekerjaan->requester ? 'selected' : '' }}>
+                                                    {{ $text }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="status-multi-pemenang" class="col-sm-2 col-form-label">Status Multi
+                                    <label for="status_multi_pemenang" class="col-sm-2 col-form-label">Status Multi
                                         Pemenang</label>
                                     <div class="col-sm-10">
                                         <div class="form-check">
                                             @if ($detail_pekerjaan->status_multi_pemenang == 1)
                                                 <input type="checkbox" class="form-check-input" id="multi-pemenang-check"
-                                                    checked>
+                                                    checked name="status_multi_pemenang">
                                             @else
-                                                <input type="checkbox" class="form-check-input" id="multi-pemenang-check">
+                                                <input type="checkbox" class="form-check-input" id="multi-pemenang-check"
+                                                    name="status_multi_pemenang">
                                             @endif
 
                                             <label class="form-check-label" for="multi-pemenang-check">Gunakan Status
@@ -144,7 +147,7 @@
                                         <a href="#modal-bidang-material" class="btn btn-info btn-sm"
                                             data-toggle="modal">Tambah Bidang/Sub Bidang</a>
                                         <div class="table-responsive mt-3">
-                                            <table class="table table-bordered w-75">
+                                            <table class="table table-bordered w-75" id="table-bidang">
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th>Bidang</th>
@@ -153,23 +156,23 @@
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    @forelse ($detail_pekerjaan->bidang as $bidangs)
-                                                        @foreach ($bidangs->subBidang as $subBidang)
-                                                            <tr>
-                                                                <td>[{{ $bidangs->kode }}] - [{{ $bidangs->nama }}]</td>
-                                                                <td>[{{ $subBidang->kode }}] - [{{ $subBidang->nama }}]
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    {{ $subBidang->kualifikasiGroupDetail->nama ?? '-' }}
-                                                                </td>
-                                                                <td>
-                                                                    <a href="" class="btn btn-danger btn-sm"
-                                                                        title="hapus" data-toggle="modal"><i
-                                                                            class="fas fa-trash"></i></a>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
+                                                <tbody id="bidangTbody">
+                                                    @forelse ($detail_pekerjaan->pekerjaanSubBidang as $pekerjaanSubBidang)
+                                                        <tr>
+                                                            <td>[{{ $pekerjaanSubBidang->subBidang->bidang->kode }}] -
+                                                                [{{ $pekerjaanSubBidang->subBidang->bidang->nama }}]</td>
+                                                            <td>[{{ $pekerjaanSubBidang->subBidang->kode }}] -
+                                                                [{{ $pekerjaanSubBidang->subBidang->nama }}]</td>
+                                                            <td class="text-center">
+                                                                {{ $pekerjaanSubBidang->kualifikasiGroupDetail->nama ?? '-' }}
+                                                            </td>
+                                                            <td>
+                                                                <a href="" class="btn btn-danger btn-sm"
+                                                                    title="hapus" data-toggle="modal"
+                                                                    data-target="#modal-hapus-bidang-{{ $pekerjaanSubBidang->id }}"><i
+                                                                        class="fas fa-trash"></i></a>
+                                                            </td>
+                                                        </tr>
                                                     @empty
                                                         <tr>
                                                             <td colspan="4" class="text-center">Tidak Ada Data</td>
@@ -186,7 +189,7 @@
                                         <a href="#modal-material" class="btn btn-info btn-sm" data-toggle="modal">Tambah
                                             Material</a>
                                         <div class="table-responsive mt-3">
-                                            <table class="table table-bordered w-75">
+                                            <table class="table table-bordered w-75" id="table-material">
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th>Material</th>
@@ -206,7 +209,8 @@
                                                             </td>
                                                             <td>
                                                                 <a href="" class="btn btn-danger btn-sm"
-                                                                    title="hapus" data-toggle="modal"><i
+                                                                    title="hapus" data-toggle="modal"
+                                                                    data-target="#modal-hapus-material-{{ $pekerjaanSubCommodity->id }}"><i
                                                                         class="fas fa-trash"></i></a>
                                                             </td>
                                                         </tr>

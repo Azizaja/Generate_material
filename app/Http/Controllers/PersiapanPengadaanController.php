@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use PekerjaanHelper;
 use App\Models\Bidang;
 use App\Models\MaxRfq;
+use EprocLoggerHelper;
 use App\Models\History;
 use App\Models\Evaluasi;
 use App\Models\Pekerjaan;
 use App\Models\SubBidang;
 use App\Models\Perusahaan;
+use App\Models\Klasifikasi;
+use App\Models\Kualifikasi;
 use App\Models\MasterTahap;
 use PekerjaanPanitiaHelper;
 use Illuminate\Http\Request;
@@ -18,12 +21,14 @@ use App\Models\MetodePengadaan;
 use App\Models\PekerjaanRincian;
 use App\Models\PenawaranRincian;
 use App\Models\MasterPersyaratan;
+use App\Models\PekerjaanSubBidang;
 use Illuminate\Support\Facades\DB;
+use App\Models\PekerjaanPersyaratan;
 use App\Models\Services\UserService;
+use App\Models\PekerjaanSubCommodity;
 use App\Models\KualifikasiGroupDetail;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Barryvdh\Debugbar\Twig\Extension\Debug;
-use EprocLoggerHelper;
 
 class PersiapanPengadaanController extends Controller
 {
@@ -37,7 +42,7 @@ class PersiapanPengadaanController extends Controller
     public function index()
     {
         return view('persiapanPengadaan.index', [
-            'pekerjaans' => Pekerjaan::all(),
+            'pekerjaans' => Pekerjaan::orderBy('created_at', 'desc')->get(),
         ]);
     }
 

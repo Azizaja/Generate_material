@@ -196,5 +196,11 @@ return [
     ],
     'multi_pemenang' => [
         'bobot' => env('MULTI_PEMENANG_BOBOT', 0),
+    ],
+    'persyaratan' => [
+        'persyaratan_administrasi' => env('PERSYARATAN_ADMNISTRASI', 1),
+    ],
+    'default' => [
+        'ppn' => env('DEFAULT_PPN', 10),
     ]
 ];

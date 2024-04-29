@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pekerjaan_sub_commodity', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('pekerjaan_id');
-            $table->unsignedBigInteger('sub_commodity_id');
+        Schema::create('master_persyaratan_klasifikasi', function (Blueprint $table) {
+            $table->unsignedBigInteger('master_persyaratan_id');
+            $table->unsignedBigInteger('klasifikasi_id');
             $table->unsignedBigInteger('state')->nullable();
-            $table->string('created_by', 100)->nullable();
-            $table->string('updated_by', 100)->nullable();
             $table->timestamps();
+
+            $table->primary(['master_persyaratan_id', 'klasifikasi_id']);
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pekerjaan_sub_commodity');
+        Schema::dropIfExists('master_persyaratan_klasifikasi');
     }
 };

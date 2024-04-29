@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\History;
+use App\Models\UserLog;
 use App\Models\PekerjaanLog;
 use App\Models\HistoryHeader;
 use App\Models\ApplicationUser;
@@ -87,5 +88,25 @@ class EprocLoggerHelper
         $history->history_id = $history_id;
 
         $history->save();
+    }
+
+    public static function log($deskripsi)
+    {
+        $user_log = new UserLog();
+        $user_log->waktu = date("Y-m-d H:i:s");
+
+        // if (sfContext::getInstance()->getUser()->isPenyedia()) {
+        //     $user_log->setNamaUser(sfContext::getInstance()->getUser()->getLogNama());
+        // } else {
+        //     $user_log->setNamaUser(sfContext::getInstance()->getUser()->getLogNama() . '/' . sfContext::getInstance()->getUser()->getNama());
+        // }
+
+        $user_log->nama_user = ApplicationUser::find(20300)->nama;
+        $user_log->deskripsi = $deskripsi;
+        $user_log->ip_address = request()->ip();
+        //$user_log->other_attr = json_encode(request()->all());
+        //$user_log->setOtherAttr(sfContext::getInstance()->getUser()->getAttribute('visitor'));
+        //dd($user_log);
+        $user_log->save();
     }
 }
